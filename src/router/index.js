@@ -6,12 +6,20 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+    path: '/pc',
+    name: 'pc',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Pc.vue'),
+    meta: {
+      title: 'PCrem',
+    },
+  },
+  {
     path: '/',
     name: 'Home',
     component: Home,
     meta: {
-      title: '通讯录'
-   }
+      title: '通讯录',
+    },
   },
   {
     path: '/about',
@@ -21,19 +29,19 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
     meta: {
-      title: '设置'
-   }
-  }
+      title: '设置',
+    },
+  },
 ]
 
 const router = new VueRouter({
-  routes
+  routes,
 })
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
-      document.title = to.meta.title;
+    document.title = to.meta.title
   }
-  next();
+  next()
 })
 export default router
