@@ -1,4 +1,4 @@
-import '@/VantUI'
+import '@/EleUI'
 import 'amfe-flexible'
 import 'rest-css'
 import Vue from 'vue'
