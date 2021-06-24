@@ -6,6 +6,7 @@
         <van-cell :title="item.name" icon="phone-o" :key="item.id" @click="Tle(item.tel)" />
       </template>
     </div>
+    <div class="echarts_box"></div>
   </div>
 </template>
 
