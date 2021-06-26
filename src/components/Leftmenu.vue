@@ -1,22 +1,22 @@
 <template>
   <div class="left_menu">
-    <div class="menu_item" :style="menu_bg">
+    <div class="menu_item">
       <div class="text">
         开户去
       </div>
     </div>
-    <div class="menu_item" :style="menu_bg">
+    <div class="menu_item">
       <div class="text">
         开户去
       </div>
     </div>
 
-    <div class="menu_item" :style="menu_bg">
+    <div class="menu_item">
       <div class="text">
         开户去
       </div>
     </div>
-    <div class="menu_item" :style="menu_bg">
+    <div class="menu_item">
       <div class="text">
         开户去
       </div>
@@ -34,9 +34,9 @@ export default {
     return {
       title: '悦高用户漏斗分析软件',
       logo: require('../assets/login/logo.png'),
-      menu_bg: {
-        backgroundImage: 'url(' + require('../assets/home/menu_bg.png') + ')',
-      },
+      // menu_bg: {
+      //   backgroundImage: 'url(' + require('../assets/home/menu_bg.png') + ')',
+      // },
     }
   },
   created: function() {},
@@ -57,11 +57,16 @@ export default {
     display: flex;
     justify-content: center;
     align-self: ceter;
+    background: url('../assets/home/menu_bg.png') no-repeat;
     justify-items: center;
     box-sizing: border-box;
     background-size: 100% 100%;
-    background-repeat: no-repeat;
     cursor: pointer;
+    &:hover {
+      background: url('../assets/kihu/menu_hover.png') no-repeat;
+      box-sizing: border-box;
+      background-size: 100% 100%;
+    }
 
     .text {
       width: 16px;

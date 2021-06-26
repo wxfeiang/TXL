@@ -5,7 +5,6 @@
         <img :src="logo" alt="" />
         <span>悦高用户漏斗分析软件</span>
       </div>
-
       <el-form :model="form" :rules="rules" ref="ruleForm" class="demo-ruleForm">
         <el-form-item label="" prop="name">
           <el-input v-model="form.name" placeholder="请输入账号" clearable>
@@ -14,7 +13,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="">
-          <el-input v-model="form.password" placeholder="请输入密码" clearable>
+          <el-input v-model="form.password" placeholder="请输入密码" type="password" clearable>
             <img slot="prefix" class="el-input__icon el-icon-date" :src="password" alt="" />
           </el-input>
         </el-form-item>
@@ -22,11 +21,11 @@
           <el-row :gutter="20">
             <el-col :span="16">
               <el-input v-model="form.yanzm" placeholder="请输入验证码" clearable>
-                <img slot="prefix" class="el-input__icon el-icon-date" :src="password" alt="" />
+                <img slot="prefix" class="el-input__icon el-icon-date" :src="yanz" alt="" />
               </el-input>
             </el-col>
             <el-col :span="8">
-              <el-input v-model="yanzmserve" placeholder="验证码"> </el-input>
+              <yanzhenma @yanzhenma="getyanzhenme" />
             </el-col>
           </el-row>
         </el-form-item>
@@ -43,29 +42,36 @@
 </template>
 
 <script>
+import yanzhenma from '@/components/yanzhenma.vue'
 export default {
+  components: {
+    yanzhenma,
+  },
   data() {
     return {
       logo: require('../assets/login/logo.png'),
       user: require('../assets/login/user.png'),
       password: require('../assets/login/password.png'),
+      yanz: require('../assets/login/yanz.png'),
       login_bg: {
         backgroundImage: 'url(' + require('../assets/login/bg.png') + ')',
       },
       sgin_bg: {
         backgroundImage: 'url(' + require('../assets/login/login_bg.png') + ')',
       },
-      yanzmserve: '1111',
+      yanzmserve: '',
+
       form: {
         name: '1053',
         password: '000000',
-        yanzm: '1111',
+        yanzm: '',
       },
       rules: {
         name: [{ required: true, message: '请输入账号', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
         yanzm: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
       },
+
       checked: false,
     }
   },
@@ -75,14 +81,14 @@ export default {
       this.form = JSON.parse(localStorage.getItem('users'))
       //  请求验证码
     }
+    this.getyanzhenme()
   },
   methods: {
     submitForm(ruleForm) {
       console.log(this.form)
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {
-          console.log(valid)
-          if (this.form.yanzm != this.yanzmserve) {
+          if (this.form.yanzm.toLowerCase() != this.yanzmserve.toLowerCase()) {
             this.$message({
               message: '验证码输入不正确!',
               type: 'error',
@@ -96,6 +102,7 @@ export default {
           //  跳转首页
           //分发 actions并更改state  true 传入
           this.$store.dispatch('setIsAutnenticated', true)
+          this.$store.dispatch('setUser', this.form)
           this.$message({
             message: '登录成功!',
             type: 'success',
@@ -115,6 +122,9 @@ export default {
     },
     yanzhe() {
       //  请求数据库验证码
+    },
+    getyanzhenme(data) {
+      this.yanzmserve = data
     },
   },
 }

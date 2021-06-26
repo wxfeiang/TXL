@@ -7,6 +7,7 @@ import VueWechatTitle from 'vue-wechat-title'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './utis/echarts.js'
 import encryption from './utis/encryption'
 import axios from './utis/requst'
 Vue.use(VueWechatTitle)

@@ -18,6 +18,9 @@ import {
   Table,
   TableColumn,
   Tag,
+    Dropdown,
+  DropdownMenu,
+  DropdownItem,
 } from 'element-ui'
 import Vue from 'vue'
 Vue.use(Button)
@@ -35,6 +38,9 @@ Vue.use(Col)
 Vue.use(Option)
 Vue.use(OptionGroup)
 Vue.use(Select)
+Vue.use(Dropdown);
+Vue.use(DropdownMenu);
+Vue.use(DropdownItem);
 
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message

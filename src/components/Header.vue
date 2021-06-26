@@ -11,8 +11,18 @@
         2021.05.08 16:10:55
       </div>
       <div class="time_select">
-        <div class="time">
-          实时更新频率:10分钟
+        <div class="time_show">实时更新频率:</div>
+        <div class="select_item">
+          <el-dropdown @command="handleCommand">
+            <span class="el-dropdown-link">
+              <span v-html="timevlaue">10</span>分钟 <i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item :command="item.value" v-for="item in time" :key="item.value"
+                >{{ item.value }}{{ item.dw }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
     </div>
@@ -32,7 +42,14 @@
       <div class="user">
         <img :src="user" alt="" />
         <span>
-          用户账号
+          <el-dropdown @command="logout">
+            <span class="el-dropdown-link">
+              {{ users.name }}
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="0">退出 </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </span>
       </div>
     </div>
@@ -52,10 +69,45 @@ export default {
       s_home: require('../assets/home/s_home.png'),
       action: require('../assets/home/action.png'),
       user: require('../assets/home/action.png'),
+      time: [
+        { value: 5, dw: '分钟' },
+        { value: 10, dw: '分钟' },
+        { value: 15, dw: '分钟' },
+        { value: 30, dw: '分钟' },
+      ],
+      timevlaue: 10,
     }
   },
   created: function() {},
-  methods: {},
+  computed: {
+    // 判断是否登录 授权 getters.js
+    // isLogin() {
+    //   return this.$store.getters.isAutnenticated ? true : false
+    // },
+    users() {
+      return this.$store.getters.user
+    },
+  },
+  methods: {
+    handleCommand(command) {
+      this.timevlaue = command
+      //  TODO
+    },
+
+    logout(command) {
+      console.log(command)
+      //删除localStorage
+      // localStorage.removeItem('jwtToken')
+      // 删除请求头 改变 actions 状态
+      // this.$store.dispatch("setIsAutnenticated", false);
+      //清空user
+      //this.$store.dispatch("setUser", {});
+
+      this.$store.dispatch('clearCurrentState')
+      //跳转登录
+      this.$router.push('/login')
+    },
+  },
 }
 </script>
 
@@ -107,6 +159,14 @@ export default {
       margin-right: 60px;
     }
     .time_select {
+      display: flex;
+      .time_show {
+        font-size: 16px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #ffffff;
+        margin-right: 10px;
+      }
     }
   }
 
@@ -137,6 +197,7 @@ export default {
     }
     .user {
       margin-left: 10px;
+
       img {
         width: 22px;
         height: 20px;
@@ -145,6 +206,16 @@ export default {
     .active {
       color: #2ff8ff;
     }
+  }
+  .el-dropdown-link {
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+  }
+  .el-icon-arrow-down {
+    font-size: 12px;
   }
 }
 </style>
