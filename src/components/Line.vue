@@ -191,10 +191,10 @@ export default {
       const arr = [],
         arr2 = []
       for (let i = 0; i < 6; i++) {
-        let rand = Math.random() * 10
-        let rand2 = Math.random() * rand
-        arr.push(rand * 18)
-        arr2.push(rand * rand2)
+        let rand = Math.ceil(Math.random() * 10)
+        let rand2 = Math.ceil(Math.random() * rand)
+        arr.push(rand)
+        arr2.push(rand2)
       }
       const dataOption = {
         series: [

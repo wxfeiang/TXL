@@ -47,8 +47,9 @@ export default {
   },
   //方法集合
   methods: {
-    tableStyle({ row, column, rowIndex, columnIndex }) {
-      console.log(row, column, rowIndex, columnIndex)
+    tableStyle() {
+      //{ row, column, rowIndex, columnIndex }
+      // console.log(row, column, rowIndex, columnIndex)
       return 'tableStyle'
     },
   },

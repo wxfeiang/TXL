@@ -8,7 +8,7 @@
     </div>
     <div class="h_center">
       <div class="time">
-        2021.05.08 16:10:55
+        {{ currentTime }}
       </div>
       <div class="time_select">
         <div class="time_show">实时更新频率:</div>
@@ -69,6 +69,8 @@ export default {
       s_home: require('../assets/home/s_home.png'),
       action: require('../assets/home/action.png'),
       user: require('../assets/home/action.png'),
+      currentTime: '',
+      timerId: '',
       time: [
         { value: 5, dw: '分钟' },
         { value: 10, dw: '分钟' },
@@ -78,7 +80,9 @@ export default {
       timevlaue: 10,
     }
   },
-  created: function() {},
+  created: function() {
+    this.getCurrentTime()
+  },
   computed: {
     // 判断是否登录 授权 getters.js
     // isLogin() {
@@ -89,6 +93,38 @@ export default {
     },
   },
   methods: {
+    getCurrentTime() {
+      this.autoPlay()
+      setInterval(this.autoPlay, 1000)
+      this.startInterval()
+    },
+    autoPlay() {
+      const date = new Date() //返回系统时间
+      const y = date.getFullYear()
+      const m = date.getMonth() + 1
+      const da = date.getDate()
+      var day = date.getDay()
+
+      const h = date.getHours()
+      const min = date.getMinutes()
+      const s = date.getSeconds()
+      const arr = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
+
+      this.currentTime =
+        y + '年' + m + '月' + da + '日' + +this.toTwo(h) + ':' + this.toTwo(min) + ':' + this.toTwo(s) + arr[day]
+    },
+    toTwo(date) {
+      return date < 10 ? '0' + date : date
+    },
+
+    startInterval() {
+      if (this.timerId) {
+        clearInterval(this.timerId)
+      }
+      this.timerId = setInterval(() => {
+        this.autoPlay()
+      }, 1000)
+    },
     handleCommand(command) {
       this.timevlaue = command
       //  TODO
@@ -108,13 +144,16 @@ export default {
       this.$router.push('/login')
     },
   },
+  destroyed() {
+    clearInterval(this.timerId)
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .header {
   position: relative;
-  padding-top: 3px;
+  padding-top: 8px;
   height: 48px;
   display: flex;
   // margin: 10px 0 0 0;
@@ -122,7 +161,7 @@ export default {
   .logo {
     position: absolute;
     top: 20px;
-    left: 35px;
+    left: 20px;
     width: 50px;
     height: 50px;
 

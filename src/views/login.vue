@@ -107,7 +107,7 @@ export default {
             message: '登录成功!',
             type: 'success',
           })
-          this.$router.push({ name: 'home' })
+          this.$router.push({ name: 'index' })
         } else {
           console.log('error submit!!')
           return false

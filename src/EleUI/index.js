@@ -1,14 +1,21 @@
 //  引入组件
 
 import {
+  Aside,
   Button,
   Checkbox,
   CheckboxButton,
   CheckboxGroup,
   Col,
+  Container,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
   Form,
   FormItem,
+  Header,
   Input,
+  Main,
   Message,
   Notification,
   Option,
@@ -18,9 +25,6 @@ import {
   Table,
   TableColumn,
   Tag,
-    Dropdown,
-  DropdownMenu,
-  DropdownItem,
 } from 'element-ui'
 import Vue from 'vue'
 Vue.use(Button)
@@ -38,9 +42,13 @@ Vue.use(Col)
 Vue.use(Option)
 Vue.use(OptionGroup)
 Vue.use(Select)
-Vue.use(Dropdown);
-Vue.use(DropdownMenu);
-Vue.use(DropdownItem);
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
+Vue.use(Container)
+Vue.use(Header)
+Vue.use(Aside)
+Vue.use(Main)
 
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message

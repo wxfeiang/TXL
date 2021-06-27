@@ -1,56 +1,47 @@
 <template>
-  <div class="home">
-    <div class="home_box">
-      <Header />
-      <div class="min_box">
-        <!-- 左侧按钮 -->
-        <Leftmenu />
-        <div class="min_des">
-          <div class="home_action">
-            <div class="select_warp">
-              <div class="select_box">
-                <div class="lab_sban">
-                  <span>筛选条件</span>
-                  <SclectItem />
-                  <SclectItem />
-                </div>
-              </div>
-              <div class="select_box">
-                <div class="lab_sban">
-                  <span>筛选条件</span>
-                  <SclectItem />
-                  <SclectItem />
-                </div>
-              </div>
-            </div>
-            <PeopleN />
-          </div>
-          <!-- echartsbox -->
-          <div class="echarts_box">
-            <div class="Left_3">
-              <General />
-            </div>
-            <div class="right_6">
-              <Fenceng />
-              <Zhuanhua />
-            </div>
-          </div>
-          <div class="echarts_box">
-            <div class="Left_3">
-              <Account />
-            </div>
-            <div class="right_6">
-              <TableHome />
-            </div>
+  <div class="" id="">
+    <div class="home_action">
+      <div class="select_warp">
+        <div class="select_box">
+          <div class="lab_sban">
+            <span>筛选条件</span>
+            <SclectItem />
+            <SclectItem />
           </div>
         </div>
+        <div class="select_box">
+          <div class="lab_sban">
+            <span>当前条件</span>
+            <SclectItem />
+            <SclectItem />
+          </div>
+        </div>
+      </div>
+      <PeopleN />
+    </div>
+    <!-- echartsbox -->
+    <div class="echarts_box">
+      <div class="Left_3">
+        <General />
+      </div>
+      <div class="right_6">
+        <Fenceng />
+        <Zhuanhua />
+      </div>
+    </div>
+    <div class="echarts_box">
+      <div class="Left_3">
+        <Account />
+      </div>
+      <div class="right_6">
+        <TableHome />
       </div>
     </div>
   </div>
 </template>
 <script>
-import Header from '@/components/Header.vue'
-import Leftmenu from '@/components/Leftmenu.vue'
+//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
+//例如：import 《组件名称》 from '《组件路径》';
 import SclectItem from '@/components/SclectItem.vue'
 
 import General from '@/components/home/General.vue'
@@ -60,14 +51,10 @@ import Fenceng from '@/components/home/Fenceng.vue'
 import Zhuanhua from '@/components/home/Zhuanhua.vue'
 import PeopleN from '@/components/home/PeopleN.vue'
 import TableHome from '@/components/home/TableHome.vue'
-
 export default {
-  name: 'Home',
+  name: 'index',
   components: {
-    Header,
-    Leftmenu,
     SclectItem,
-
     Fenceng,
     Zhuanhua,
     PeopleN,
@@ -81,29 +68,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.home {
-  padding: 14px 16px 0;
-  height: 100%;
-  // height: 1080px;
-  // // overflow: hidden;
-  background: #2ff8ff url('../assets/home/bg_n.jpg') no-repeat;
-}
-.home,
-.home_box {
-  height: 100%;
-  box-sizing: border-box;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.min_box {
-  display: flex;
-  .min_des {
-    width: 95%;
-    box-sizing: border-box;
-    padding: 10px 0 0 30px;
-  }
-}
 .home_action {
+  margin: 0px 0 20px;
+  padding: 0 0 0 20px;
   display: flex;
   justify-content: space-between;
   .select_warp {
@@ -123,7 +90,10 @@ export default {
   }
 }
 .echarts_box {
+  margin: 10px 0 0 0;
   display: flex;
+  justify-content: center;
+
   .Left_3 {
   }
   .right_6 {

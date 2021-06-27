@@ -1,26 +1,10 @@
 <template>
   <div class="left_menu">
-    <div class="menu_item">
-      <div class="text">
-        开户去
-      </div>
-    </div>
-    <div class="menu_item">
-      <div class="text">
-        开户去
-      </div>
-    </div>
-
-    <div class="menu_item">
-      <div class="text">
-        开户去
-      </div>
-    </div>
-    <div class="menu_item">
-      <div class="text">
-        开户去
-      </div>
-    </div>
+    <template v-for="(item, index) in menu">
+      <router-link class="menu_item" :to="item.name" :key="index">
+        <div class="text">{{ item.meta.title }}</div>
+      </router-link>
+    </template>
   </div>
 </template>
 
@@ -32,11 +16,44 @@ export default {
   },
   data() {
     return {
-      title: '悦高用户漏斗分析软件',
-      logo: require('../assets/login/logo.png'),
-      // menu_bg: {
-      //   backgroundImage: 'url(' + require('../assets/home/menu_bg.png') + ')',
-      // },
+      menu: [
+        {
+          path: '/Openaccount',
+          name: 'Openaccount',
+          meta: {
+            title: '开户层',
+          },
+        },
+        {
+          path: '/Ingold',
+          name: 'Ingold',
+          meta: {
+            title: '入金层',
+          },
+        },
+
+        {
+          path: '/Transaction',
+          name: 'Transaction',
+          meta: {
+            title: '交易层',
+          },
+        },
+        {
+          path: '/Subsist',
+          name: 'Subsist',
+          meta: {
+            title: '存续层',
+          },
+        },
+        {
+          path: '/Deactivation',
+          name: 'Deactivation',
+          meta: {
+            title: '失活层',
+          },
+        },
+      ],
     }
   },
   created: function() {},
@@ -78,6 +95,12 @@ export default {
       writing-mode: vertical-lr;
     }
   }
+  .router-link-active {
+    background: url('../assets/kihu/menu_hover.png') no-repeat;
+    box-sizing: border-box;
+    background-size: 100% 100%;
+  }
+
   .menu_item:nth-child(1) {
     top: -80px;
   }
@@ -92,6 +115,10 @@ export default {
   .menu_item:nth-child(4) {
     top: -200px;
     z-index: 4;
+  }
+  .menu_item:nth-child(5) {
+    top: -240px;
+    z-index: 5;
   }
 }
 </style>

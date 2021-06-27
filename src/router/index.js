@@ -22,12 +22,61 @@ const routes = [
     },
   },
   {
-    path: '/home',
-    name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/home.vue'),
-    meta: {
-      title: '首页',
-    },
+    path: '/index',
+    name: 'index',
+    component: () => import(/* webpackChunkName: "about" */ '../views/index.vue'),
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        meta: {
+          title: '首页',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/home.vue'),
+      },
+      {
+        path: '/Openaccount',
+        name: 'Openaccount',
+        meta: {
+          title: '开户层',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/Openaccount.vue'),
+      },
+      {
+        path: '/Ingold',
+        name: 'Ingold',
+        meta: {
+          title: '入金层',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/Ingold.vue'),
+      },
+
+      {
+        path: '/Transaction',
+        name: 'Transaction',
+        meta: {
+          title: '交易层',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/Transaction.vue'),
+      },
+      {
+        path: '/Subsist',
+        name: 'Subsist',
+        meta: {
+          title: '存续层',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/Subsist.vue'),
+      },
+      {
+        path: '/Deactivation',
+        name: 'Deactivation',
+        meta: {
+          title: '失活层',
+        },
+        component: () => import(/* webpackChunkName: "about" */ '../views/Deactivation.vue'),
+      },
+    ],
   },
 ]
 
@@ -42,7 +91,6 @@ router.beforeEach((to, from, next) => {
     document.title = to.meta.title
   }
   if (to.path == '/login') {
-    console.log('sss')
     next()
   } else {
     isLogin ? next() : next('/login')

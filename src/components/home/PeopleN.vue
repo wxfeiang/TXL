@@ -24,6 +24,8 @@ export default {
   },
   methods: {
     splitNum() {
+      var num = Math.ceil(Math.random() * 100000).toString()
+      this.number = num
       this.numberArr = this.number.split('')
     },
   },

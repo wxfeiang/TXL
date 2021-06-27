@@ -91,14 +91,14 @@ export default {
           splitLine: {
             show: false,
           },
-          data: data.dataY,
+          data: data.dataY.reverse(),
         },
         series: [
           {
             name: '工资区间1',
             type: 'bar',
             barCategoryGap: 50,
-            barWidth: 30,
+            barWidth: 25,
             stack: '总量',
             label: {
               show: false,
