@@ -28,7 +28,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home {
-  padding: 14px 16px;
+  padding: 14px 16px 0;
   min-height: 1080px;
   background: url('../assets/home/bg_n.jpg') no-repeat top center;
   @include backgroundSize;

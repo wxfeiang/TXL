@@ -5,15 +5,22 @@
         <div class="select_box">
           <div class="lab_sban">
             <span>筛选条件</span>
-            <SclectItem />
-            <SclectItem />
+            <SclectItem :options="qudao" />
+            <SclectItem :options="jigou" />
+            <SclectItem :options="city" />
+            <SclectItem :options="cityjb" />
+            <SclectItem :options="age" />
+            <SclectItem :options="agetime" />
+            <SclectItem :options="xueli" />
+            <SclectItem :options="sex" />
+            <SclectItem :options="mingzu" />
+            <SclectItem :options="dengji" />
           </div>
         </div>
         <div class="select_box">
           <div class="lab_sban">
             <span>当前条件</span>
-            <SclectItem />
-            <SclectItem />
+            <span class="showhtml">全部</span>
           </div>
         </div>
       </div>
@@ -63,7 +70,100 @@ export default {
     Account,
   },
   data() {
-    return {}
+    return {
+      qudao: [
+        {
+          value: '渠道',
+          label: '渠道',
+        },
+        {
+          value: '渠道2',
+          label: '渠道2',
+        },
+      ],
+      jigou: [
+        {
+          value: '组织机构',
+          label: '组织机构',
+        },
+        {
+          value: '组织机构2',
+          label: '组织机构2',
+        },
+      ],
+      city: [
+        {
+          value: '所在城市',
+          label: '所在城市',
+        },
+        {
+          value: '所在城市2',
+          label: '所在城市2',
+        },
+      ],
+      cityjb: [
+        {
+          value: '所在城市级别',
+          label: '所在城市级别',
+        },
+        {
+          value: '所在城市级别2',
+          label: '所在城市级别2',
+        },
+      ],
+      age: [
+        {
+          value: '开户年龄',
+          label: '开户年龄',
+        },
+        {
+          value: '开户年龄',
+          label: '开户年龄',
+        },
+      ],
+      agetime: [
+        {
+          value: '开户时间',
+          label: '开户时间',
+        },
+        {
+          value: '开户时间',
+          label: '开户时间',
+        },
+      ],
+      xueli: [
+        {
+          value: '学历',
+          label: '学历',
+        },
+      ],
+      sex: [
+        {
+          value: '性别',
+          label: '性别',
+        },
+        {
+          value: '男',
+          label: '男',
+        },
+        {
+          value: '女',
+          label: '女',
+        },
+      ],
+      mingzu: [
+        {
+          value: '名族',
+          label: '名族',
+        },
+      ],
+      dengji: [
+        {
+          value: '风险等级',
+          label: '风险等级',
+        },
+      ],
+    }
   },
 }
 </script>
@@ -85,6 +185,9 @@ export default {
       display: flex;
       span {
         line-height: 40px;
+      }
+      .showhtml {
+        margin-left: 20px;
       }
     }
   }

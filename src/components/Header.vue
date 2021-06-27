@@ -13,7 +13,7 @@
       <div class="time_select">
         <div class="time_show">实时更新频率:</div>
         <div class="select_item">
-          <el-dropdown @command="handleCommand">
+          <el-dropdown @command="handleCommand" trigger="click">
             <span class="el-dropdown-link">
               <span v-html="timevlaue">10</span>分钟 <i class="el-icon-arrow-down el-icon-caret-bottom"></i>
             </span>
@@ -42,7 +42,7 @@
       <div class="user">
         <img :src="user" alt="" />
         <span>
-          <el-dropdown @command="logout">
+          <el-dropdown @command="logout" trigger="click">
             <span class="el-dropdown-link">
               {{ users.name }}
             </span>

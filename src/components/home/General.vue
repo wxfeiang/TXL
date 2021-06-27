@@ -57,7 +57,7 @@ export default {
           showDelay: 0,
           extraCssText: 'padding:15px;font-size:10px',
           formatter: function(params) {
-            return '工资区间' + ' : ' + params[1].name + '<br/>' + '占比' + ' : ' + params[1].value + '%'
+            return '漏斗总体情况' + ' : ' + params[1].name + '<br/>' + '人数' + ' : ' + params[1].value
           },
           axisPointer: {
             show: true,

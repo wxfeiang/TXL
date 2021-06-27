@@ -1,8 +1,9 @@
 <template>
   <div class="select">
-    <el-dropdown @command="handleCommand">
+    <el-dropdown @command="handleCommand" trigger="click">
       <span class="el-dropdown-link">
-        <span v-html="selecVal">10</span><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+        <span>{{ selecVal }}</span
+        ><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item :command="item.value" v-for="(item, index) in options" :key="index"
@@ -17,34 +18,11 @@
 export default {
   name: 'SclectItem',
   props: {
-    msg: String,
+    options: Array,
   },
   data() {
     return {
       selecVal: '',
-
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕',
-        },
-        {
-          value: '选项2',
-          label: '双皮奶',
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎',
-        },
-        {
-          value: '选项4',
-          label: '龙须面',
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭',
-        },
-      ],
     }
   },
   created: function() {
@@ -69,6 +47,7 @@ export default {
     line-height: 40px;
     margin-left: 20px;
     min-width: 50px;
+    cursor: pointer;
   }
 }
 </style>
