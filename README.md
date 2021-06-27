@@ -1,4 +1,4 @@
-# wxchart
+# Yuegao
 
 ## Project setup
 ```
