@@ -1,3 +1,5 @@
+import { clearStorage } from '@/utils/storage'
+
 export const setIsAutnenticated = ({ commit }, data) => commit('setIsAutnenticated', data) // 名字和 mutations 里的一样
 
 export const setUser = ({ commit }, data) => commit('setUser', data)
@@ -12,4 +14,5 @@ export const clearCurrentState = ({ commit }) => {
   commit('setProfile', null)
   commit('setUser', null)
   commit('setIsAutnenticated', false)
+  clearStorage()
 }

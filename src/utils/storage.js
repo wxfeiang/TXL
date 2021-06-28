@@ -27,3 +27,4 @@ export const setItem = (name, value) => {
 export const removeItem = (name) => {
   window.localStorage.removeItem(name)
 }
+export const clearStorage = () => window.localStorage.clear()

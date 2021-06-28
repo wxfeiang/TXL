@@ -169,7 +169,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .home_action {
-  margin: 0px 0 20px;
+  // margin: 0px 0 20px;
   padding: 0 0 0 20px;
   display: flex;
   justify-content: space-between;

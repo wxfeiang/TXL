@@ -8,6 +8,7 @@ import {
   CheckboxGroup,
   Col,
   Container,
+  DatePicker,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -25,6 +26,8 @@ import {
   Table,
   TableColumn,
   Tag,
+  TimePicker,
+  TimeSelect,
 } from 'element-ui'
 import Vue from 'vue'
 Vue.use(Button)
@@ -49,6 +52,8 @@ Vue.use(Container)
 Vue.use(Header)
 Vue.use(Aside)
 Vue.use(Main)
-
+Vue.use(DatePicker)
+Vue.use(TimeSelect)
+Vue.use(TimePicker)
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message

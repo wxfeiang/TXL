@@ -37,5 +37,8 @@ export default {
     width: 70px !important;
     overflow: hidden;
   }
+  .el-main {
+    padding-top: 0;
+  }
 }
 </style>

@@ -3,9 +3,7 @@
     <div class="logo">
       <img :src="logo" alt="" />
     </div>
-    <div class="h_left">
-      {{ title }}
-    </div>
+    <div class="h_left">{{ title }}</div>
     <div class="h_center">
       <div class="time">
         {{ currentTime }}
@@ -40,11 +38,11 @@
         </span>
       </div>
       <div class="user">
-        <img :src="user" alt="" />
         <span>
           <el-dropdown @command="logout" trigger="click">
             <span class="el-dropdown-link">
-              {{ users.name }}
+              <img :src="userimg" alt="" />
+              {{ user.name }}
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="0">退出 </el-dropdown-item>
@@ -57,6 +55,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'Header',
   props: {
@@ -68,7 +67,7 @@ export default {
       logo: require('../assets/login/logo.png'),
       s_home: require('../assets/home/s_home.png'),
       action: require('../assets/home/action.png'),
-      user: require('../assets/home/action.png'),
+      userimg: require('../assets/home/actor.png'),
       currentTime: '',
       timerId: '',
       time: [
@@ -83,14 +82,17 @@ export default {
   created: function() {
     this.getCurrentTime()
   },
+
   computed: {
     // 判断是否登录 授权 getters.js
     // isLogin() {
     //   return this.$store.getters.isAutnenticated ? true : false
     // },
-    users() {
-      return this.$store.getters.user
-    },
+    // users() {
+    //   return this.$store.getters.user
+    // },
+
+    ...mapGetters(['user']),
   },
   methods: {
     getCurrentTime() {
@@ -221,25 +223,30 @@ export default {
     justify-content: flex-end;
     padding-right: 60px;
     .desc {
-      margin-left: 10px;
+      margin-left: 20px;
       img {
+        vertical-align: top;
+        margin-top: 13px;
         width: 22px;
         height: 20px;
       }
     }
     .actiion {
-      margin-left: 10px;
+      margin-left: 20px;
       img {
+        vertical-align: top;
+        margin-top: 15px;
         width: 22px;
         height: 20px;
       }
     }
     .user {
-      margin-left: 10px;
+      margin-left: 20px;
 
       img {
-        width: 22px;
-        height: 20px;
+        // width: 22px;
+        // height: 20px;
+        vertical-align: top;
       }
     }
     .active {
