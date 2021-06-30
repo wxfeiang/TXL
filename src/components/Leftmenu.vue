@@ -93,6 +93,7 @@ export default {
       color: #00fffc;
       text-align: center;
       writing-mode: vertical-lr;
+      padding: 20px 0 0 0;
     }
   }
   .router-link-active {

@@ -4,7 +4,7 @@
       <div class="title_e">
         {{ title }}
       </div>
-      <div class="show_times">截至时间:{{ showTime }}</div>
+      <div class="show_times">更新时间:{{ showTime }}</div>
     </div>
     <div class="center">
       <div class="conversion" v-for="(item, index) in conversionVal" :key="index">
@@ -31,10 +31,10 @@ export default {
       showTime: '2021.05.08 24:00:00',
       conversionVal: [
         { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
+        { value: 12, name: '入金层' },
+        { value: 122, name: '交易层' },
+        { value: 162, name: '存续层' },
+        { value: 172, name: '失活层' },
       ],
     }
   },

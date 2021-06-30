@@ -4,7 +4,7 @@
       <div class="title_e">
         {{ title }}
       </div>
-      <div class="show_times">截至时间:{{ showTime }}</div>
+      <div class="show_times">更新时间:{{ showTime }}</div>
     </div>
     <div class="tab_warp">
       <Table :tableData="tableData" :congigTable="congigTable">
@@ -25,39 +25,39 @@ export default {
   },
   data() {
     return {
-      title: '实时分层数据',
+      title: '实时分层流动数据',
       showTime: '2021.05.08 24:00:00',
       tableData: [
         {
-          name: '失火层',
+          name: '开户层',
           time: '08:00',
           data: '11',
           other: '2',
           cont: '5',
         },
         {
-          name: '失火层',
+          name: '入金层',
           time: '08:00',
           data: '11',
           other: '2',
           cont: '5',
         },
         {
-          name: '失火层',
+          name: '交易层',
           time: '08:00',
           data: '11',
           other: '2',
           cont: '5',
         },
         {
-          name: '失火层',
+          name: '存续层',
           time: '08:00',
           data: '11',
           other: '2',
           cont: '5',
         },
         {
-          name: '失火层',
+          name: '失活层',
           time: '08:00',
           data: '11',
           other: '2',
@@ -71,28 +71,77 @@ export default {
             id: '1',
             label: '时间点',
             prop: 'name',
-            width: '100',
+            width: '80',
           },
           {
             label: '08:00',
             prop: 'data',
             align: 'center',
+            width: '60',
           },
+          {
+            label: '09:00',
+            prop: 'data',
+            align: 'center',
+            width: '60',
+          },
+
           {
             label: '10:00',
             prop: 'data',
             align: 'center',
+            width: '60',
+          },
+          {
+            label: '11:00',
+            prop: 'data',
+            align: 'center',
+            width: '60',
           },
           {
             label: '12:00',
             prop: 'data',
             align: 'center',
+            width: '60',
           },
+          {
+            label: '13:00',
+            prop: 'data',
+            align: 'center',
+            width: '60',
+          },
+          {
+            label: '14:00',
+            prop: 'data',
+            align: 'center',
+            width: '60',
+          },
+          {
+            label: '15:00',
+            prop: 'data',
+            align: 'center',
+            width: '60',
+          },
+          {
+            label: '16:00',
+            prop: 'data',
+            align: 'center',
+            width: '60',
+          },
+          {
+            label: '17:00',
+            prop: 'data',
+            align: 'center',
+            width: '60',
+          },
+
           {
             label: '其他',
             prop: 'other',
             align: 'center',
+            width: '60',
           },
+
           {
             label: '合计',
             prop: 'cont',
@@ -114,7 +163,7 @@ export default {
 //@import url(); 引入公共css类
 .tables {
   width: 1120px;
-  height: 424px;
+  height: 460px;
   background: url('../../assets/home/tabls.png') no-repeat;
   @include backgroundSize;
   .top {
@@ -123,7 +172,7 @@ export default {
     width: 1120px;
     height: 60px;
 
-    background: url('../../assets/home/title_right_bg.png') no-repeat;
+    background: url('../../assets/home/title_right_2.png') no-repeat;
     @include backgroundSize;
 
     .title_e {
@@ -158,6 +207,12 @@ export default {
     letter-spacing: 0px;
     color: #2ff8ff;
     text-align: center;
+  }
+  /deep/ .el-table thead tr th:last-child {
+    color: #2ff8ff;
+  }
+  /deep/ .el-table thead tr th {
+    height: 58px;
   }
 }
 </style>

@@ -1,6 +1,7 @@
 // import '@/assets/css/gloab.sass'
 import '@/EleUI'
 import 'amfe-flexible'
+import ElementResizeDetectorMaker from 'element-resize-detector'
 import 'rest-css'
 import Vue from 'vue'
 import VueWechatTitle from 'vue-wechat-title'
@@ -10,6 +11,7 @@ import store from './store'
 import './utils/echarts.js'
 import encryption from './utils/encryption'
 import axios from './utils/requst'
+Vue.prototype.$erd = ElementResizeDetectorMaker()
 Vue.use(VueWechatTitle)
 
 Vue.prototype.$http = axios

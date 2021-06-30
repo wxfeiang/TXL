@@ -6,7 +6,9 @@
     <div class="h_left">{{ title }}</div>
     <div class="h_center">
       <div class="time">
-        {{ currentTime }}
+        <span>{{ currentTime.date }}</span>
+        <span>{{ currentTime.time }}</span>
+        <span>{{ currentTime.week }}</span>
       </div>
       <div class="time_select">
         <div class="time_show">实时更新频率:</div>
@@ -25,12 +27,12 @@
       </div>
     </div>
     <div class="h_right">
-      <div class="desc">
+      <router-link class="desc" to="/index">
         <img :src="s_home" alt="" />
         <span>
           平台总览
         </span>
-      </div>
+      </router-link>
       <div class="actiion">
         <img :src="action" alt="" />
         <span>
@@ -39,7 +41,7 @@
       </div>
       <div class="user">
         <span>
-          <el-dropdown @command="logout" trigger="click">
+          <el-dropdown @command="logouting" trigger="click">
             <span class="el-dropdown-link">
               <img :src="userimg" alt="" />
               {{ user.name }}
@@ -51,6 +53,14 @@
         </span>
       </div>
     </div>
+
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" top="30vh">
+      <span>确定退出系统吗？</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="logout">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -68,7 +78,7 @@ export default {
       s_home: require('../assets/home/s_home.png'),
       action: require('../assets/home/action.png'),
       userimg: require('../assets/home/actor.png'),
-      currentTime: '',
+      currentTime: {},
       timerId: '',
       time: [
         { value: 5, dw: '分钟' },
@@ -77,6 +87,7 @@ export default {
         { value: 30, dw: '分钟' },
       ],
       timevlaue: 10,
+      dialogVisible: false,
     }
   },
   created: function() {
@@ -112,8 +123,11 @@ export default {
       const s = date.getSeconds()
       const arr = ['星期天', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
 
-      this.currentTime =
-        y + '年' + m + '月' + da + '日' + +this.toTwo(h) + ':' + this.toTwo(min) + ':' + this.toTwo(s) + arr[day]
+      this.currentTime = {
+        date: y + '年' + m + '月' + da + '日',
+        time: this.toTwo(h) + ':' + this.toTwo(min) + ':' + this.toTwo(s),
+        week: arr[day],
+      }
     },
     toTwo(date) {
       return date < 10 ? '0' + date : date
@@ -129,10 +143,16 @@ export default {
     },
     handleCommand(command) {
       this.timevlaue = command
-      //  TODO
-    },
 
-    logout(command) {
+      this.$message({
+        message: '系统更新频率切换到' + command + '分钟 ！',
+        type: 'success',
+      })
+    },
+    gohome() {
+      this.$router.push('/index')
+    },
+    logouting(command) {
       console.log(command)
       //删除localStorage
       // localStorage.removeItem('jwtToken')
@@ -140,7 +160,9 @@ export default {
       // this.$store.dispatch("setIsAutnenticated", false);
       //清空user
       //this.$store.dispatch("setUser", {});
-
+      this.dialogVisible = true
+    },
+    logout() {
       this.$store.dispatch('clearCurrentState')
       //跳转登录
       this.$router.push('/login')
@@ -184,7 +206,7 @@ export default {
   }
   .h_center {
     display: flex;
-    padding-left: 100px;
+    padding-left: 70px;
     width: 30%;
     font-size: 16px;
     font-family: Source Han Sans CN;
@@ -198,9 +220,13 @@ export default {
       font-weight: 400;
       color: #ffffff;
       margin-right: 60px;
+      span {
+        margin: 0 5px 0;
+      }
     }
     .time_select {
       display: flex;
+
       .time_show {
         font-size: 16px;
         font-family: Source Han Sans CN;
@@ -218,12 +244,13 @@ export default {
     font-size: 16px;
     font-family: Source Han Sans CN;
     font-weight: 400;
-    color: #666;
+    color: $ff05;
     line-height: 48px;
     justify-content: flex-end;
     padding-right: 60px;
     .desc {
       margin-left: 20px;
+      cursor: pointer;
       img {
         vertical-align: top;
         margin-top: 13px;
@@ -233,6 +260,7 @@ export default {
     }
     .actiion {
       margin-left: 20px;
+      cursor: pointer;
       img {
         vertical-align: top;
         margin-top: 15px;
@@ -242,6 +270,7 @@ export default {
     }
     .user {
       margin-left: 20px;
+      color: $ff05;
 
       img {
         // width: 22px;
@@ -251,6 +280,13 @@ export default {
     }
     .active {
       color: #2ff8ff;
+    }
+    .el-dropdown-link {
+      cursor: pointer;
+      color: $ff05;
+      font-size: 16px;
+      font-family: Source Han Sans CN;
+      font-weight: 400;
     }
   }
   .el-dropdown-link {

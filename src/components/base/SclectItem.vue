@@ -29,8 +29,9 @@ export default {
     this.selecVal = this.options[0].value
   },
   methods: {
-    handleCommand(command) {
+    handleCommand(command, index) {
       this.selecVal = command
+      console.log(command, index, 'command')
       //  TODO
     },
   },

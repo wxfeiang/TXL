@@ -9,6 +9,7 @@ import {
   Col,
   Container,
   DatePicker,
+  Dialog,
   Dropdown,
   DropdownItem,
   DropdownMenu,
@@ -21,8 +22,12 @@ import {
   Notification,
   Option,
   OptionGroup,
+  Radio,
+  RadioButton,
+  RadioGroup,
   Row,
   Select,
+  Switch,
   Table,
   TableColumn,
   Tag,
@@ -55,5 +60,11 @@ Vue.use(Main)
 Vue.use(DatePicker)
 Vue.use(TimeSelect)
 Vue.use(TimePicker)
+Vue.use(Radio)
+Vue.use(RadioGroup)
+Vue.use(RadioButton)
+Vue.use(Dialog)
+
+Vue.use(Switch)
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message

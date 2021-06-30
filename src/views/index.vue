@@ -39,6 +39,7 @@ export default {
   }
   .el-main {
     padding-top: 0;
+    overflow: hidden !important;
   }
 }
 </style>

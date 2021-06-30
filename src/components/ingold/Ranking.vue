@@ -4,9 +4,7 @@
       <div class="title_e">
         {{ title }}
       </div>
-      <div class="show_times">
-        {{ showTime }}
-      </div>
+      <div class="show_times">更新时间 ：{{ showTime }}</div>
     </div>
     <div class="tab_warp">
       <Table :tableData="tableData" :congigTable="congigTable"> </Table>
@@ -73,7 +71,7 @@ export default {
             align: 'left',
           },
           {
-            label: '人数',
+            label: '入金人数',
             prop: 'num',
             align: 'center',
           },
@@ -95,12 +93,12 @@ export default {
 <style lang="scss" scoped>
 .Ranking {
   width: 500px;
-  height: 390px;
+  height: 370px;
   background: url('../../assets/kihu/rankbg.png');
   @include backgroundSize;
   .top {
     height: 60px;
-    background: url('../../assets/kihu/ranktit.png') no-repeat;
+    background: url('../../assets/kihu/realtime_tit.png') no-repeat;
     @include backgroundSize;
 
     display: flex;

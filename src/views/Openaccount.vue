@@ -1,29 +1,7 @@
 <template>
   <div class="Openaccount" id="">
     <div class="home_action">
-      <div class="select_warp">
-        <div class="select_box">
-          <div class="lab_sban">
-            <span>筛选条件</span>
-            <SclectItem :options="qudao" />
-            <SclectItem :options="jigou" />
-            <SclectItem :options="city" />
-            <SclectItem :options="cityjb" />
-            <SclectItem :options="age" />
-            <SclectItem :options="agetime" />
-            <SclectItem :options="xueli" />
-            <SclectItem :options="sex" />
-            <SclectItem :options="mingzu" />
-            <SclectItem :options="dengji" />
-          </div>
-        </div>
-        <div class="select_box">
-          <div class="lab_sban">
-            <span>当前条件</span>
-            <span class="showhtml">全部</span>
-          </div>
-        </div>
-      </div>
+      <Action />
       <PeopleN />
     </div>
 
@@ -43,16 +21,47 @@
             <div class="title_e">
               {{ title }}
             </div>
-            <div class="show_times">
-              {{ showTime }}
-            </div>
+            <div class="show_times">更新时间： {{ showTime }}</div>
           </div>
+          <div class="checkbox">
+            分析层数据
+            <el-switch v-model="checkboxVal" @change="change"> </el-switch>
+          </div>
+
           <div class="center">
             <div class="box_left">
-              <Overalltrend />
+              <div class="item">
+                <Overalltrend />
+              </div>
+              <div class="item">
+                <OverallTime />
+              </div>
             </div>
             <div class="box_right">
-              right
+              <div class="right_item">
+                <Sex />
+              </div>
+              <div class="right_item">
+                <City />
+              </div>
+              <div class="right_item">
+                <Xueli />
+              </div>
+              <div class="right_item">
+                <Level />
+              </div>
+              <div class="right_item">
+                <Age />
+              </div>
+              <div class="right_item">
+                <Qudao />
+              </div>
+              <div class="right_item">
+                <Fenxian />
+              </div>
+              <div class="right_item">
+                <Famous />
+              </div>
             </div>
           </div>
         </div>
@@ -61,139 +70,64 @@
   </div>
 </template>
 <script>
-//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
-//例如：import 《组件名称》 from '《组件路径》';
-import SclectItem from '@/components/SclectItem.vue'
-import PeopleN from '@/components/home/PeopleN.vue'
-import RealTime from '@/components/base/RealTime.vue'
+import Action from '@/components/base/Action.vue'
+import PeopleN from '@/components/base/PeopleN.vue'
 
-import Ranking from '@/components/base/Ranking.vue'
-
-import Overalltrend from '@/components/base/Overalltrend.vue'
+import RealTime from '@/components/kihu/RealTime.vue'
+import Ranking from '@/components/kihu/Ranking.vue'
+import Overalltrend from '@/components/kihu/Overalltrend.vue'
+import OverallTime from '@/components/kihu/OverallTime.vue'
+import Sex from '@/components/kihu/Sex.vue'
+import City from '@/components/kihu/City.vue'
+import Xueli from '@/components/kihu/Xueli.vue'
+import Level from '@/components/kihu/Level.vue'
+import Qudao from '@/components/kihu/Qudao.vue'
+import Age from '@/components/kihu/Age.vue'
+import Fenxian from '@/components/kihu/Fenxian.vue'
+import Famous from '@/components/kihu/Famous.vue'
 
 export default {
   name: 'Openaccount',
   components: {
-    SclectItem,
+    Action,
     PeopleN,
     RealTime,
     Ranking,
     Overalltrend,
+    OverallTime,
+    Sex,
+    City,
+    Xueli,
+    Level,
+    Qudao,
+    Age,
+    Fenxian,
+    Famous,
   },
   data() {
     return {
-      title: '流量看板',
       showTime: '2021.05.08 24:00:00',
-      conversionVal: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-      ],
-      conversionVal2: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-      ],
-      conversionVal3: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-      ],
-
-      qudao: [
-        {
-          value: '渠道',
-          label: '渠道',
-        },
-        {
-          value: '渠道2',
-          label: '渠道2',
-        },
-      ],
-      jigou: [
-        {
-          value: '组织机构',
-          label: '组织机构',
-        },
-        {
-          value: '组织机构2',
-          label: '组织机构2',
-        },
-      ],
-      city: [
-        {
-          value: '所在城市',
-          label: '所在城市',
-        },
-        {
-          value: '所在城市2',
-          label: '所在城市2',
-        },
-      ],
-      cityjb: [
-        {
-          value: '所在城市级别',
-          label: '所在城市级别',
-        },
-        {
-          value: '所在城市级别2',
-          label: '所在城市级别2',
-        },
-      ],
-      age: [
-        {
-          value: '开户年龄',
-          label: '开户年龄',
-        },
-        {
-          value: '开户年龄',
-          label: '开户年龄',
-        },
-      ],
-      agetime: [
-        {
-          value: '开户时间',
-          label: '开户时间',
-        },
-        {
-          value: '开户时间',
-          label: '开户时间',
-        },
-      ],
-      xueli: [
-        {
-          value: '学历',
-          label: '学历',
-        },
-      ],
-      sex: [
-        {
-          value: '性别',
-          label: '性别',
-        },
-        {
-          value: '男',
-          label: '男',
-        },
-        {
-          value: '女',
-          label: '女',
-        },
-      ],
-      mingzu: [
-        {
-          value: '名族',
-          label: '名族',
-        },
-      ],
-      dengji: [
-        {
-          value: '风险等级',
-          label: '风险等级',
-        },
-      ],
+      title: '流量看板',
+      checkboxVal: true,
     }
   },
   //方法集合
-  methods: {},
+  methods: {
+    change() {
+      console.log(this.checkboxVal)
+      if (this.checkboxVal) {
+        this.$message({
+          message: '已开启',
+          type: 'success',
+        })
+      } else {
+        this.$message({
+          message: '已关闭！',
+          type: 'success',
+        })
+      }
+    },
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
 }
@@ -225,16 +159,17 @@ export default {
 }
 .echart {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+
   .echarts_left {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     flex-direction: column;
     align-items: center;
   }
   .right_box {
-    width: 1268px;
-    height: 890px;
+    width: 1280px;
+
     background: url('../assets/kihu/liliang.png');
     @include backgroundSize;
     .top {
@@ -264,8 +199,38 @@ export default {
     .center {
       display: flex;
       justify-content: space-between;
-      padding: 0 0 0 20px;
+      padding: 0 0 0 30px;
+
+      .box_left {
+        .item {
+          margin: 0 0 20px 0;
+        }
+      }
+      .box_right {
+        display: flex;
+
+        flex-wrap: wrap;
+        padding: 0 0 0 20px;
+        box-sizing: border-box;
+      }
+      .right_item {
+        margin-right: 20px;
+      }
     }
+  }
+}
+.checkbox {
+  text-align: right;
+  color: #ffffff;
+  padding: 0 40px 10px 0;
+  margin: -10px 0 0 0;
+  font-size: 12px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+
+  /deep/ .el-switch {
+    width: 36px;
+    margin: -3px 0 0 0;
   }
 }
 </style>

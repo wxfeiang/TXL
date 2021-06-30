@@ -4,9 +4,7 @@
       <div class="title_e">
         {{ title }}
       </div>
-      <div class="show_times">
-        {{ showTime }}
-      </div>
+      <div class="show_times">统计时间：{{ showTime }}</div>
     </div>
     <div class="center">
       <LineChart />
@@ -24,15 +22,8 @@ export default {
   },
   data() {
     return {
-      title: '漏斗层总体情况',
+      title: '开户数总体情况',
       showTime: '2021.05.08 24:00:00',
-      conversionVal: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-      ],
     }
   },
   //方法集合
@@ -44,7 +35,7 @@ export default {
 <style lang="scss" scoped>
 .Left_3 {
   width: 630px;
-  height: 424px;
+  height: 460px;
   background: url('../../assets/home/lsef_3_bg.png');
   @include backgroundSize;
   .top {

@@ -4,7 +4,7 @@
       <div class="title_e">
         {{ title }}
       </div>
-      <div class="show_times">截至时间:{{ showTime }}</div>
+      <div class="show_times">更新时间:{{ showTime }}</div>
     </div>
     <div class="center">
       <div class="bar" v-for="(item, index) in barVal" :key="index">
@@ -30,11 +30,11 @@ export default {
       title: '实时转化率/留存率',
       showTime: '2021.05.08 24:00:00',
       barVal: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
+        { value: '12%', name: '开户层' },
+        { value: '132%', name: '入金层' },
+        { value: '82%', name: '交易层' },
+        { value: '122%', name: '存续层' },
+        { value: '12%', name: '失活层' },
       ],
     }
   },

@@ -4,9 +4,7 @@
       <div class="title_e">
         {{ title }}
       </div>
-      <div class="show_times">
-        {{ showTime }}
-      </div>
+      <div class="show_times">更新时间： {{ showTime }}</div>
     </div>
     <div class="center">
       <div class="reamLL">
@@ -48,22 +46,23 @@
 
 export default {
   name: 'RealTime',
+
   data() {
     return {
-      title: '实时看板',
+      title: '流量看板',
       showTime: '2021.05.08 24:00:00',
       conversionVal: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
+        { value: 122, name: '年度存续数' },
+        { value: 122, name: '月度存续数' },
+        { value: 1222, name: '今日存续数' },
       ],
       conversionVal2: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
+        { value: 12, name: '存续层总人数' },
+        { value: '1%', name: '占存续总数比' },
       ],
       conversionVal3: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
+        { value: 12, name: '今日进入存续层人数' },
+        { value: 12, name: '今日转至入金层人数' },
       ],
     }
   },
@@ -110,7 +109,8 @@ export default {
       margin-top: 20px;
       box-sizing: border-box;
       .items {
-        width: 92px;
+        min-width: 92px;
+        text-align: center;
         .C_Number {
           width: 92px;
           height: 92px;
@@ -120,6 +120,7 @@ export default {
           color: #ffffff;
           line-height: 60px;
           text-align: center;
+          margin: 0 auto;
         }
         .C_text {
           font-size: 14px;

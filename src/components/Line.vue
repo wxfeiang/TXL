@@ -114,7 +114,7 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: 'rgba(108,80,243,0.3)',
+                      color: 'RGBA(11, 79, 125, 1)',
                     },
                     {
                       offset: 1,
@@ -123,7 +123,7 @@ export default {
                   ],
                   false
                 ),
-                shadowColor: 'rgba(108,80,243, 0.9)',
+                shadowColor: 'RGBA(11, 79, 125, 0.2)',
                 shadowBlur: 20,
               },
             },
@@ -184,7 +184,7 @@ export default {
       //..
       this.updateChart()
       // 启动定时器
-      this.startInterval()
+      // this.startInterval()
     },
     // 更新数据
     updateChart() {
@@ -192,7 +192,7 @@ export default {
         arr2 = []
       for (let i = 0; i < 6; i++) {
         let rand = Math.ceil(Math.random() * 10)
-        let rand2 = Math.ceil(Math.random() * rand)
+        let rand2 = Math.ceil(Math.random() * 44)
         arr.push(rand)
         arr2.push(rand2)
       }
@@ -248,7 +248,7 @@ export default {
 <style scoped>
 .line {
   width: 580px;
-  height: 320px;
+  height: 380px;
   margin: 0 auto;
 }
 .line_c {

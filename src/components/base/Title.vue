@@ -1,7 +1,7 @@
 <template>
   <div class="title" id="title">
     <div class="left_name">{{ title }}</div>
-    <div class="right_scren" :title="tips">
+    <div class="right_scren" :title="tips" @click="fillscren">
       <img :src="scren" alt="" />
     </div>
   </div>
@@ -22,7 +22,11 @@ export default {
     }
   },
   //方法集合
-  methods: {},
+  methods: {
+    fillscren() {
+      this.$emit('fillscren', this.data)
+    },
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
 }
@@ -34,8 +38,9 @@ export default {
 
   display: flex;
   justify-content: space-between;
+  position: relative;
   .left_name {
-    padding: 0 0 0 15px;
+    padding: 0 0 0 8px;
     font-size: 14px;
     font-family: Source Han Sans CN;
     font-weight: 400;
@@ -43,6 +48,12 @@ export default {
     line-height: 14px;
   }
   .right_scren {
+    position: absolute;
+    right: 2px;
+    top: 0;
+    z-index: 99;
+    width: 14px;
+    height: 14px;
     cursor: pointer;
   }
 }

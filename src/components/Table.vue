@@ -74,6 +74,7 @@ export default {
   /deep/ .el-table td,
   .el-table th.is-leaf {
     border-color: #052159;
+    color: $ff05;
   }
 
   /deep/ .el-table .tableStyle {
@@ -93,6 +94,9 @@ export default {
   }
   /deep/ .el-table::before {
     height: 0px;
+  }
+  /deep/.el-table--scrollable-y ::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

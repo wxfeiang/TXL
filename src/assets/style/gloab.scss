@@ -4,3 +4,23 @@ $ff05 : rgba(255, 255, 255, 0.5);
     background-size: 100% 100%;
     background-repeat: no-repeat;
 }
+.fillscren{
+ position: fixed !important;
+ top: 0 !important;
+ left: 0  !important;
+ right: 0  !important;
+ width: 100% !important;
+ height: 100%  !important;
+ padding: 50px;
+ z-index: 100;
+  background: #031a53;
+// background: url('../kihu/scren.png');
+ box-sizing: border-box;
+ background-size: 100% 100%;
+ background-repeat: no-repeat;
+ box-sizing: border-box   !important;
+ /deep/  .echarts_box{
+    height: 80vh;
+}
+
+}

@@ -4,20 +4,10 @@
       <div class="title_e">
         {{ title }}
       </div>
-      <div class="show_times">
-        {{ showTime }}
-      </div>
+      <div class="show_times">截至时间：{{ showTime }}</div>
     </div>
     <div class="center">
       <div class="barChart" ref="barChart"></div>
-      <!-- <div class="item_Line">
-        <div class="item_title">
-          开户层
-        </div>
-        <div class="item_center" :style="width">
-          5555
-        </div>
-      </div> -->
     </div>
   </div>
 </template>
@@ -50,6 +40,25 @@ export default {
   methods: {
     initEcharts(data) {
       this.chartInstance = this.$echarts.init(this.$refs.barChart)
+      const colors = new this.$echarts.graphic.LinearGradient(
+        0,
+        1,
+        0,
+        0,
+        [
+          {
+            offset: 0,
+            color: 'rgba(75, 243, 249, 0.5)', // 100% 处的颜色
+          },
+
+          {
+            offset: 1,
+
+            color: 'rgba(75, 243, 249, 0.8) ', // 0% 处的颜色
+          },
+        ],
+        false
+      )
       let option = {
         //提示框
         tooltip: {
@@ -109,10 +118,11 @@ export default {
                 color: function(params) {
                   var myColor = ['#8bb6ff', '#81b0ff', '#6ea4ff', '#649eff', '#5091ff', '#478cff', '#487aff']
 
-                  return myColor[params.dataIndex]
+                  return colors
                 },
               },
             },
+
             data: [-20, -34, -60, -80, -50, -78, -69],
           },
           {
@@ -130,9 +140,15 @@ export default {
             itemStyle: {
               normal: {
                 color: function(params) {
-                  var myColor = ['#8bb6ff', '#81b0ff', '#6ea4ff', '#649eff', '#5091ff', '#478cff', '#487aff']
+                  // var myColor = [
+                  //   ' rgba(255, 42, 156, 0.5)',
+                  //   ' rgba(222, 141, 47, 0.5)',
+                  //   '#FFF32A',
+                  //   '#28EF74',
+                  //   '#4BF3F9',
+                  // ]
 
-                  return myColor[params.dataIndex]
+                  return colors
                 },
               },
             },
@@ -147,7 +163,7 @@ export default {
       //..
       this.updateChart()
       // 启动定时器
-      this.startInterval()
+      // this.startInterval()
     },
     // 更新数据
     updateChart() {
@@ -239,7 +255,7 @@ export default {
   }
   .center {
     width: 630px;
-    height: 350px;
+    height: 360px;
     padding: 20px;
     box-sizing: border-box;
     .barChart {

@@ -1,5 +1,5 @@
 <template>
-  <div class="LineFour_box">
+  <div class="echarts_box" ref="echarts_box">
     <div class="LineFour" id="LineFour" ref="LineFour"></div>
   </div>
 </template>
@@ -9,9 +9,7 @@
 
 export default {
   name: 'LineFour',
-  props: {
-    msg: String,
-  },
+
   data() {
     return {
       chartInstance: null,
@@ -40,6 +38,7 @@ export default {
           },
         },
         grid: {
+          top: '5%',
           left: '4%',
           right: '4%',
           bottom: '5%',
@@ -99,6 +98,44 @@ export default {
         },
         series: [
           {
+            name: '月均开户数',
+            data: [800, 902, 700, 304, 190, 133, 130],
+            type: 'line',
+            areaStyle: {
+              normal: {
+                color: new this.$echarts.graphic.LinearGradient(
+                  0,
+                  0,
+                  0,
+                  1,
+                  [
+                    {
+                      offset: 0,
+                      color: 'rgba(255,185,68,0.4)',
+                    },
+                    {
+                      offset: 1,
+                      color: 'rgba(255,185,68,0.1)',
+                    },
+                  ],
+                  false
+                ),
+
+                shadowBlur: 20,
+              },
+            },
+            symbolSize: 8,
+            symbol: 'circle', // 设置标记的图形为circl
+            itemStyle: {
+              normal: {
+                color: '#ffb944',
+                lineStyle: {
+                  color: '#ffb944',
+                },
+              },
+            },
+          },
+          {
             name: '今年开户数',
             data: [820, 932, 900, 834, 120, 130, 130],
             type: 'line',
@@ -115,25 +152,25 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: 'rgba(108,80,243,0.3)',
+                      color: 'rgba(171,144,223,0.4)',
                     },
                     {
                       offset: 1,
-                      color: 'rgba(108,80,243,0)',
+                      color: 'rgba(171,144,223,0.2)',
                     },
                   ],
                   false
                 ),
-                shadowColor: 'rgba(108,80,243, 0.9)',
+
                 shadowBlur: 20,
               },
             },
             itemStyle: {
               normal: {
-                color: '#4BF3F9',
+                color: '#ab90df',
 
                 lineStyle: {
-                  color: '#4BF3F9',
+                  color: '#ab90df',
                 },
               },
             },
@@ -152,16 +189,16 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: 'rgba(0,202,149,0.3)',
+                      color: 'rgba(47,174,255,0.4)',
                     },
                     {
                       offset: 1,
-                      color: 'rgba(0,202,149,0)',
+                      color: 'rgba(47,174,255,0.2)',
                     },
                   ],
                   false
                 ),
-                shadowColor: 'rgba(0,202,149, 0.9)',
+
                 shadowBlur: 20,
               },
             },
@@ -169,9 +206,9 @@ export default {
             symbol: 'circle', // 设置标记的图形为circl
             itemStyle: {
               normal: {
-                color: '#00ca95',
+                color: 'rgba(47,174,255,0.4)',
                 lineStyle: {
-                  color: '#00ca95',
+                  color: 'rgba(47,174,255,0.4)',
                 },
               },
             },
@@ -190,16 +227,16 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: '#FEAB67',
+                      color: 'rgba(0,249,227,0.4)',
                     },
                     {
                       offset: 1,
-                      color: 'rgba(0,202,149,0)',
+                      color: 'rgba(0,249,227,0.2)',
                     },
                   ],
                   false
                 ),
-                shadowColor: '#FEAB67',
+
                 shadowBlur: 20,
               },
             },
@@ -207,47 +244,9 @@ export default {
             symbol: 'circle', // 设置标记的图形为circl
             itemStyle: {
               normal: {
-                color: '#00ca95',
+                color: 'rgba(0,249,227,0.4)',
                 lineStyle: {
-                  color: '#00ca95',
-                },
-              },
-            },
-          },
-          {
-            name: '月均开户数',
-            data: [800, 902, 700, 304, 190, 133, 130],
-            type: 'line',
-            areaStyle: {
-              normal: {
-                color: new this.$echarts.graphic.LinearGradient(
-                  0,
-                  0,
-                  0,
-                  1,
-                  [
-                    {
-                      offset: 0,
-                      color: '#00F9E3',
-                    },
-                    {
-                      offset: 1,
-                      color: 'rgba(0,202,149,0)',
-                    },
-                  ],
-                  false
-                ),
-                shadowColor: '#00F9E3',
-                shadowBlur: 20,
-              },
-            },
-            symbolSize: 8,
-            symbol: 'circle', // 设置标记的图形为circl
-            itemStyle: {
-              normal: {
-                color: '#00ca95',
-                lineStyle: {
-                  color: '#00ca95',
+                  color: 'rgba(0,249,227,0.4)',
                 },
               },
             },
@@ -261,7 +260,7 @@ export default {
       //..
       this.updateChart()
       // 启动定时器
-      this.startInterval()
+      // this.startInterval()
     },
     // 更新数据
     updateChart() {
@@ -271,7 +270,7 @@ export default {
         arr4 = []
       for (let i = 0; i < 6; i++) {
         let rand = Math.ceil(Math.random() * 10)
-        let rand2 = Math.ceil(Math.random() * rand)
+        let rand2 = Math.ceil(Math.random() * 2)
         let rand3 = Math.ceil(Math.random() * 5)
         let rand4 = Math.ceil(Math.random() * 33)
         arr.push(rand)
@@ -311,6 +310,7 @@ export default {
     // 当浏览器的大小发生变化的时候, 会调用的方法, 来完成屏幕的适配
     screenAdapter() {
       // 手动的调用图表对象的resize 才能产生效果
+
       this.chartInstance.resize()
     },
   },
@@ -326,6 +326,11 @@ export default {
     this.getData()
     // 监听
     window.addEventListener('resize', this.screenAdapter)
+
+    this.$erd.listenTo(this.$refs.echarts_box, () => {
+      // console.log(element)
+      this.screenAdapter()
+    })
   },
   destroyed() {
     window.removeEventListener('resize', this.screenAdapter)
@@ -334,8 +339,8 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.LineFour_box {
-  width: 500px;
+.echarts_box {
+  width: 98%;
   height: 260px;
   margin: 0 auto;
 }
