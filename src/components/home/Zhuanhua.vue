@@ -30,11 +30,12 @@ export default {
       title: '实时转化率/留存率',
       showTime: '2021.05.08 24:00:00',
       barVal: [
-        { value: '12%', name: '开户层' },
-        { value: '132%', name: '入金层' },
-        { value: '82%', name: '交易层' },
-        { value: '122%', name: '存续层' },
-        { value: '12%', name: '失活层' },
+        { value: '12%', name: '开户转化率' },
+        { value: '132%', name: '入金转化率' },
+        { value: '82%', name: '交易转化率' },
+        { value: '12%', name: '动态流失率' },
+        { value: '23%', name: '静态留存率' },
+        { value: '12%', name: '动态留存率' },
       ],
     }
   },
@@ -74,7 +75,7 @@ export default {
   .center {
     display: flex;
     justify-content: space-around;
-    padding-top: 10px;
+    padding: 10px 10px 0;
 
     .bar {
       margin-top: 20px;
@@ -98,6 +99,7 @@ export default {
         font-style: italic;
         color: #4bf3f9;
         text-align: right;
+        font-size: 18px;
         line-height: 50px;
       }
     }

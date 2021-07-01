@@ -71,7 +71,7 @@ export default {
             align: 'left',
           },
           {
-            label: '人数',
+            label: '开户人数',
             prop: 'num',
             align: 'center',
           },

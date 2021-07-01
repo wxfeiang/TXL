@@ -22,6 +22,7 @@ import {
   Notification,
   Option,
   OptionGroup,
+  Pagination,
   Radio,
   RadioButton,
   RadioGroup,
@@ -66,5 +67,7 @@ Vue.use(RadioButton)
 Vue.use(Dialog)
 
 Vue.use(Switch)
+Vue.use(Pagination)
+
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message

@@ -29,9 +29,10 @@ export default {
         radar: [
           {
             indicator: data.indicator,
-            radius: '50%',
+            radius: '80%',
 
             axisLine: {
+              show: true,
               // (圆内的几条直线)坐标轴轴线相关设置
               lineStyle: {
                 color: '#fff',
@@ -71,6 +72,7 @@ export default {
         series: [
           {
             type: 'radar',
+            symbol: 'none',
             tooltip: {
               trigger: 'item',
             },

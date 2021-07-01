@@ -1,4 +1,5 @@
 // import '@/assets/css/gloab.sass'
+// import '@/assets/style/gloab.css'
 import '@/EleUI'
 import 'amfe-flexible'
 import ElementResizeDetectorMaker from 'element-resize-detector'

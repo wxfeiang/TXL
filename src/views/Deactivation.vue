@@ -25,7 +25,7 @@
           </div>
           <div class="checkbox">
             分析层数据
-            <el-switch v-model="checkboxVal" @change="change"> </el-switch>
+            <el-switch v-model="checkboxVal" @change="change" active-color="#00FDF6"> </el-switch>
           </div>
 
           <div class="center">
@@ -159,7 +159,7 @@ export default {
 }
 .echart {
   display: flex;
-  justify-content: space-around;
+  // justify-content: space-around;
 
   .echarts_left {
     display: flex;
@@ -168,7 +168,7 @@ export default {
     align-items: center;
   }
   .right_box {
-    width: 1280px;
+    // width: 1280px;
 
     background: url('../assets/kihu/liliang.png');
     @include backgroundSize;
@@ -199,7 +199,7 @@ export default {
     .center {
       display: flex;
       justify-content: space-between;
-      padding: 0 0 0 30px;
+      padding: 0 0 0 40px;
 
       .box_left {
         .item {
@@ -208,7 +208,6 @@ export default {
       }
       .box_right {
         display: flex;
-
         flex-wrap: wrap;
         padding: 0 0 0 20px;
         box-sizing: border-box;

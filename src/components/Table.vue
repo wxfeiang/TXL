@@ -1,8 +1,15 @@
 <template>
   <div class="dytable" id="">
-    <el-table :data="tableData" style="width: 100%" :header-cell-class-name="tableStyle">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      :header-cell-class-name="tableStyle"
+      ref="tables"
+      @selection-change="selection"
+    >
       <!-- 多选 -->
-      <el-table-column type="selection" width="55" v-if="congigTable.checkbox"> </el-table-column>
+      <el-table-column type="selection" width="30" v-if="congigTable.checkbox" align="center"> </el-table-column>
+
       <!-- 文本 -->
       <template v-for="(item, index) in congigTable.columns">
         <!-- 判断是否插槽 -->
@@ -15,7 +22,7 @@
           v-if="item.column == 'slot'"
         >
           <template slot-scope="scope">
-            <slot :name="item.slotName" :data="scope.row"></slot>
+            <slot :name="item.slotName" :data="scope"></slot>
           </template>
         </el-table-column>
         <!-- 文本 -->
@@ -51,6 +58,9 @@ export default {
       //{ row, column, rowIndex, columnIndex }
       // console.log(row, column, rowIndex, columnIndex)
       return 'tableStyle'
+    },
+    selection(selection) {
+      this.$emit('select', selection)
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）

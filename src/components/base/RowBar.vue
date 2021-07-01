@@ -1,5 +1,6 @@
 <template>
-  <div class="echarts_box" ref="echarts_box">
+  <div class="echarts_box2" ref="echarts_box">
+    <div class="title">{{ dataList.title }}</div>
     <div class="Bar" ref="Lineone"></div>
   </div>
 </template>
@@ -21,71 +22,73 @@ export default {
   methods: {
     initEcharts(data) {
       console.log(data)
+
+      var salvProValue = [239, 181, 154, 144, 135, 117, 74, 72, 67]
+      var salvProMax = [] //背景按最大值
+      for (let i = 0; i < salvProValue.length; i++) {
+        salvProMax.push(salvProValue[0])
+      }
       this.chartInstance = this.$echarts.init(this.$refs.Lineone)
       let option = {
+        // title: {
+        //   text: data.title,
+
+        //   left: 'center',
+        //   textStyle: {
+        //     fontFamily: 'SourceHanSansCN-Regular',
+        //     fontSize: '14',
+        //     color: 'rgba(255,255,255,1)',
+        //   },
+        // },
+        grid: {
+          left: '2%',
+          right: '2%',
+          bottom: '2%',
+          top: '5%',
+          containLabel: true,
+        },
         tooltip: {
           trigger: 'axis',
           axisPointer: {
-            type: 'shadow',
+            type: 'none',
           },
-        },
-        grid: {
-          left: '4%',
-          right: '4%',
-          bottom: '3%',
-          top: '15%',
-          containLabel: true,
-          textStyle: {
-            color: '#fff',
+          formatter: function(params) {
+            return params[0].name + ' : ' + params[0].value
           },
         },
         xAxis: {
-          type: 'category',
-          data: data.dataX,
-          boundaryGap: true,
-          axisLabel: {
-            formatter: '{value}',
-            color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
-            interval: 0,
-            rotate: 30,
-          },
-          axisLine: {
-            show: false,
-          },
-          axisTick: {
-            show: false,
-          },
-        },
-        yAxis: {
+          show: false,
           type: 'value',
-          nameTextStyle: {
-            color: '#00FFFF',
-          },
-          splitLine: {
-            lineStyle: {
-              type: 'solid',
-              color: 'rgba(255,255,255,0.1)',
-            },
-          },
-          axisLine: {
-            show: false,
-          },
-          axisTick: {
-            show: false,
-          },
-          axisLabel: {
-            formatter: '{value}',
-            color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
-          },
         },
+        yAxis: [
+          {
+            type: 'category',
+            inverse: true,
+            axisLabel: {
+              show: true,
+              textStyle: {
+                color: 'rgba(255,255,255,0.5)',
+                fontSize: 12,
+                width: '20%',
+              },
+            },
+            splitLine: {
+              show: false,
+            },
+            axisTick: {
+              show: false,
+            },
+            axisLine: {
+              show: false,
+            },
+            data: data.dataY,
+          },
+        ],
         series: [
           {
-            data: data.series,
+            name: '值',
             type: 'bar',
-            showBackground: false,
-            barWidth: 20, //柱图宽度
+            zlevel: 1,
             itemStyle: {
               normal: {
                 label: {
@@ -94,27 +97,22 @@ export default {
                   fontFamily: 'Source Han Sans CN',
                   fontWeight: 400,
                   fontSize: 14,
-                  position: 'top',
+                  position: 'right',
                 },
-                color: {
-                  x: 0,
-                  y: 1,
-                  x2: 0,
-                  y2: 0,
-                  type: 'linear',
-                  colorStops: [
-                    {
-                      offset: 0,
-                      color: '#00B7FF',
-                    },
-                    {
-                      offset: 1,
-                      color: 'rgba(0, 183, 255, 0.35)',
-                    },
-                  ],
-                },
+                color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
+                  {
+                    offset: 0,
+                    color: 'rgba(0, 183, 255, 0.35)',
+                  },
+                  {
+                    offset: 1,
+                    color: 'rgba(0, 183, 255, 1)',
+                  },
+                ]),
               },
             },
+            barWidth: 14,
+            data: data.series,
           },
         ],
       }
@@ -181,15 +179,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.echarts_box {
+.echarts_box2 {
   width: 98%;
-  height: 150px;
+  height: 160px;
   box-sizing: border-box;
-  padding: 20px 0 0 0;
+  padding: 0px 0 0 0;
   margin: 0 auto;
 }
 .Bar {
   width: 100%;
   height: 100%;
+}
+.title {
+  margin: 20px 0 0 0;
+  font-size: 14px;
+  font-family: Source Han Sans CN;
+  font-weight: 400;
+  color: #ffffff;
+  text-align: center;
 }
 </style>

@@ -10,7 +10,7 @@
       <Table :tableData="tableData" :congigTable="congigTable">
         <!-- satuas  插槽自定义 -->
         <template v-slot:status="slotdata">
-          <div class="dy_cont">{{ slotdata.data.cont }}</div>
+          <div class="dy_cont">{{ slotdata.data.row.cont }}</div>
         </template>
       </Table>
     </div>
@@ -171,7 +171,6 @@ export default {
     justify-content: space-between;
     width: 1120px;
     height: 60px;
-
     background: url('../../assets/home/title_right_2.png') no-repeat;
     @include backgroundSize;
 
@@ -209,7 +208,7 @@ export default {
     text-align: center;
   }
   /deep/ .el-table thead tr th:last-child {
-    color: #2ff8ff;
+    color: #2ff8ff !important;
   }
   /deep/ .el-table thead tr th {
     height: 58px;

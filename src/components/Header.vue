@@ -27,12 +27,13 @@
       </div>
     </div>
     <div class="h_right">
-      <router-link class="desc" to="/index">
+      <router-link class="desc" to="/index" active-class="active" exact>
         <img :src="s_home" alt="" />
         <span>
           平台总览
         </span>
       </router-link>
+
       <div class="actiion">
         <img :src="action" alt="" />
         <span>
@@ -88,6 +89,7 @@ export default {
       ],
       timevlaue: 10,
       dialogVisible: false,
+      homeActive: true,
     }
   },
   created: function() {
@@ -168,9 +170,10 @@ export default {
       this.$router.push('/login')
     },
   },
-  destroyed() {
-    clearInterval(this.timerId)
-  },
+  // destroyed() {
+  //   clearInterval(this.timerId)
+  //   this.homeActive = false
+  // },
 }
 </script>
 
@@ -251,9 +254,10 @@ export default {
     .desc {
       margin-left: 20px;
       cursor: pointer;
+      color: $ff05;
       img {
         vertical-align: top;
-        margin-top: 13px;
+        margin-top: 15px;
         width: 22px;
         height: 20px;
       }
@@ -267,15 +271,20 @@ export default {
         width: 22px;
         height: 20px;
       }
+      &:hover {
+        color: #2ff8ff;
+      }
     }
     .user {
       margin-left: 20px;
       color: $ff05;
-
       img {
         // width: 22px;
         // height: 20px;
+        width: 30px;
+        height: 30px;
         vertical-align: top;
+        margin: 6px 0 0 0;
       }
     }
     .active {
@@ -298,6 +307,9 @@ export default {
   }
   .el-icon-arrow-down {
     font-size: 12px;
+  }
+  .router-link-active {
+    color: red;
   }
 }
 </style>

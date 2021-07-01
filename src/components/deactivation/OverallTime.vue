@@ -1,48 +1,19 @@
 <template>
   <div :class="['OverallTime', scren ? 'fillscren' : ' ']" id="OverallTime">
     <Title title="失活预警分析" @fillscren="fillscren" />
-    <div class="selevt_b">
-      <div class="date_box">
-        日期:
-        <el-date-picker
-          class="dy_date"
-          prefix-icon="el-icon-caret-bottom"
-          v-model="startY"
-          type="year"
-          placeholder="选择年"
-          clear-icon="none"
-        >
-        </el-date-picker>
-        ~
-        <el-date-picker
-          class="dy_date"
-          prefix-icon="el-icon-caret-bottom"
-          v-model="endY"
-          type="year"
-          placeholder="选择年"
-          clear-icon="none"
-        >
-        </el-date-picker>
-      </div>
-    </div>
-    <div class="rad_box">
-      <el-radio-group v-model="radio">
-        <el-radio :label="item.label" v-for="(item, index) in radiOption" :key="index">{{ item.name }}</el-radio>
-      </el-radio-group>
-    </div>
-    <div class="rad_box  rad_box_right">
-      <el-radio-group v-model="radio2">
-        <el-radio :label="item.label" v-for="(item, index) in radiOption2" :key="index">{{ item.name }}</el-radio>
-      </el-radio-group>
-    </div>
+
+    <RowBar :dataList="dataList" />
+    <RowBar :dataList="dataList2" />
   </div>
 </template>
 <script>
 import Title from '@/components/base/Title.vue'
+import RowBar from '@/components/base/RowBar.vue'
 
 export default {
   components: {
     Title,
+    RowBar,
   },
   data() {
     return {
@@ -62,9 +33,14 @@ export default {
         { label: '4', name: '均值' },
       ],
       dataList: {
-        name: '民族',
-        series: [420, 50, 150, 80, 70, 110, 130, 368],
-        dataX: ['汉族', '壮族', '满族', '维吾尔族', '其他'],
+        title: '近期未交易人数统计',
+        series: [420, 50, 150, 80],
+        dataY: ['近60日', '近90日', '近120日', '近150日'],
+      },
+      dataList2: {
+        title: '近期未登录交易系统人数统计',
+        series: [200, 500, 150, 80],
+        dataY: ['近60日', '近90日', '近120日', '近150日'],
       },
     }
   },

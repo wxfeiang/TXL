@@ -60,10 +60,10 @@ export default {
       display: inline-block;
       width: 38px;
       line-height: 48px;
-      background-image: linear-gradient(0deg, #06296a 0%, #06296a 100%);
-      border-style: solid;
-      border-width: 1px;
-      border-image-source: linear-gradient(0deg, rgba(0, 182, 255, 0.8) 0%, rgba(0, 182, 255, 0.08) 100%);
+      background: linear-gradient(0deg, #06296a, rgba(6, 41, 106, 0));
+      border: 1px solid;
+      border-image: linear-gradient(0deg, rgba(0, 182, 255, 0.8), rgba(0, 182, 255, 0.8)) 1 1;
+      border-radius: 3px;
       border-image-slice: 1;
       box-sizing: border-box;
       padding: 0 5px;

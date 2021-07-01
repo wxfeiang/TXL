@@ -47,7 +47,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .items {
-  width: 302px;
+  width: 304px;
   height: 178px;
   background: rgba(2, 51, 177, 0.1);
   .Overal {

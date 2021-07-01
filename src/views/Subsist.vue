@@ -25,7 +25,7 @@
           </div>
           <div class="checkbox">
             分析层数据
-            <el-switch v-model="checkboxVal" @change="change"> </el-switch>
+            <el-switch v-model="checkboxVal" @change="change" active-color="#00FDF6"> </el-switch>
           </div>
 
           <div class="center">
@@ -67,11 +67,15 @@
         </div>
       </div>
     </div>
+    <el-dialog :visible.sync="dialogVisible" :show-close="false" width="60%">
+      <UserList @close="close" />
+    </el-dialog>
   </div>
 </template>
 <script>
 import Action from '@/components/base/Action.vue'
 import PeopleN from '@/components/base/PeopleN.vue'
+import UserList from '@/components/base/UserList.vue'
 
 import RealTime from '@/components/subsist/RealTime.vue'
 import Ranking from '@/components/subsist/Ranking.vue'
@@ -103,9 +107,11 @@ export default {
     Age,
     Fenxian,
     Famous,
+    UserList,
   },
   data() {
     return {
+      dialogVisible: true,
       showTime: '2021.05.08 24:00:00',
       title: '流量看板',
       checkboxVal: true,
@@ -126,6 +132,9 @@ export default {
           type: 'success',
         })
       }
+    },
+    close() {
+      this.dialogVisible = false
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -159,7 +168,7 @@ export default {
 }
 .echart {
   display: flex;
-  justify-content: space-around;
+  // justify-content: space-around;
 
   .echarts_left {
     display: flex;
@@ -168,7 +177,7 @@ export default {
     align-items: center;
   }
   .right_box {
-    width: 1280px;
+    // width: 1280px;
 
     background: url('../assets/kihu/liliang.png');
     @include backgroundSize;
@@ -232,5 +241,14 @@ export default {
     width: 36px;
     margin: -3px 0 0 0;
   }
+}
+/deep/ .el-dialog {
+  background: transparent;
+}
+/deep/ .el-dialog__header {
+  display: none !important;
+}
+/deep/ .el-dialog__body {
+  padding: 0 !important;
 }
 </style>

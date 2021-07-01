@@ -210,6 +210,14 @@ export default {
     }
   }
 }
+/deep/ .el-checkbox__inner {
+  background: transparent;
+  border-color: rgba(47, 248, 255, 0.5);
+}
+/deep/ .is-checked .el-checkbox__inner {
+  background: rgba(47, 248, 255, 0.5);
+  color: #fff;
+}
 h3 {
   font-size: 80px;
 }
