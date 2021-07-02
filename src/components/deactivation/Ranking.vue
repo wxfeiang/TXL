@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import Table from '@/components/Table.vue'
+import Table from '@/components/base/Table.vue'
 export default {
   name: 'Ranking',
   components: {

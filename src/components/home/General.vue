@@ -40,10 +40,9 @@ export default {
   methods: {
     initEcharts(data) {
       this.chartInstance = this.$echarts.init(this.$refs.barChart)
-
       const colorArr = []
       const colorArr2 = []
-      var c1 = [
+      let c1 = [
         'rgba(255,42,156)',
         'rgba(222,141,47)',
         'rgba(255,243,42)',
@@ -51,7 +50,7 @@ export default {
 
         'rgba(75, 243, 249,0.6)',
       ]
-      var c2 = [
+      let c2 = [
         'rgba(255,42,156,0.1)',
         'rgba(222,141,47,0.1)',
         'rgba(255,243,42,0.1)',

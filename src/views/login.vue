@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import yanzhenma from '@/components/yanzhenma.vue'
+import yanzhenma from '@/components/base/yanzhenma.vue'
 export default {
   components: {
     yanzhenma,

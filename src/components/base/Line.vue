@@ -28,8 +28,8 @@ export default {
           subtextStyle: {
             fontFamily: 'SourceHanSansCN-Regular',
             fontSize: '12',
-
             align: 'right',
+            color: 'rgba(255, 255, 255, 0.5)',
           },
         },
         tooltip: {
@@ -49,7 +49,7 @@ export default {
         },
         legend: {
           right: 50,
-          top: 9,
+          top: 10,
           itemHeight: 14,
           textStyle: {
             color: 'rgba(255,255,255, 0.5)',
@@ -151,7 +151,11 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: 'rgba(0,249,227,0.6)',
+                      color: 'rgba(0,249,227,0.7)',
+                    },
+                    {
+                      offset: 0.2,
+                      color: 'rgba(0,249,227,0.3)',
                     },
                     {
                       offset: 1,

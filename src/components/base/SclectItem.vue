@@ -2,7 +2,7 @@
   <div class="select">
     <el-dropdown @command="handleCommand" trigger="click">
       <span class="el-dropdown-link">
-        <span>{{ selecVal }}</span
+        <span>{{ title }}</span
         ><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
@@ -18,6 +18,7 @@
 export default {
   name: 'SclectItem',
   props: {
+    title: String,
     options: Array,
   },
   data() {
@@ -33,6 +34,7 @@ export default {
       this.selecVal = command
       console.log(command, index, 'command')
       //  TODO
+      this.$emit('select', command)
     },
   },
 }

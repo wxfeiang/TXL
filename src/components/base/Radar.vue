@@ -29,8 +29,7 @@ export default {
         radar: [
           {
             indicator: data.indicator,
-            radius: '80%',
-
+            radius: '50%',
             axisLine: {
               show: true,
               // (圆内的几条直线)坐标轴轴线相关设置

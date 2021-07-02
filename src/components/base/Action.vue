@@ -3,16 +3,19 @@
     <div class="select_box">
       <div class="lab_sban">
         <span>筛选条件</span>
-        <SclectItem :options="qudao" />
-        <SclectItem :options="jigou" />
-        <SclectItem :options="city" />
-        <SclectItem :options="cityjb" />
-        <SclectItem :options="age" />
-        <SclectItem :options="agetime" />
-        <SclectItem :options="xueli" />
-        <SclectItem :options="sex" />
-        <SclectItem :options="mingzu" />
-        <SclectItem :options="dengji" />
+        <SclectItem :options="qudao" title="渠道" />
+        <SclectItem :options="jigou" title="组织机构" />
+        <SclectItem :options="city" title="所在城市" />
+        <SclectItem :options="cityjb" title="所在城市级别" />
+        <SclectItem :options="age" title="开户年龄" />
+        <SclectItem :options="agetime" title="开户时间" />
+        <SclectItem :options="xueli" title="学历" />
+        <SclectItem :options="sex" title="性别" />
+        <SclectItem :options="mingzu" title="民族" />
+        <SclectItem :options="dengji" title="风险等级" />
+        <!-- <el-select v-model="value" filterable placeholder="请选择" size="mini">
+          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+        </el-select> -->
       </div>
     </div>
     <div class="select_box">
@@ -34,77 +37,78 @@ export default {
   },
   data() {
     return {
+      slectArr: [],
       qudao: [
         {
-          value: '渠道',
-          label: '渠道',
+          value: '1',
+          label: '员工',
         },
         {
-          value: '渠道2',
-          label: '渠道2',
+          value: '经纪人',
+          label: '经纪人',
         },
       ],
       jigou: [
         {
-          value: '组织机构',
-          label: '组织机构',
+          value: '上海营业部',
+          label: '上海营业部',
         },
         {
-          value: '组织机构2',
-          label: '组织机构2',
+          value: '兰州营业部',
+          label: '兰州营业部',
         },
       ],
       city: [
         {
-          value: '所在城市',
-          label: '所在城市',
+          value: '上海',
+          label: '上海',
         },
         {
-          value: '所在城市2',
-          label: '所在城市2',
+          value: '杭州',
+          label: '杭州',
         },
       ],
       cityjb: [
         {
-          value: '所在城市级别',
-          label: '所在城市级别',
+          value: '一线城市',
+          label: '一线城市',
         },
         {
-          value: '所在城市级别2',
-          label: '所在城市级别2',
+          value: '二线城市',
+          label: '二线城市',
         },
       ],
       age: [
         {
-          value: '开户年龄',
-          label: '开户年龄',
+          value: '19',
+          label: '19',
         },
         {
-          value: '开户年龄',
-          label: '开户年龄',
+          value: '20',
+          label: '20',
         },
       ],
       agetime: [
         {
-          value: '开户时间',
-          label: '开户时间',
+          value: '2009',
+          label: '2009',
         },
         {
-          value: '开户时间',
-          label: '开户时间',
+          value: '2010',
+          label: '2010',
         },
       ],
       xueli: [
         {
-          value: '学历',
-          label: '学历',
+          value: '本科',
+          label: '本科',
+        },
+        {
+          value: '研究生',
+          label: '研究生',
         },
       ],
       sex: [
-        {
-          value: '性别',
-          label: '性别',
-        },
         {
           value: '男',
           label: '男',
@@ -116,10 +120,6 @@ export default {
       ],
       mingzu: [
         {
-          value: '民族',
-          label: '民族',
-        },
-        {
           value: '汉族',
           label: '汉族',
         },
@@ -130,14 +130,33 @@ export default {
       ],
       dengji: [
         {
-          value: '风险测评等级',
-          label: '风险测评等级',
-        },
-        {
           value: '一级风险',
           label: '一级风险',
         },
       ],
+      options: [
+        {
+          value: '选项1',
+          label: '黄金糕',
+        },
+        {
+          value: '选项2',
+          label: '双皮奶',
+        },
+        {
+          value: '选项3',
+          label: '蚵仔煎',
+        },
+        {
+          value: '选项4',
+          label: '龙须面',
+        },
+        {
+          value: '选项5',
+          label: '北京烤鸭',
+        },
+      ],
+      value: '',
     }
   },
   //方法集合
@@ -165,5 +184,33 @@ export default {
       margin-left: 20px;
     }
   }
+}
+/deep/ .el-select {
+  background: none;
+}
+/deep/ .el-select .el-input__inner {
+  background: none;
+  border: none;
+  color: #2ff8ff;
+}
+//自定义el-input框的一些自定义样式
+/deep/ .selsectbox .el-input--small .el-input__inner {
+  background-color: #e6f0ff;
+  padding-left: 40px;
+  height: 50px;
+  border-radius: 5px;
+  color: #1890ff;
+  font-size: 18px;
+  border: 1px solid #1890ff;
+  font-weight: 600;
+}
+//自定义右边图标
+.selsectbox /deep/.el-input__inner {
+  background: url('../../assets/login/logo.png') no-repeat center center; //引入icon
+  background-size: 17px 19px; //这个是图片的大小，在这里不能直接设置width  height,设置宽高其实是select的宽高，图片可能会失真只设置宽度  高度auto也行
+  background-position: 12px 14px; //在input中定位置  可以调整自定义icon的左右上下位置
+  padding: 0 0 0 26px; //需要设置padding 把placeholder向右移
+  box-sizing: border-box;
+  font-size: 14px;
 }
 </style>

@@ -19,8 +19,7 @@ $ff05 : rgba(255, 255, 255, 0.5);
  background-size: 100% 100%;
  background-repeat: no-repeat;
  box-sizing: border-box   !important;
- animation-name: example;
- animation-duration: 4s;
+
  /deep/  .echarts_box{
     height: 80vh;
 }
@@ -109,9 +108,3 @@ $ff05 : rgba(255, 255, 255, 0.5);
    
   }
 
-/* 动画代码 */
-@keyframes example {
-  from {width: 130px; height: 200px;}
-  to { width: 100% !important;
-    height: 100%  !important;}
-}
