@@ -64,7 +64,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
+            fontSize: 12,
           },
           axisLine: {
             show: false,
@@ -93,7 +93,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         series: [

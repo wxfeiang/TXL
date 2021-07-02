@@ -8,3 +8,5 @@ export const user = (state) => {
 export const profile = (state) => state.profile
 export const loading = (state) => state.loading
 export const profiles = (state) => state.profiles //开发者们信息
+
+export const currRouter = (state) => state.currRouter //开发者们信息

@@ -40,25 +40,78 @@ export default {
   methods: {
     initEcharts(data) {
       this.chartInstance = this.$echarts.init(this.$refs.barChart)
-      const colors = new this.$echarts.graphic.LinearGradient(
-        0,
-        1,
-        0,
-        0,
-        [
-          {
-            offset: 0,
-            color: 'rgba(75, 243, 249, 0.5)', // 100% 处的颜色
-          },
 
-          {
-            offset: 1,
+      const colorArr = []
+      const colorArr2 = []
+      var c1 = [
+        'rgba(255,42,156)',
+        'rgba(222,141,47)',
+        'rgba(255,243,42)',
+        'rgba(40,239,116)',
 
-            color: 'rgba(75, 243, 249, 0.8) ', // 0% 处的颜色
-          },
-        ],
-        false
-      )
+        'rgba(75, 243, 249,0.6)',
+      ]
+      var c2 = [
+        'rgba(255,42,156,0.1)',
+        'rgba(222,141,47,0.1)',
+        'rgba(255,243,42,0.1)',
+
+        'rgba(40,239,116,0.1)',
+        'rgba(75, 243, 249,0.1)',
+      ]
+
+      for (var i = 0; i < c2.length; i++) {
+        colorArr.push(
+          new this.$echarts.graphic.LinearGradient(
+            0,
+            0,
+            1,
+            0,
+            [
+              {
+                offset: 0,
+                color: c2[i], // 100% 处的颜色
+              },
+              {
+                offset: 0.2,
+                color: c2[i], // 100% 处的颜色
+              },
+
+              {
+                offset: 1,
+
+                color: c1[i], // 0% 处的颜色
+              },
+            ],
+            false
+          )
+        )
+        colorArr2.push(
+          new this.$echarts.graphic.LinearGradient(
+            1,
+            0,
+            0,
+            0,
+            [
+              {
+                offset: 0,
+                color: c2[i],
+              },
+              {
+                offset: 0.2,
+                color: c2[i],
+              },
+              {
+                offset: 1,
+
+                color: c1[i],
+              },
+            ],
+            false
+          )
+        )
+      }
+
       let option = {
         //提示框
         tooltip: {
@@ -92,6 +145,12 @@ export default {
           axisTick: {
             show: false,
           },
+          axisLabel: {
+            formatter: '{value}',
+            color: 'rgba(255,255,255,0.5)',
+
+            fontSize: 14,
+          },
           axisLine: {
             show: false,
             onZero: false,
@@ -116,14 +175,14 @@ export default {
             itemStyle: {
               normal: {
                 color: function(params) {
-                  var myColor = ['#8bb6ff', '#81b0ff', '#6ea4ff', '#649eff', '#5091ff', '#478cff', '#487aff']
-
-                  return colors
+                  return colorArr[params.dataIndex]
                 },
+                // borderColor: function(params) {
+                //   console.log(params)
+                //   return c1[params.dataIndex]
+                // },
               },
             },
-
-            data: [-20, -34, -60, -80, -50, -78, -69],
           },
           {
             name: '工资区间2',
@@ -140,19 +199,14 @@ export default {
             itemStyle: {
               normal: {
                 color: function(params) {
-                  // var myColor = [
-                  //   ' rgba(255, 42, 156, 0.5)',
-                  //   ' rgba(222, 141, 47, 0.5)',
-                  //   '#FFF32A',
-                  //   '#28EF74',
-                  //   '#4BF3F9',
-                  // ]
-
-                  return colors
+                  return colorArr2[params.dataIndex]
                 },
+                // borderColor: function(params) {
+                //   console.log(params)
+                //   return c1[params.dataIndex]
+                // },
               },
             },
-            data: [20, 34, 60, 80, 50, 78, 69],
           },
         ],
       }
@@ -208,7 +262,7 @@ export default {
     var data = {
       title: '',
       subtext: '单位:人',
-      dataY: ['开户层', '入金层', '交易层', '存续层', '失火层'],
+      dataY: ['开户层', '入金层', '交易层', '存续层', '失活层'],
     }
     this.initEcharts(data)
     //获取
@@ -224,12 +278,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .Left_3 {
-  width: 630px;
+  width: 640px;
   height: 400px;
   background: url('../../assets/home/lsef_3_bg.png');
   @include backgroundSize;
   .top {
-    width: 630px;
     height: 60px;
     background: url('../../assets/home/left_3.png') no-repeat;
     @include backgroundSize;
@@ -241,7 +294,7 @@ export default {
       font-family: Source Han Sans CN;
       font-weight: bold;
       color: #f1f1f1;
-      line-height: 60px;
+      line-height: 65px;
       padding-left: 50px;
     }
     .show_times {

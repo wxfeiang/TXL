@@ -31,37 +31,37 @@ export default {
         {
           name: '开户层',
           time: '08:00',
-          data: '11',
+          data: '121',
           other: '2',
-          cont: '5',
+          cont: '215',
         },
         {
           name: '入金层',
           time: '08:00',
-          data: '11',
+          data: '111',
           other: '2',
-          cont: '5',
+          cont: '335',
         },
         {
           name: '交易层',
           time: '08:00',
-          data: '11',
+          data: '171',
           other: '2',
-          cont: '5',
+          cont: '665',
         },
         {
           name: '存续层',
           time: '08:00',
-          data: '11',
+          data: '191',
           other: '2',
-          cont: '5',
+          cont: '53',
         },
         {
           name: '失活层',
           time: '08:00',
-          data: '11',
+          data: '161',
           other: '2',
-          cont: '5',
+          cont: '512',
         },
       ],
       congigTable: {
@@ -148,6 +148,7 @@ export default {
             align: 'center',
             column: 'slot',
             slotName: 'status',
+            width: '60',
           },
         ],
       },
@@ -179,7 +180,7 @@ export default {
       font-family: Source Han Sans CN;
       font-weight: bold;
       color: #f1f1f1;
-      line-height: 50px;
+      line-height: 65px;
       padding-left: 60px;
     }
     .show_times {
@@ -207,11 +208,12 @@ export default {
     color: #2ff8ff;
     text-align: center;
   }
-  /deep/ .el-table thead tr th:last-child {
-    color: #2ff8ff !important;
-  }
   /deep/ .el-table thead tr th {
     height: 58px;
+  }
+
+  /deep/ .dytable .el-table thead tr th:nth-last-child(2) {
+    color: #2ff8ff !important;
   }
 }
 </style>

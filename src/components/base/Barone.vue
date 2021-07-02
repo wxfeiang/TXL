@@ -46,7 +46,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
+            fontSize: 12,
             interval: 0,
             rotate: data.rotate ? data.rotate : 30,
           },
@@ -77,7 +77,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         series: [

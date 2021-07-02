@@ -31,7 +31,7 @@ export default {
       showTime: '2021.05.08 24:00:00',
       barVal: [
         { value: '12%', name: '开户转化率' },
-        { value: '132%', name: '入金转化率' },
+        { value: '32%', name: '入金转化率' },
         { value: '82%', name: '交易转化率' },
         { value: '12%', name: '动态流失率' },
         { value: '23%', name: '静态留存率' },
@@ -88,7 +88,7 @@ export default {
         text-align: right;
         font-size: 14px;
         font-family: Source Han Sans CN;
-        font-weight: 400;
+        font-weight: bold;
         color: #4bf3f9;
         line-height: 20px;
         margin-top: -5px;
@@ -99,7 +99,7 @@ export default {
         font-style: italic;
         color: #4bf3f9;
         text-align: right;
-        font-size: 18px;
+        font-size: 20px;
         line-height: 50px;
       }
     }

@@ -114,7 +114,7 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: 'RGBA(11, 79, 125, 1)',
+                      color: 'RGBA(43,200,255, 1)',
                     },
                     {
                       offset: 1,
@@ -123,7 +123,7 @@ export default {
                   ],
                   false
                 ),
-                shadowColor: 'RGBA(11, 79, 125, 0.2)',
+                shadowColor: 'RGBA(43,200,255, 0.0)',
                 shadowBlur: 20,
               },
             },
@@ -151,11 +151,11 @@ export default {
                   [
                     {
                       offset: 0,
-                      color: 'rgba(0,202,149,0.3)',
+                      color: 'rgba(0,249,227,0.6)',
                     },
                     {
                       offset: 1,
-                      color: 'rgba(0,202,149,0)',
+                      color: 'rgba(0,249,227,0)',
                     },
                   ],
                   false

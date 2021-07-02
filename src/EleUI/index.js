@@ -36,6 +36,7 @@ import {
   TimeSelect,
 } from 'element-ui'
 import Vue from 'vue'
+
 Vue.use(Button)
 Vue.use(Table)
 Vue.use(TableColumn)

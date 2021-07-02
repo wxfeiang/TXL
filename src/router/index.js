@@ -1,3 +1,4 @@
+import store from '@/store'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -84,8 +85,10 @@ const router = new VueRouter({
   routes,
 })
 router.beforeEach((to, from, next) => {
-  console.log(JSON.parse(localStorage.getItem('loginstatus')), 'loginstatus---------')
+  // console.log(JSON.parse(localStorage.getItem('loginstatus')), 'loginstatus---------')
   const isLogin = JSON.parse(localStorage.getItem('loginstatus')) ? true : false
+  // console.log(store, 'store')
+  store.dispatch('setcurrRouter', to.path)
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
     document.title = to.meta.title

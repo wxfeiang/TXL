@@ -8,7 +8,7 @@
       @selection-change="selection"
     >
       <!-- 多选 -->
-      <el-table-column type="selection" width="30" v-if="congigTable.checkbox" align="center"> </el-table-column>
+      <el-table-column type="selection" min-width="30" v-if="congigTable.checkbox" align="center"> </el-table-column>
 
       <!-- 文本 -->
       <template v-for="(item, index) in congigTable.columns">
@@ -17,7 +17,7 @@
           :key="index"
           :prop="item.prop"
           :label="item.label"
-          :width="item.width"
+          :min-width="item.width ? item.width : '60'"
           :align="item.align"
           v-if="item.column == 'slot'"
         >
@@ -30,8 +30,9 @@
           :key="index"
           :prop="item.prop"
           :label="item.label"
-          :width="item.width"
+          :min-width="item.width ? item.width : '60'"
           :align="item.align"
+          :show-overflow-tooltip="true"
           v-else
         >
         </el-table-column>

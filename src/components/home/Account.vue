@@ -14,7 +14,7 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-import LineChart from '@/components/Line.vue'
+import LineChart from '@/components/base/Line.vue'
 export default {
   name: 'Account',
   components: {
@@ -34,12 +34,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .Left_3 {
-  width: 630px;
+  width: 640px;
   height: 460px;
   background: url('../../assets/home/lsef_3_bg.png');
   @include backgroundSize;
   .top {
-    width: 630px;
     height: 60px;
     background: url('../../assets/home/left_3.png') no-repeat;
     @include backgroundSize;
@@ -51,7 +50,7 @@ export default {
       font-family: Source Han Sans CN;
       font-weight: bold;
       color: #f1f1f1;
-      line-height: 60px;
+      line-height: 65px;
       padding-left: 50px;
     }
     .show_times {

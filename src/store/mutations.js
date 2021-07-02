@@ -20,3 +20,6 @@ export const setLoading = (state, data) => {
 export const setProfiles = (state, data) => {
   state.profiles = data
 }
+export const setcurrRouter = (state, data) => {
+  state.currRouter = data
+}

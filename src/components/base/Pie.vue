@@ -32,13 +32,13 @@ export default {
             type: 'pie',
             radius: data.radius ? data.radius : '80%',
             roseType: data.roseType ? data.roseType : '',
-
+            center: ['50%', '60%'],
             data: data.series,
             label: {
               color: '#fff',
               fontFamily: 'Source Han Sans CN',
               fontWeight: 400,
-              fontSize: 14,
+              fontSize: 12,
               formatter: function(data) {
                 return data.name + data.value
               },

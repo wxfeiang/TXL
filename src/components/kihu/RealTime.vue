@@ -49,7 +49,7 @@ export default {
 
   data() {
     return {
-      title: '流量看板',
+      title: '实时看板',
       showTime: '2021.05.08 24:00:00',
       conversionVal: [
         { value: 122, name: '年度开户数' },
@@ -62,7 +62,7 @@ export default {
       ],
       conversionVal3: [
         { value: 12, name: '今日进入开户层人数' },
-        { value: 12, name: '今日转至入金层人数' },
+        { value: 12, name: '今日转至开户层人数' },
       ],
     }
   },

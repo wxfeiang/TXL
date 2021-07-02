@@ -25,32 +25,32 @@ export default {
       tableData: [
         {
           jlxh: '1',
-          name: '华龙证券',
+          name: '上海徐汇广元西路营业部',
           num: '20',
           zb: '10%',
         },
         {
           jlxh: '2',
-          name: '华龙证券ssss',
+          name: '上海徐汇广元西路营业部',
           num: '20',
           zb: '10%',
         },
         {
           jlxh: '3',
-          name: '华龙证券1111',
+          name: '上海徐汇',
           num: '20',
           zb: '10%',
         },
         {
           jlxh: '4',
-          name: '华龙证券1111',
+          name: '上海徐汇广元西路营业部',
           num: '20',
           zb: '10%',
         },
         {
           jlxh: '5',
-          name: '华龙证券1111',
-          num: '2000',
+          name: '上海徐汇广元西路营业部',
+          num: '20',
           zb: '10%',
         },
       ],
@@ -61,7 +61,7 @@ export default {
             id: '1',
             label: '序号',
             prop: 'jlxh',
-            width: '50',
+            width: '30',
           },
           {
             label: '机构名称',
@@ -69,7 +69,7 @@ export default {
             align: 'left',
           },
           {
-            label: '失活人数',
+            label: '失活层人数',
             prop: 'num',
             align: 'center',
           },

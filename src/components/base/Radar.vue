@@ -38,7 +38,7 @@ export default {
                 color: '#fff',
                 fontFamily: 'Source Han Sans CN',
                 fontWeight: 400,
-                fontSize: 14,
+                fontSize: 12,
               },
             },
             splitLine: {
@@ -76,6 +76,7 @@ export default {
             tooltip: {
               trigger: 'item',
             },
+            center: ['50%', '80%'],
             label: {
               color: '#fff',
               fontFamily: 'Source Han Sans CN',

@@ -68,7 +68,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
+            fontSize: 12,
           },
           axisLine: {
             show: false,
@@ -97,7 +97,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-            fontSize: 14,
+            fontSize: 12,
           },
         },
         series: [
@@ -157,7 +157,7 @@ export default {
         arr2 = [],
         arr3 = [],
         arr4 = []
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 7; i++) {
         let rand = Math.ceil(Math.random() * 100)
         let rand2 = Math.ceil(Math.random() * rand)
         let rand3 = Math.ceil(Math.random() * 5)

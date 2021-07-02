@@ -62,7 +62,7 @@ export default {
       font-family: Source Han Sans CN;
       font-weight: bold;
       color: #f1f1f1;
-      line-height: 50px;
+      line-height: 65px;
       padding-left: 60px;
     }
     .show_times {

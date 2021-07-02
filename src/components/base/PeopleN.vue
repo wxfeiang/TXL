@@ -58,16 +58,21 @@ export default {
     }
     span {
       display: inline-block;
-      width: 38px;
-      line-height: 48px;
-      background: linear-gradient(0deg, #06296a, rgba(6, 41, 106, 0));
-      border: 1px solid;
-      border-image: linear-gradient(0deg, rgba(0, 182, 255, 0.8), rgba(0, 182, 255, 0.8)) 1 1;
-      border-radius: 3px;
-      border-image-slice: 1;
+      width: 48px;
+      line-height: 59px;
+      height: 59px;
+
+      background: url('../../assets/home/Numbg.png') center bottom;
+      background-size: cover;
+
+      // background: linear-gradient(0deg, #06296a, rgba(6, 41, 106, 0));
+      // border: 1px solid;
+      // border-image: linear-gradient(0deg, rgba(0, 182, 255, 0.8), rgba(0, 182, 255, 0.8)) 1 1;
+      // border-radius: 3px;
+      // box-shadow: 5px 5px 5px #06296a;
+
       box-sizing: border-box;
-      padding: 0 5px;
-      margin: 0px 10px 0 0;
+      margin: 0px 5px 0 0;
       text-align: center;
       font-family: AlibabaSans-Bold;
       font-size: 40px;

@@ -24,7 +24,7 @@
             <div class="show_times">更新时间： {{ showTime }}</div>
           </div>
           <div class="checkbox">
-            分析层数据
+            分层数据分析
             <el-switch v-model="checkboxVal" @change="change" active-color="#00FDF6"> </el-switch>
           </div>
 
@@ -167,64 +167,12 @@ export default {
   }
 }
 .echart {
-  display: flex;
-  // justify-content: space-around;
-
-  .echarts_left {
-    display: flex;
-    // justify-content: space-between;
-    flex-direction: column;
-    align-items: center;
-  }
   .right_box {
-    // width: 1280px;
-
     background: url('../assets/kihu/liliang.png');
     @include backgroundSize;
     .top {
-      height: 60px;
       background: url('../assets/kihu/lil_titile.png') no-repeat;
       @include backgroundSize;
-
-      display: flex;
-      justify-content: space-between;
-      .title_e {
-        font-size: 16px;
-        font-family: Source Han Sans CN;
-        font-weight: bold;
-        color: #f1f1f1;
-        line-height: 60px;
-        padding-left: 60px;
-      }
-      .show_times {
-        font-size: 12px;
-        font-family: Source Han Sans CN;
-        font-weight: 400;
-        color: rgba(255, 255, 255, 0.5);
-        line-height: 40px;
-        padding-right: 30px;
-      }
-    }
-    .center {
-      display: flex;
-      justify-content: space-between;
-      padding: 0 0 0 30px;
-
-      .box_left {
-        .item {
-          margin: 0 0 20px 0;
-        }
-      }
-      .box_right {
-        display: flex;
-
-        flex-wrap: wrap;
-        padding: 0 0 0 20px;
-        box-sizing: border-box;
-      }
-      .right_item {
-        margin-right: 20px;
-      }
     }
   }
 }

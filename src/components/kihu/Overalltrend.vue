@@ -92,8 +92,8 @@ export default {
       .titleP {
         font-family: Source Han Sans CN;
         font-weight: 400;
-        color: #ffffff;
-        opacity: 0.5;
+        color: $ff05;
+        font-size: 14px;
       }
     }
     .selevt_b {

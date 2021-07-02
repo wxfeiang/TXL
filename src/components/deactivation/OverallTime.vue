@@ -86,27 +86,4 @@ export default {
 .rad_box_right {
   text-align: right;
 }
-
-.dy_date {
-  width: 80px;
-  height: 20px;
-  /deep/ .el-input__inner {
-    padding: 0 10px;
-    background-color: transparent !important;
-    height: 20px;
-    border: 1px solid $ff05 !important;
-  }
-
-  /deep/ .el-input__prefix {
-    color: $ff05;
-    right: -40px;
-    top: -8px;
-  }
-  /deep/ .el-radio {
-    color: $ff05;
-  }
-}
-/deep/ .el-radio__label {
-  color: $ff05;
-}
 </style>

@@ -19,6 +19,8 @@ $ff05 : rgba(255, 255, 255, 0.5);
  background-size: 100% 100%;
  background-repeat: no-repeat;
  box-sizing: border-box   !important;
+ animation-name: example;
+ animation-duration: 4s;
  /deep/  .echarts_box{
     height: 80vh;
 }
@@ -28,39 +30,88 @@ $ff05 : rgba(255, 255, 255, 0.5);
 
 }
 
+.echart {
+    display: flex;
+ 
+  
+    .echarts_left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .right_box {
+      // width: 1280px;
 
-// .echart {
-//     display: flex;
-//     // justify-content: space-around;
+      @include backgroundSize;
+      .top {
+        height: 60px;
+        @include backgroundSize;
   
-//     .echarts_left {
-//       display: flex;
-//       // justify-content: space-between;
-//       flex-direction: column;
-//       align-items: center;
-//     }
-//     .right_box {
-//       width: 1280px !important;
-//       @include backgroundSize;
-//       .center {
-//         display: flex;
-//         justify-content: space-between;
-//         padding: 0 0 0 45px  !important;
+        display: flex;
+        justify-content: space-between;
+        .title_e {
+          font-size: 16px;
+          font-family: Source Han Sans CN;
+          font-weight: bold;
+          color: #f1f1f1;
+          line-height: 60px;
+          padding-left: 60px;
+        }
+        .show_times {
+          font-size: 12px;
+          font-family: Source Han Sans CN;
+          font-weight: 400;
+          color: rgba(255, 255, 255, 0.5);
+          line-height: 40px;
+          padding-right: 30px;
+        }
+      }
+      .center {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 0 0 40px;
   
-//         .box_left {
-//           .item {
-//             margin: 0 0 20px 0;
-//           }
-//         }
-//         .box_right {
-//           display: flex;
-//           flex-wrap: wrap;
-//           padding: 0 0 0 20px;
-//           box-sizing: border-box;
-//         }
-//         .right_item {
-//           margin-right: 20px;
-//         }
-//       }
-//     }
-//   }
+        .box_left {
+          .item {
+            margin: 0 0 20px 0;
+          }
+        }
+        .box_right {
+          display: flex;
+          flex-wrap: wrap;
+          padding: 0 0 0 20px;
+          box-sizing: border-box;
+        }
+        .right_item {
+          margin-right: 20px;
+        }
+      }
+    }
+  }
+  .dy_date {
+    width: 80px;
+    height: 20px;
+    /deep/ .el-input__inner {
+      padding: 0 10px;
+      background-color: transparent !important;
+      height: 20px;
+      border: 1px solid $ff05 !important;
+      color: $ff05;
+    }
+    /deep/ .el-input__prefix {
+      color: $ff05;
+      right: -40px;
+      top: -8px;
+    }
+  }
+  /deep/ .el-radio {
+    color: $ff05;
+   
+  }
+
+/* 动画代码 */
+@keyframes example {
+  from {width: 130px; height: 200px;}
+  to { width: 100% !important;
+    height: 100%  !important;}
+}

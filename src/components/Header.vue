@@ -27,8 +27,9 @@
       </div>
     </div>
     <div class="h_right">
-      <router-link class="desc" to="/index" active-class="active" exact>
-        <img :src="s_home" alt="" />
+      <router-link to="/index" :class="['desc', currRouter === '/home' ? 'active' : '']">
+        <img :src="s_home" alt="" v-if="currRouter === '/home'" />
+        <img :src="s_home2" alt="" v-else />
         <span>
           平台总览
         </span>
@@ -77,6 +78,7 @@ export default {
       title: '悦高用户漏斗分析软件',
       logo: require('../assets/login/logo.png'),
       s_home: require('../assets/home/s_home.png'),
+      s_home2: require('../assets/home/home2.png'),
       action: require('../assets/home/action.png'),
       userimg: require('../assets/home/actor.png'),
       currentTime: {},
@@ -105,7 +107,7 @@ export default {
     //   return this.$store.getters.user
     // },
 
-    ...mapGetters(['user']),
+    ...mapGetters(['user', 'currRouter']),
   },
   methods: {
     getCurrentTime() {

@@ -9,6 +9,7 @@ export const setProfile = ({ commit }, data) => commit('setProfile', data)
 export const setLoading = ({ commit }, data) => commit('setLoading', data)
 
 export const setProfiles = ({ commit }, data) => commit('setProfiles', data)
+export const setcurrRouter = ({ commit }, data) => commit('setcurrRouter', data)
 // 退出后
 export const clearCurrentState = ({ commit }) => {
   commit('setProfile', null)

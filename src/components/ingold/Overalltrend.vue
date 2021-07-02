@@ -50,8 +50,8 @@ export default {
   data() {
     return {
       scren: false,
-      num: '992',
-      people: '开户总人数',
+      num: '882',
+      people: '入金层总人数',
       startY: '',
       endY: '',
       radio: '',
@@ -92,8 +92,8 @@ export default {
       .titleP {
         font-family: Source Han Sans CN;
         font-weight: 400;
-        color: #ffffff;
-        opacity: 0.5;
+        color: $ff05;
+        font-size: 14px;
       }
     }
     .selevt_b {

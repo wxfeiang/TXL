@@ -67,7 +67,7 @@ export default {
       dataList: {
         name: '民族',
         series: [420, 50, 150, 80, 70, 110, 130, 368],
-        dataX: ['一月', '二月', '三月', '四月', '五月'],
+        dataX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       },
     }
   },
@@ -112,28 +112,5 @@ export default {
 }
 .rad_box_right {
   text-align: right;
-}
-
-.dy_date {
-  width: 80px;
-  height: 20px;
-  /deep/ .el-input__inner {
-    padding: 0 10px;
-    background-color: transparent !important;
-    height: 20px;
-    border: 1px solid $ff05 !important;
-  }
-
-  /deep/ .el-input__prefix {
-    color: $ff05;
-    right: -40px;
-    top: -8px;
-  }
-  /deep/ .el-radio {
-    color: $ff05;
-  }
-}
-/deep/ .el-radio__label {
-  color: $ff05;
 }
 </style>

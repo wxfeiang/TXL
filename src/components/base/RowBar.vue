@@ -96,7 +96,7 @@ export default {
                   color: '#fff',
                   fontFamily: 'Source Han Sans CN',
                   fontWeight: 400,
-                  fontSize: 14,
+                  fontSize: 12,
                   position: 'right',
                 },
                 color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [

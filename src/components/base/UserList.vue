@@ -13,6 +13,8 @@
       <div class="tab_warp">
         <Table :tableData="tableData" :congigTable="congigTable" @select="selection">
           <!-- satuas  插槽自定义 -->
+
+          <!-- satuas  插槽自定义 -->
           <template v-slot:xh="slotdata">
             <div class="xh">
               {{ slotdata.data.$index + 1 }}
@@ -62,7 +64,7 @@ export default {
       tableData: [
         {
           jlxh: '1',
-          jgmc: '华龙证券',
+          jgmc: '华龙证券华龙证券华龙证券华龙证券',
           name: '李伟诚',
           sex: '男',
           age: '20',
@@ -187,7 +189,6 @@ export default {
         columns: [
           {
             label: '序号',
-
             width: '40',
             column: 'slot',
             slotName: 'xh',
@@ -236,6 +237,7 @@ export default {
             label: '联系电话',
             prop: 'tel',
             align: 'center',
+            width: '80',
           },
           {
             label: '发送消息',

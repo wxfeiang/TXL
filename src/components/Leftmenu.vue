@@ -102,24 +102,30 @@ export default {
     background-size: 100% 100%;
   }
 
-  .menu_item:nth-child(1) {
-    top: -80px;
+  @for $i from 1 through 5 {
+    .menu_item:nth-child(#{$i}) {
+      top: -20px - $i * 40px;
+      z-index: $i;
+    }
   }
-  .menu_item:nth-child(2) {
-    top: -120px;
-    z-index: 2;
-  }
-  .menu_item:nth-child(3) {
-    top: -160px;
-    z-index: 3;
-  }
-  .menu_item:nth-child(4) {
-    top: -200px;
-    z-index: 4;
-  }
-  .menu_item:nth-child(5) {
-    top: -240px;
-    z-index: 5;
-  }
+  // .menu_item:nth-child(1) {
+  //   top: -80px;
+  // }
+  // .menu_item:nth-child(2) {
+  //   top: -120px;
+  //   z-index: 2;
+  // }
+  // .menu_item:nth-child(3) {
+  //   top: -160px;
+  //   z-index: 3;
+  // }
+  // .menu_item:nth-child(4) {
+  //   top: -200px;
+  //   z-index: 4;
+  // }
+  // .menu_item:nth-child(5) {
+  //   top: -240px;
+  //   z-index: 5;
+  // }
 }
 </style>
