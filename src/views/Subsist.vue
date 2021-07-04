@@ -31,7 +31,7 @@
           <div class="center">
             <div class="box_left">
               <div class="item">
-                <Overalltrend />
+                <Overalltrend @showd="show" />
               </div>
               <div class="item">
                 <OverallTime />
@@ -111,7 +111,7 @@ export default {
   },
   data() {
     return {
-      dialogVisible: true,
+      dialogVisible: false,
       showTime: '2021.05.08 24:00:00',
       title: '流量看板',
       checkboxVal: true,
@@ -135,6 +135,9 @@ export default {
     },
     close() {
       this.dialogVisible = false
+    },
+    show() {
+      this.dialogVisible = true
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）

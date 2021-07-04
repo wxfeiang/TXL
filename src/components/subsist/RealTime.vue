@@ -62,7 +62,7 @@ export default {
       ],
       conversionVal3: [
         { value: 12, name: '今日进入存续层人数' },
-        { value: 12, name: '今日转至入金层人数' },
+        { value: 12, name: '今日转至失活层人数' },
       ],
     }
   },

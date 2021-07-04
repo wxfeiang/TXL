@@ -3,25 +3,23 @@
     <div class="select_box">
       <div class="lab_sban">
         <span>筛选条件</span>
-        <SclectItem :options="qudao" title="渠道" />
-        <SclectItem :options="jigou" title="组织机构" />
-        <SclectItem :options="city" title="所在城市" />
-        <SclectItem :options="cityjb" title="所在城市级别" />
-        <SclectItem :options="age" title="开户年龄" />
-        <SclectItem :options="agetime" title="开户时间" />
-        <SclectItem :options="xueli" title="学历" />
-        <SclectItem :options="sex" title="性别" />
-        <SclectItem :options="mingzu" title="民族" />
-        <SclectItem :options="dengji" title="风险等级" />
-        <!-- <el-select v-model="value" filterable placeholder="请选择" size="mini">
-          <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-        </el-select> -->
+        <SclectItem :options="qudao" :index="0" title="渠道" @select="select" />
+        <SclectItem :options="jigou" :index="1" title="组织机构" @select="select" />
+        <SclectItem :options="city" :index="2" title="所在城市" @select="select" />
+        <SclectItem :options="cityjb" :index="3" title="所在城市级别" @select="select" />
+        <SclectItem :options="age" :index="4" title="开户年龄" @select="select" />
+        <SclectItem :options="agetime" :index="5" title="开户时间" @select="select" />
+        <SclectItem :options="xueli" :index="6" title="学历" @select="select" />
+        <SclectItem :options="sex" :index="7" title="性别" @select="select" />
+        <SclectItem :options="mingzu" :index="8" title="民族" @select="select" />
+        <SclectItem :options="dengji" :index="9" title="风险等级" @select="select" />
       </div>
     </div>
     <div class="select_box">
       <div class="lab_sban">
-        <span>当前条件</span>
-        <span class="showhtml">全部</span>
+        <span class="lable"> 当前条件</span>
+        <span class="showhtml" v-if="selectArr.length == 0">全部</span>
+        <span class="showhtml" v-else v-for="item in selectArr" :key="item">{{ item }}</span>
       </div>
     </div>
   </div>
@@ -120,7 +118,7 @@ export default {
       ],
       mingzu: [
         {
-          value: '汉族',
+          value: '1111',
           label: '汉族',
         },
         {
@@ -134,33 +132,20 @@ export default {
           label: '一级风险',
         },
       ],
-      options: [
-        {
-          value: '选项1',
-          label: '黄金糕',
-        },
-        {
-          value: '选项2',
-          label: '双皮奶',
-        },
-        {
-          value: '选项3',
-          label: '蚵仔煎',
-        },
-        {
-          value: '选项4',
-          label: '龙须面',
-        },
-        {
-          value: '选项5',
-          label: '北京烤鸭',
-        },
-      ],
-      value: '',
+      selectArr: [],
     }
   },
   //方法集合
-  methods: {},
+  methods: {
+    select(selctData) {
+      console.log(selctData)
+
+      this.selectArr[selctData.index] = selctData.label
+
+      console.log(this.selectArr)
+      this.$forceUpdate()
+    },
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
 }
@@ -177,40 +162,22 @@ export default {
   color: #2ff8ff;
   .lab_sban {
     display: flex;
+    .lable {
+      margin-right: 20px;
+    }
     span {
       line-height: 40px;
     }
     .showhtml {
-      margin-left: 20px;
+      margin-right: 20px;
+      // min-width: 60px;
     }
   }
 }
 /deep/ .el-select {
   background: none;
 }
-/deep/ .el-select .el-input__inner {
-  background: none;
-  border: none;
-  color: #2ff8ff;
-}
-//自定义el-input框的一些自定义样式
-/deep/ .selsectbox .el-input--small .el-input__inner {
-  background-color: #e6f0ff;
-  padding-left: 40px;
-  height: 50px;
-  border-radius: 5px;
-  color: #1890ff;
-  font-size: 18px;
-  border: 1px solid #1890ff;
-  font-weight: 600;
-}
-//自定义右边图标
-.selsectbox /deep/.el-input__inner {
-  background: url('../../assets/login/logo.png') no-repeat center center; //引入icon
-  background-size: 17px 19px; //这个是图片的大小，在这里不能直接设置width  height,设置宽高其实是select的宽高，图片可能会失真只设置宽度  高度auto也行
-  background-position: 12px 14px; //在input中定位置  可以调整自定义icon的左右上下位置
-  padding: 0 0 0 26px; //需要设置padding 把placeholder向右移
-  box-sizing: border-box;
-  font-size: 14px;
+.select_item {
+  max-width: 100px;
 }
 </style>

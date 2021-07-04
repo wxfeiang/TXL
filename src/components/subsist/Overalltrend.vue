@@ -3,7 +3,7 @@
     <Title title="整体趋势" @fillscren="fillscren" />
     <div class="Overal">
       <div class="Overal_top">
-        <div class="allnum">{{ num }}</div>
+        <div class="allnum" @click="showd()">{{ num }}</div>
         <div class="titleP">{{ people }}</div>
       </div>
       <div class="selevt_b">
@@ -67,6 +67,9 @@ export default {
     fillscren() {
       this.scren = !this.scren // move the window to 0,0 (X,Y)
       // this.diyWindowResize()
+    },
+    showd() {
+      this.$emit('showd')
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
