@@ -17,8 +17,8 @@ export default {
   data() {
     return {
       scren: false,
-      startY: '',
-      endY: '',
+      startY: '2018',
+      endY: '2021',
       radio: '2',
       radiOption: [
         { label: '2', name: '星期' },
@@ -35,11 +35,13 @@ export default {
         title: '近期未交易人数统计',
         series: [420, 50, 150, 80],
         dataY: ['近60日', '近90日', '近120日', '近150日'],
+        color: ['rgba(0, 183, 255, 0.35)', 'rgba(0, 183, 255, 1)'],
       },
       dataList2: {
         title: '近期未登录交易系统人数统计',
-        series: [20, 50, 150, 80],
+        series: [200, 500, 150, 80],
         dataY: ['近60日', '近90日', '近120日', '近150日'],
+        color: ['rgba(0,249,227, 0.35)', 'rgba(0,249,227)'],
       },
     }
   },

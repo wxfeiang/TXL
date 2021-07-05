@@ -52,8 +52,8 @@ export default {
       scren: false,
       num: '992',
       people: '交易总人数',
-      startY: '',
-      endY: '',
+      startY: '2018',
+      endY: '2021',
       radio: '',
       radiOption: [
         { label: 2, name: '分年展示' },

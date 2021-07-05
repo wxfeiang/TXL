@@ -21,14 +21,14 @@ export default {
   data() {
     return {
       show_times: '2015.01.01-2021.05.07',
-      number: '1118811',
+      number: '693201',
       numberArr: [],
     }
   },
   methods: {
     splitNum() {
-      var num = Math.ceil(Math.random() * 100000).toString()
-      this.number = num
+      // var num = Math.ceil(Math.random() * 100000).toString()
+      // this.number = num
       this.numberArr = this.number.split('')
     },
   },

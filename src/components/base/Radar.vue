@@ -68,6 +68,7 @@ export default {
             },
           },
         ],
+
         series: [
           {
             type: 'radar',
@@ -80,7 +81,7 @@ export default {
               color: '#fff',
               fontFamily: 'Source Han Sans CN',
               fontWeight: 400,
-              fontSize: 14,
+              fontSize: 12,
               formatter: function(data) {
                 console.log(data)
                 return data.name + data.value
@@ -201,10 +202,11 @@ export default {
 <style lang="scss" scoped>
 .echarts_box {
   width: 98%;
-  height: 140px;
+  height: 160px;
   margin: 0 auto;
 }
 .radar {
+  // margin: 10px 0 0 0;
   width: 100%;
   height: 100%;
 }

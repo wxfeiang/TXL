@@ -43,10 +43,10 @@ export default {
       const colorArr = []
       const colorArr2 = []
       let c1 = [
-        'rgba(255,42,156)',
-        'rgba(222,141,47)',
-        'rgba(255,243,42)',
-        'rgba(40,239,116)',
+        'rgba(255,42,156,0.8)',
+        'rgba(222,141,47,0.8)',
+        'rgba(255,243,42,0.8)',
+        'rgba(40,239,116,0.8)',
 
         'rgba(75, 243, 249,0.6)',
       ]
@@ -147,8 +147,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-
-            fontSize: 14,
+            fontSize: 16,
           },
           axisLine: {
             show: false,
@@ -194,6 +193,7 @@ export default {
               position: 'insideLeft',
               distance: -11,
               formatter: '{c}',
+              fontSize: 14,
             },
             itemStyle: {
               normal: {

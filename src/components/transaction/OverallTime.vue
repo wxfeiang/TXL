@@ -50,8 +50,8 @@ export default {
   data() {
     return {
       scren: false,
-      startY: '',
-      endY: '',
+      startY: '2018',
+      endY: '2021',
       radio: '2',
       radiOption: [
         { label: '2', name: '星期' },

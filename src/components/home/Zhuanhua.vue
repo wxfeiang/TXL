@@ -88,7 +88,7 @@ export default {
         text-align: right;
         font-size: 14px;
         font-family: Source Han Sans CN;
-        font-weight: bold;
+
         color: #4bf3f9;
         line-height: 20px;
         margin-top: -5px;

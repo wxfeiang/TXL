@@ -42,7 +42,7 @@ export default {
         // },
         grid: {
           left: '2%',
-          right: '2%',
+          right: '10%',
           bottom: '2%',
           top: '5%',
           containLabel: true,
@@ -102,11 +102,11 @@ export default {
                 color: new this.$echarts.graphic.LinearGradient(0, 0, 1, 0, [
                   {
                     offset: 0,
-                    color: 'rgba(0, 183, 255, 0.35)',
+                    color: data.color[0],
                   },
                   {
                     offset: 1,
-                    color: 'rgba(0, 183, 255, 1)',
+                    color: data.color[1],
                   },
                 ]),
               },

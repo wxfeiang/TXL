@@ -21,7 +21,7 @@ export default {
         name: '学历',
         color: ['#DE8D2F', '#23B5CC', '#1A5FBB', '#25CD84', '#2FF8FF', '#DED71F', '#00B7FF'],
         series: [
-          { value: 48, name: '高中一下' },
+          { value: 48, name: '高中以下' },
           { value: 75, name: '高中' },
           { value: 75, name: '大专' },
           { value: 35, name: '本科' },
