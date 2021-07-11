@@ -193,7 +193,8 @@ export default {
               position: 'insideLeft',
               distance: -11,
               formatter: '{c}',
-              fontSize: 14,
+              fontSize: 16,
+              fontWeight: 'normal',
             },
             itemStyle: {
               normal: {

@@ -20,7 +20,12 @@
         <el-form-item label="">
           <el-row :gutter="20">
             <el-col :span="16">
-              <el-input v-model="form.yanzm" placeholder="请输入验证码" clearable>
+              <el-input
+                v-model="form.yanzm"
+                placeholder="请输入验证码"
+                clearable
+                @keyup.enter.native="submitForm('ruleForm')"
+              >
                 <img slot="prefix" class="el-input__icon el-icon-date" :src="yanz" alt="" />
               </el-input>
             </el-col>
@@ -38,6 +43,7 @@
         </el-form-item>
       </el-form>
     </div>
+    <div class="footer">@ 2020-2021 版权所有 上海悦高软件股份有限公司 <br />版本号：v1.0.01</div>
   </div>
 </template>
 
@@ -49,6 +55,7 @@ export default {
   },
   data() {
     return {
+      loading: true,
       logo: require('../assets/login/logo.png'),
       user: require('../assets/login/user.png'),
       password: require('../assets/login/password.png'),
@@ -146,11 +153,14 @@ export default {
     text-align: center;
     line-height: 80px;
     margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
       width: 24px;
       height: 24px;
-      // vertical-align: top;
       margin: 0px 10px 0 0;
+      vertical-align: middle;
     }
     span {
       font-size: 22px;
@@ -220,5 +230,13 @@ export default {
 }
 h3 {
   font-size: 80px;
+}
+.footer {
+  position: fixed;
+  bottom: 40px;
+  color: $ff05;
+  font-size: 14px;
+  text-align: center;
+  line-height: 30px;
 }
 </style>

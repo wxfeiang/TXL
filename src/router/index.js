@@ -8,7 +8,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '../views/login.vue'),
     meta: {
       title: '登录',
     },
@@ -17,7 +17,7 @@ const routes = [
   {
     path: '/',
     name: 'login',
-    component: () => import(/* webpackChunkName: "about" */ '../views/login.vue'),
+    component: () => import(/* webpackChunkName: "login" */ '../views/login.vue'),
     meta: {
       title: '登录',
     },
@@ -25,7 +25,7 @@ const routes = [
   {
     path: '/index',
     name: 'index',
-    component: () => import(/* webpackChunkName: "about" */ '../views/index.vue'),
+    component: () => import(/* webpackChunkName: "index" */ '../views/index.vue'),
     redirect: '/home',
     children: [
       {
@@ -34,7 +34,7 @@ const routes = [
         meta: {
           title: '首页',
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/home.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/home.vue'),
       },
       {
         path: '/Openaccount',
@@ -42,7 +42,7 @@ const routes = [
         meta: {
           title: '开户层',
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/Openaccount.vue'),
+        component: () => import(/* webpackChunkName: "Openaccount" */ '../views/Openaccount.vue'),
       },
       {
         path: '/Ingold',
@@ -50,7 +50,7 @@ const routes = [
         meta: {
           title: '入金层',
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/Ingold.vue'),
+        component: () => import(/* webpackChunkName: "Ingold" */ '../views/Ingold.vue'),
       },
 
       {
@@ -59,7 +59,7 @@ const routes = [
         meta: {
           title: '交易层',
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/Transaction.vue'),
+        component: () => import(/* webpackChunkName: "Transaction" */ '../views/Transaction.vue'),
       },
       {
         path: '/Subsist',
@@ -67,7 +67,7 @@ const routes = [
         meta: {
           title: '存续层',
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/Subsist.vue'),
+        component: () => import(/* webpackChunkName: "Subsist" */ '../views/Subsist.vue'),
       },
       {
         path: '/Deactivation',
@@ -75,7 +75,7 @@ const routes = [
         meta: {
           title: '失活层',
         },
-        component: () => import(/* webpackChunkName: "about" */ '../views/Deactivation.vue'),
+        component: () => import(/* webpackChunkName: "aboDeactivationut" */ '../views/Deactivation.vue'),
       },
     ],
   },

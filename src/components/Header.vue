@@ -46,7 +46,7 @@
           <el-dropdown @command="logouting" trigger="click">
             <span class="el-dropdown-link">
               <img :src="userimg" alt="" />
-              {{ user.name }}
+              测试用户 ({{ user.name }})
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="0">退出 </el-dropdown-item>
@@ -56,11 +56,11 @@
       </div>
     </div>
 
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" top="30vh">
+    <el-dialog title="提示" class="el-dialog_dy" :visible.sync="dialogVisible" width="30%" top="30vh">
       <span>确定退出系统吗？</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="logout">确 定</el-button>
+        <el-button class="" @click="dialogVisible = false">取 消</el-button>
+        <el-button class="logu_suree" type="primary" @click="logout">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -76,7 +76,7 @@ export default {
   data() {
     return {
       title: '悦高用户漏斗分析软件',
-      logo: require('../assets/login/logo.png'),
+      logo: require('../assets/login/logo.svg'),
       s_home: require('../assets/home/s_home.png'),
       s_home2: require('../assets/home/home2.png'),
       action: require('../assets/home/action.png'),
@@ -252,7 +252,7 @@ export default {
     color: $ff05;
     line-height: 48px;
     justify-content: flex-end;
-    padding-right: 60px;
+    padding-right: 30px;
     .desc {
       margin-left: 20px;
       cursor: pointer;
@@ -313,5 +313,23 @@ export default {
   .router-link-active {
     color: red;
   }
+}
+/deep/ .el-dialog {
+  background: #031a53 !important;
+}
+/deep/ .el-dialog__header {
+  color: #fff;
+}
+/deep/ .el-dialog__header span {
+  color: #fff;
+}
+/deep/ .el-dialog__body {
+  color: #fff;
+}
+.logu_close {
+  background: transparent;
+}
+.logu_suree {
+  background: #2faeff;
 }
 </style>

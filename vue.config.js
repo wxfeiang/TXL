@@ -11,32 +11,43 @@ module.exports = {
   runtimeCompiler: true, // 运行时版本是否需要编译
   transpileDependencies: [], // 默认babel-loader忽略mode_modules，这里可增加例外的依赖包名
   productionSourceMap: false, // 是否在构建生产包时生成 sourceMap 文件，false将提高构建速度
+
   configureWebpack: (config) => {
-    // webpack配置，值位对象时会合并配置，为方法时会改写配置
-    if (debug) {
-      // 开发环境配置
-      config.devtool = 'cheap-module-eval-source-map'
-    } else {
-      // 生产环境配置
+    // 开启分离js
+    config.optimization = {
+      runtimeChunk: 'single',
+      splitChunks: {
+        chunks: 'all',
+        maxInitialRequests: Infinity,
+        minSize: 20000,
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name(module) {
+              // get the name. E.g. node_modules/packageName/not/this/part.js
+              // or node_modules/packageName
+              const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+              // npm package names are URL-safe, but some servers don't like @ symbols
+              return `npm.${packageName.replace('@', '')}`
+            },
+          },
+        },
+      },
     }
-    // Object.assign(config, { // 开发生产共同配置
-    //     resolve: {
-    //         alias: {
-    //             '@': path.resolve(__dirname, './src'),
-    //             '@c': path.resolve(__dirname, './src/components'),
-    //             'vue$': 'vue/dist/vue.esm.js'
-    //         }
-    //     }
-    // })
-  },
-  chainWebpack: (config) => {
-    // webpack链接API，用于生成和修改webapck配置，https://github.com/vuejs/vue-cli/blob/dev/docs/webpack.md
-    if (debug) {
-      // 本地开发配置
-    } else {
-      // 生产开发配置
+    // 取消webpack警告的性能提示
+    config.performance = {
+      hints: 'warning',
+      //入口起点的最大体积
+      maxEntrypointSize: 50000000,
+      //生成文件的最大体积
+      maxAssetSize: 30000000,
+      //只给出 js 文件的性能提示
+      assetFilter: function(assetFilename) {
+        return assetFilename.endsWith('.js')
+      },
     }
   },
+
   parallel: require('os').cpus().length > 1, // 构建时开启多进程处理babel编译
   pluginOptions: {
     // 第三方插件配置
@@ -71,6 +82,16 @@ module.exports = {
       },
     },
     before: (app) => {},
+  },
+  css: {
+    loaderOptions: {
+      less: {
+        javascriptEnabled: true,
+      },
+    },
+    extract: true, // 是否使用css分离插件 ExtractTextPlugin
+    sourceMap: false, // 开启 CSS source maps
+    modules: false, // 启用 CSS modules for all css / pre-processor files.
   },
   chainWebpack: (config) => {
     const oneOfsMap = config.module.rule('scss').oneOfs.store

@@ -8,7 +8,11 @@ export default {
   data() {
     return {
       active: 0,
+      loading: true,
     }
+  },
+  created: function() {
+    this.loading = false
   },
 }
 </script>

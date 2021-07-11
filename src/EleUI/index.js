@@ -17,6 +17,7 @@ import {
   FormItem,
   Header,
   Input,
+  Loading,
   Main,
   Message,
   Notification,
@@ -69,6 +70,10 @@ Vue.use(Dialog)
 
 Vue.use(Switch)
 Vue.use(Pagination)
+
+Vue.use(Loading.directive)
+
+Vue.prototype.$loading = Loading.service
 
 Vue.prototype.$notify = Notification
 Vue.prototype.$message = Message
