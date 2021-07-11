@@ -86,7 +86,7 @@ export default {
     // 检测是否 有记住密码
     if (JSON.parse(localStorage.getItem('users'))) {
       this.form = JSON.parse(localStorage.getItem('users'))
-      //  请求验证码
+      //  请求验证码 ....
     }
     this.getyanzhenme()
   },
