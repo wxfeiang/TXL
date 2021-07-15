@@ -1,4 +1,3 @@
-import store from '@/store'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -16,66 +15,28 @@ const routes = [
   { path: '*', redirect: '/' },
   {
     path: '/',
-    name: 'login',
-    component: () => import(/* webpackChunkName: "login" */ '../views/login.vue'),
+    name: 'homeIndex',
+    component: () => import(/* webpackChunkName: "login" */ '../views/homeIndex.vue'),
     meta: {
-      title: '登录',
+      title: '首页',
     },
-  },
-  {
-    path: '/index',
-    name: 'index',
-    component: () => import(/* webpackChunkName: "index" */ '../views/index.vue'),
-    redirect: '/home',
+    redirect: '/home2',
     children: [
       {
-        path: '/home',
-        name: 'home',
+        path: '/home2',
+        name: 'home2',
         meta: {
           title: '首页',
         },
-        component: () => import(/* webpackChunkName: "home" */ '../views/home.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/home2.vue'),
       },
       {
-        path: '/Openaccount',
-        name: 'Openaccount',
+        path: '/desc',
+        name: 'desc',
         meta: {
-          title: '开户层',
+          title: '首页',
         },
-        component: () => import(/* webpackChunkName: "Openaccount" */ '../views/Openaccount.vue'),
-      },
-      {
-        path: '/Ingold',
-        name: 'Ingold',
-        meta: {
-          title: '入金层',
-        },
-        component: () => import(/* webpackChunkName: "Ingold" */ '../views/Ingold.vue'),
-      },
-
-      {
-        path: '/Transaction',
-        name: 'Transaction',
-        meta: {
-          title: '交易层',
-        },
-        component: () => import(/* webpackChunkName: "Transaction" */ '../views/Transaction.vue'),
-      },
-      {
-        path: '/Subsist',
-        name: 'Subsist',
-        meta: {
-          title: '存续层',
-        },
-        component: () => import(/* webpackChunkName: "Subsist" */ '../views/Subsist.vue'),
-      },
-      {
-        path: '/Deactivation',
-        name: 'Deactivation',
-        meta: {
-          title: '失活层',
-        },
-        component: () => import(/* webpackChunkName: "aboDeactivationut" */ '../views/Deactivation.vue'),
+        component: () => import(/* webpackChunkName: "home" */ '../views/desc.vue'),
       },
     ],
   },
@@ -86,17 +47,18 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
   // console.log(JSON.parse(localStorage.getItem('loginstatus')), 'loginstatus---------')
-  const isLogin = JSON.parse(localStorage.getItem('loginstatus')) ? true : false
+  // const isLogin = JSON.parse(localStorage.getItem('loginstatus')) ? true : false
   // console.log(store, 'store')
-  store.dispatch('setcurrRouter', to.path)
+  // store.dispatch('setcurrRouter', to.path)
   /* 路由发生变化修改页面title */
   if (to.meta.title) {
     document.title = to.meta.title
   }
-  if (to.path == '/login') {
-    next()
-  } else {
-    isLogin ? next() : next('/login')
-  }
+  next()
+  // if (to.path == '/login') {
+  //   next()
+  // } else {
+  //   // isLogin ? next() : next('/login')
+  // }
 })
 export default router

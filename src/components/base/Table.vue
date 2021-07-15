@@ -4,6 +4,7 @@
       :data="tableData"
       style="width: 100%"
       :header-cell-class-name="tableStyle"
+      :cell-style="cellStyle"
       ref="tables"
       @selection-change="selection"
     >
@@ -63,6 +64,17 @@ export default {
     selection(selection) {
       this.$emit('select', selection)
     },
+    cellStyle(row, column, rowIndex, columnIndex) {
+      //根据报警级别显示颜色
+      // console.log(row);
+      // console.log(row.column);
+      // if(row.column.label==="告警级别"&& row.row.alarmLevel==="紧急告警"){
+      //   return 'color:red'
+      // }else if(row.column.label==="告警级别"&& row.row.alarmLevel==="一般告警" ){
+      //   return 'color:yellow'
+      // }
+      return 'color:#333'
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {},
@@ -74,34 +86,34 @@ export default {
   /*最外层透明*/
   /deep/ .el-table,
   /deep/ .el-table__expanded-cell {
-    background-color: transparent;
   }
   /* 表格内背景颜色 */
   /deep/ .el-table th,
   /deep/ .el-table tr,
   /deep/ .el-table td {
-    background-color: transparent;
   }
   /deep/ .el-table td,
   .el-table th.is-leaf {
-    border-color: #052159;
-    color: $ff05;
+    // height: 22px;
+    // padding: 2px 0;
   }
 
   /deep/ .el-table .tableStyle {
     // background: red !important;
-    border-color: #052159;
-    color: $ff05;
-    font-weight: normal;
+    // border-color: #052159;
+    font-size: 14px;
+    font-family: Source Han Sans CN;
+    font-weight: bold;
+    color: #333333;
   }
 
   /deep/ .el-table__body tr:hover > td {
-    color: $ff05;
-    background-color: rgba(2, 51, 177, 0.1) !important;
+    // color: $ff05;
+    // background-color: rgba(2, 51, 177, 0.1) !important;
   }
   /deep/ .el-table__body tr.current-row > td {
-    color: $ff05;
-    background-color: rgba(2, 51, 177, 0.1) !important;
+    // color: $ff05;
+    // background-color: rgba(2, 51, 177, 0.1) !important;
   }
   /deep/ .el-table::before {
     height: 0px;

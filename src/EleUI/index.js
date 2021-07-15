@@ -3,6 +3,8 @@
 import {
   Aside,
   Button,
+  Carousel,
+  CarouselItem,
   Checkbox,
   CheckboxButton,
   CheckboxGroup,
@@ -32,6 +34,8 @@ import {
   Switch,
   Table,
   TableColumn,
+  TabPane,
+  Tabs,
   Tag,
   TimePicker,
   TimeSelect,
@@ -70,7 +74,10 @@ Vue.use(Dialog)
 
 Vue.use(Switch)
 Vue.use(Pagination)
-
+Vue.use(Carousel)
+Vue.use(CarouselItem)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.use(Loading.directive)
 
 Vue.prototype.$loading = Loading.service
