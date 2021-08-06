@@ -65,19 +65,21 @@ module.exports = {
     proxy: {
       // 配置跨域
       '/api': {
-        target: 'http://work.yogoo.net/weworkapi/api/',
+        target: 'http://172.168.0.74:8090/UFLS/',
         ws: true,
         changOrigin: true, // 是否跨域
         pathRewrite: {
           '^/api': '',
         },
       },
-      '/jsonplace': {
-        target: 'http://jsonplaceholder.typicode.com/users',
+      // 线上服务配置
+      '/UFLS': {
+        // target: 'https://www.yoribo.com/UFLS/',
+        target: 'http://172.168.0.74:8090/UFLS/',
         ws: true,
         changOrigin: true, // 是否跨域
         pathRewrite: {
-          '^/jsonplace': '',
+          '^/UFLS': '',
         },
       },
     },

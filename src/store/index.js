@@ -11,7 +11,7 @@ const state = {
   user: {},
   profile: {}, // 存个人信息
   loading: false, // 加载动画
-  profiles: {},
+  time: 5,
   currRouter: '',
 }
 export default new Vuex.Store({

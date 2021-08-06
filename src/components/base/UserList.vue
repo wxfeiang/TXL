@@ -15,11 +15,11 @@
           <!-- satuas  插槽自定义 -->
 
           <!-- satuas  插槽自定义 -->
-          <template v-slot:xh="slotdata">
+          <!-- <template v-slot:xh="slotdata">
             <div class="xh">
               {{ slotdata.data.$index + 1 }}
             </div>
-          </template>
+          </template> -->
           <!-- satuas  插槽自定义 -->
           <template v-slot:action="slotdata">
             <!-- {{ slotdata.data.cont }} -->
@@ -35,7 +35,7 @@
             :current-page.sync="currentPage"
             :page-size="100"
             layout="total,prev, pager, next, jumper"
-            :total="1000"
+            :total="total"
           >
           </el-pagination>
         </div>
@@ -51,138 +51,23 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import Table from '@/components/base/Table.vue'
+import { propTalbe } from '@/api/subsist'
 export default {
   components: {
     Table,
+  },
+  props: {
+    msg: String,
+    querArr: Array,
   },
   data() {
     return {
       selectArr: [],
       title: '客户存续列表',
       dclose: require('../../assets/kihu/dclose.png'),
-      currentPage: 5,
-      tableData: [
-        {
-          jlxh: '1',
-          jgmc: '华龙证券华龙证券华龙证券华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-        {
-          jlxh: '2',
-          jgmc: '华龙证券',
-          name: '李伟诚',
-          sex: '男',
-          age: '20',
-          mz: '汉族',
-          city: '上海',
-          fengx: '三级风险',
-          tel: '178000999',
-          send: 'sss',
-        },
-      ],
+      currentPage: 1,
+      limt: 10,
+      tableData: [],
       congigTable: {
         checkbox: true,
         xh: true,
@@ -190,24 +75,25 @@ export default {
           {
             label: '序号',
             width: '40',
-            column: 'slot',
-            slotName: 'xh',
+            prop: 'jlxh',
+            // column: 'slot',
+            // slotName: 'xh',
             align: 'center',
           },
           {
             label: '开户机构名称',
-            prop: 'jgmc',
+            prop: 'org_name',
             align: 'left',
             width: '100',
           },
           {
             label: '客户姓名',
-            prop: 'name',
+            prop: 'cust_name',
             align: 'center',
           },
           {
             label: '性别',
-            prop: 'sex',
+            prop: 'sex_code_zh',
             width: '40',
             align: 'center',
           },
@@ -218,19 +104,19 @@ export default {
             align: 'center',
           },
           {
-            label: '名族',
-            prop: 'mz',
+            label: '民族',
+            prop: 'nation_zh',
             width: '80',
             align: 'center',
           },
           {
             label: '所在城市',
-            prop: 'city',
+            prop: 'city_code_zh',
             align: 'center',
           },
           {
             label: '风险等级',
-            prop: 'fengx',
+            prop: 'risk_level_code_zh',
             align: 'center',
           },
           {
@@ -248,6 +134,7 @@ export default {
           },
         ],
       },
+      total: '',
     }
   },
   //方法集合
@@ -285,10 +172,33 @@ export default {
     },
     handleCurrentChange(val) {
       console.log(`当前页: ${val}`)
+      this.currentPage = val
+      this.getTable()
+    },
+    // 弹框
+    getTable() {
+      let curArr = [
+        ['p_start', this.currentPage, 'C', '255'],
+        ['p_limit', this.limt, 'C', '255'],
+      ]
+      let pramArr = this.querArr.concat(curArr)
+      console.log(pramArr)
+      propTalbe(pramArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var resObj = JSON.parse(res.data.Data)[0]
+          this.tableData = resObj.root
+          this.total = resObj.totalProperty
+
+          console.log(resObj, '--------baige ')
+        } else {
+          console.log(res.data.Data)
+        }
+      })
     },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getTable()
+  },
 }
 </script>
 <style lang="scss" scoped>

@@ -7,40 +7,62 @@
       <div class="show_times">统计时间：{{ showTime }}</div>
     </div>
     <div class="center">
-      <LineChart />
+      <LineChart :chartData="chartData" />
     </div>
   </div>
 </template>
 <script>
-//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import LineChart from '@/components/base/Line.vue'
+
+import { openSumLine } from '@/api/home'
 export default {
   name: 'Account',
   components: {
     LineChart,
   },
+  props: {
+    msg: String,
+    querArr: Array,
+  },
   data() {
     return {
       title: '开户数总体情况',
-      showTime: '2021.05.08 24:00:00',
+      showTime: '',
+      chartData: [],
     }
   },
   //方法集合
-  methods: {},
+  methods: {
+    getData(pramArr) {
+      openSumLine(pramArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+          console.log(obj, 'objcont')
+          this.chartData = obj
+          this.showTime = obj.length > 0 ? obj[0].update_time : '未知'
+        }
+      })
+    },
+  },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getData(this.querArr)
+  },
 }
 </script>
 <style lang="scss" scoped>
 .Left_3 {
-  width: 640px;
+  width: 1120px;
   height: 460px;
-  background: url('../../assets/home/lsef_3_bg.png');
+  background: url('../../assets/home/tabls.png') no-repeat;
   @include backgroundSize;
   .top {
+    width: 1120px;
     height: 60px;
-    background: url('../../assets/home/left_3.png') no-repeat;
+    padding: 0 10px;
+    background: url('../../assets/home/right_22.png') no-repeat;
+
     @include backgroundSize;
 
     display: flex;

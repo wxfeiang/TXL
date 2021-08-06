@@ -22,12 +22,11 @@ export default {
   methods: {
     initEcharts(data) {
       console.log(data)
-
-      var salvProValue = [239, 181, 154, 144, 135, 117, 74, 72, 67]
-      var salvProMax = [] //背景按最大值
-      for (let i = 0; i < salvProValue.length; i++) {
-        salvProMax.push(salvProValue[0])
-      }
+      // var salvProValue = [239, 181, 154, 144, 135, 117, 74, 72, 67]
+      // var salvProMax = [] //背景按最大值
+      // for (let i = 0; i < salvProValue.length; i++) {
+      //   salvProMax.push(salvProValue[0])
+      // }
       this.chartInstance = this.$echarts.init(this.$refs.Lineone)
       let option = {
         // title: {
@@ -121,20 +120,19 @@ export default {
     //获取数据
     getData() {
       //..
-      //   this.updateChart()
+      this.updateChart()
       //   // 启动定时器
       //   this.startInterval()
     },
     // 更新数据
     updateChart() {
-      const arr = []
-      for (let i = 0; i < 6; i++) {
-        // let rand = Math.ceil(Math.random() * 100)
-      }
       const dataOption = {
+        yAxis: {
+          data: this.dataList.dataY,
+        },
         series: [
           {
-            data: arr,
+            data: this.dataList.series,
           },
         ],
       }
@@ -157,7 +155,15 @@ export default {
       this.chartInstance.resize()
     },
   },
-
+  watch: {
+    dataList: {
+      handler(val, olVal) {
+        // console.log('我变sdsdsd化了', val, olVal) //但是val和olVal值一样
+        this.getData()
+      },
+      deep: true,
+    },
+  },
   mounted() {
     var data = this.dataList
     this.initEcharts(data)

@@ -3,6 +3,8 @@
 import {
   Aside,
   Button,
+  Cascader,
+  CascaderPanel,
   Checkbox,
   CheckboxButton,
   CheckboxGroup,
@@ -39,6 +41,8 @@ import {
 import Vue from 'vue'
 
 Vue.use(Button)
+Vue.use(CascaderPanel)
+Vue.use(Cascader)
 Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Tag)

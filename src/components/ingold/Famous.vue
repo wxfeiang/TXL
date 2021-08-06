@@ -11,40 +11,70 @@
 
 import Title from '@/components/base/Title.vue'
 import Bar from '@/components/base/Bar.vue'
+import { minzu } from '@/api/ingold'
 export default {
   components: {
     Title,
     Bar,
-    // SclectItem,
+  },
+
+  props: {
+    msg: String,
+    querArr: Array,
   },
   data() {
     return {
-      qudao: [
-        {
-          value: '渠道',
-          label: '渠道',
-        },
-        {
-          value: '渠道2',
-          label: '渠道2',
-        },
-      ],
       scren: false,
       dataList: {
         name: '民族',
-        series: [420, 50, 150, 80, 70, 110, 130, 368],
-        dataX: ['汉族', '壮族', '满族', '维吾尔族', '其他'],
+        series: [],
+        dataX: [],
       },
     }
+  },
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {
+    this.getData()
   },
   //方法集合
   methods: {
     fillscren() {
       this.scren = !this.scren
+      this.getData()
+    },
+    //格式化数据
+    dataAC(arr) {
+      let name = [],
+        value = []
+      arr.forEach((item) => {
+        name.push(item.nation_zh)
+        value.push(item.cust_count)
+      })
+
+      if (!this.scren) {
+        return {
+          value: value.splice(0, 5),
+          name: name.splice(0, 5),
+        }
+      } else {
+        return {
+          value,
+          name,
+        }
+      }
+    },
+    // 数据
+    getData() {
+      minzu(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+
+          this.dataList.series = this.dataAC(obj).value
+          this.dataList.dataX = this.dataAC(obj).name
+        }
+      })
     },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

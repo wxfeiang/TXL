@@ -1,7 +1,6 @@
 <template>
   <div :class="['OverallTime', scren ? 'fillscren' : ' ']" id="OverallTime">
-    <Title title="失活预警分析" @fillscren="fillscren" />
-
+    <Title title="失活层预警分析" @fillscren="fillscren" />
     <RowBar :dataList="dataList" />
     <RowBar :dataList="dataList2" />
   </div>
@@ -9,39 +8,28 @@
 <script>
 import Title from '@/components/base/Title.vue'
 import RowBar from '@/components/base/RowBar.vue'
+import { layerYjfx } from '@/api/deactivation'
 
 export default {
   components: {
     Title,
     RowBar,
   },
+  props: {
+    msg: String,
+    querArr: Array,
+  },
   data() {
     return {
       scren: false,
-      startY: '',
-      endY: '',
-      radio: '2',
-      radiOption: [
-        { label: '2', name: '星期' },
-        { label: '3', name: '月度' },
-        { label: '4', name: '季度' },
-        { label: '5', name: '时段' },
-      ],
-      radio2: '3',
-      radiOption2: [
-        { label: '3', name: '总计' },
-        { label: '4', name: '均值' },
-      ],
       dataList: {
-        title: '近期未交易人数统计',
-        series: [420, 50, 150, 80],
-        dataY: ['近60日', '近90日', '近120日', '近150日'],
+        series: [],
+        dataY: [],
         color: ['rgba(0, 183, 255, 0.35)', 'rgba(0, 183, 255, 1)'],
       },
       dataList2: {
-        title: '近期未登录交易系统人数统计',
-        series: [200, 500, 150, 80],
-        dataY: ['近60日', '近90日', '近120日', '近150日'],
+        series: [],
+        dataY: [],
         color: ['rgba(0,249,227, 0.35)', 'rgba(0,249,227)'],
       },
     }
@@ -52,9 +40,47 @@ export default {
       this.scren = !this.scren // move the window to 0,0 (X,Y)
       // this.diyWindowResize()
     },
+    //  格式化数据
+    dataAC(arr) {
+      let series = [],
+        name = []
+
+      arr.forEach((item) => {
+        series.push(item.cust_count)
+        name.push(item.day_num_zh)
+
+        console.log(item)
+      })
+      return {
+        series,
+        name,
+      }
+    },
+
+    getData() {
+      layerYjfx(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          let obj = JSON.parse(res.data.Data)
+          this.dataList = {
+            series: this.dataAC(obj[0].root).series,
+            dataY: this.dataAC(obj[0].root).name,
+            title: '近期未交易人数统计',
+          }
+          this.dataList2 = {
+            series: this.dataAC(obj[1].root).series,
+            dataY: this.dataAC(obj[1].root).name,
+            title: '近期未登录交易系统人数统计',
+          }
+        } else {
+          console.log(res.data.Data)
+        }
+      })
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getData(this.querArr)
+  },
 }
 </script>
 <style lang="scss" scoped>

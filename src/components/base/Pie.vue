@@ -1,16 +1,14 @@
 <template>
   <div class="echarts_box" ref="echarts_box">
-    <div class="pie" ref="Lineone"></div>
+    <div class="pie" ref="pie"></div>
   </div>
 </template>
 <script>
-//这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
-//例如：import 《组件名称》 from '《组件路径》';
-
 export default {
-  name: 'Lineone',
+  name: 'pie',
   props: {
     dataList: Object,
+    chartData: Array,
   },
   data() {
     return {
@@ -20,7 +18,7 @@ export default {
   },
   methods: {
     initEcharts(data) {
-      this.chartInstance = this.$echarts.init(this.$refs.Lineone)
+      this.chartInstance = this.$echarts.init(this.$refs.pie)
       let option = {
         color: data.color,
         tooltip: {
@@ -58,25 +56,23 @@ export default {
     },
     //获取数据
     getData() {
-      //..
-      //   this.updateChart()
+      this.initEcharts(this.dataList)
+
+      this.updateChart(this.chartData)
       //   // 启动定时器
-      //   this.startInterval()
+      // this.startInterval()
     },
     // 更新数据
-    updateChart() {
-      const arr = []
-      for (let i = 0; i < 6; i++) {
-        // let rand = Math.ceil(Math.random() * 100)
-      }
+    updateChart(data) {
+      // console.log(data, 'sdfasddata')
+
       const dataOption = {
         series: [
           {
-            data: arr,
+            data: data,
           },
         ],
       }
-
       this.chartInstance.setOption(dataOption)
     },
     //  TODO 定时
@@ -95,10 +91,12 @@ export default {
       this.chartInstance.resize()
     },
   },
-
+  watch: {
+    chartData() {
+      this.getData()
+    },
+  },
   mounted() {
-    var data = this.dataList
-    this.initEcharts(data)
     //获取
     this.getData()
     // 监听

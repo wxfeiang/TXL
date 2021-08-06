@@ -1,7 +1,7 @@
 <template>
   <div :class="['items', scren ? 'fillscren' : ' ']" id="OverallTime">
     <Title title="学历" @fillscren="fillscren" />
-    <Pie :dataList="dataList" />
+    <Pie :dataList="dataList" :chartData="chartData" />
   </div>
 </template>
 <script>
@@ -9,10 +9,16 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Title from '@/components/base/Title.vue'
 import Pie from '@/components/base/Pie.vue'
+
+import { xueli } from '@/api/openaccount'
 export default {
   components: {
     Title,
     Pie,
+  },
+  props: {
+    msg: String,
+    querArr: Array,
   },
   data() {
     return {
@@ -20,26 +26,43 @@ export default {
       dataList: {
         name: '学历',
         color: ['#DE8D2F', '#23B5CC', '#1A5FBB', '#25CD84', '#2FF8FF', '#DED71F', '#00B7FF'],
-        series: [
-          { value: 48, name: '高中以下' },
-          { value: 75, name: '高中' },
-          { value: 75, name: '大专' },
-          { value: 35, name: '本科' },
-          { value: 5, name: '硕士' },
-          { value: 75, name: '博士' },
-          { value: 35, name: '博士后' },
-        ],
       },
+      chartData: [],
     }
+  },
+
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {
+    this.getData()
   },
   //方法集合
   methods: {
     fillscren() {
       this.scren = !this.scren
     },
+
+    //格式化数据
+    dataAC(arr) {
+      let nArr = []
+      arr.forEach((item) => {
+        nArr.push({
+          value: item.cust_count,
+          name: item.education_zh,
+        })
+      })
+      return nArr
+    },
+    // 性别数据
+    getData() {
+      xueli(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+          console.log(obj, 'sezx')
+          this.chartData = this.dataAC(obj)
+        }
+      })
+    },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

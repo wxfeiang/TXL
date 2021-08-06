@@ -20,24 +20,53 @@
 </template>
 
 <script>
+import { changeSaveRate } from '@/api/home'
 export default {
   name: 'Zhuanhua',
   props: {
     msg: String,
+    querArr: Array,
   },
   data() {
     return {
       title: '实时转化率/留存率',
       showTime: '2021.05.08 24:00:00',
-      barVal: [
-        { value: '12%', name: '开户转化率' },
-        { value: '32%', name: '入金转化率' },
-        { value: '82%', name: '交易转化率' },
-        { value: '12%', name: '动态流失率' },
-        { value: '23%', name: '静态留存率' },
-        { value: '12%', name: '动态留存率' },
-      ],
+      barVal: [],
     }
+  },
+  created: function() {
+    this.getData(this.querArr)
+  },
+  methods: {
+    // 请求实时分层数据
+    getData(pramArr) {
+      changeSaveRate(pramArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root[0]
+          this.showTime = obj.length > 0 ? obj.update_time : '未知'
+          if (obj) {
+            this.barVal = [
+              { value: obj.in_capital_rate + '%', name: '入金转化率' },
+              { value: obj.trd_rate + '%', name: '交易转化率' },
+              { value: obj.hold_rate + '%', name: '存续转化率' },
+              { value: obj.lost_rate + '%', name: '静态留存率' },
+              { value: obj.jt_save_rate + '%', name: '动态留存率' },
+              { value: obj.dt_save_rate + '%', name: '动态流失率' },
+            ]
+            // this.$forceUpdate()
+          } else {
+            this.barVal = [
+              { value: '0', name: '入金转化率' },
+              { value: '0', name: '交易转化率' },
+              { value: '0', name: '存续转化率' },
+              { value: '0', name: '静态留存率' },
+              { value: '0', name: '动态留存率' },
+              { value: '0', name: '动态流失率' },
+            ]
+          }
+        }
+      })
+    },
   },
 }
 </script>

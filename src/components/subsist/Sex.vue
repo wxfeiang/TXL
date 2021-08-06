@@ -1,7 +1,7 @@
 <template>
   <div :class="['items', scren ? 'fillscren' : ' ']" id="OverallTime">
     <Title title="性别" @fillscren="fillscren" />
-    <Pie :dataList="dataList" />
+    <Pie :dataList="dataList" :chartData="chartData" />
   </div>
 </template>
 <script>
@@ -9,10 +9,15 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Title from '@/components/base/Title.vue'
 import Pie from '@/components/base/Pie.vue'
+import { sex } from '@/api/subsist'
 export default {
   components: {
     Title,
     Pie,
+  },
+  props: {
+    msg: String,
+    querArr: Array,
   },
   data() {
     return {
@@ -20,21 +25,43 @@ export default {
       dataList: {
         name: '性别',
         color: ['#00B7FF', '#DE8D2F'],
-        series: [
-          { value: 1048, name: '男' },
-          { value: 735, name: '女' },
-        ],
       },
+      chartData: [],
     }
+  },
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {
+    this.getData(this.querArr)
   },
   //方法集合
   methods: {
     fillscren() {
       this.scren = !this.scren
     },
+    //格式化数据
+    dataAC(arr) {
+      let nArr = []
+      arr.forEach((item) => {
+        nArr.push({
+          value: item.cust_count,
+          name: item.sex_zh,
+        })
+      })
+      return nArr
+    },
+    // 性别数据
+    getData() {
+      sex(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+          console.log(obj, 'sezx')
+          this.chartData = this.dataAC(obj)
+          console.log(this.dataList)
+          // this.$forceUpdate()
+        }
+      })
+    },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

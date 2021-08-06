@@ -8,7 +8,8 @@ import '@/assets/js/china.js' // 引入中国地图数据
 export default {
   name: 'china',
   props: {
-    msg: String,
+    dataList: Object,
+    chartData: Array,
   },
   data() {
     return {
@@ -17,152 +18,32 @@ export default {
     }
   },
   methods: {
-    initEcharts(data) {
+    initEcharts() {
       this.chartInstance = this.$echarts.init(this.$refs.china)
-      var dataList = [
-        {
-          name: '南海诸岛',
-          value: 0,
-        },
-        {
-          name: '北京',
-          value: 54,
-        },
-        {
-          name: '天津',
-          value: 13,
-        },
-        {
-          name: '上海',
-          value: 40,
-        },
-        {
-          name: '重庆',
-          value: 75,
-        },
-        {
-          name: '河北',
-          value: 13,
-        },
-        {
-          name: '河南',
-          value: 83,
-        },
-        {
-          name: '云南',
-          value: 11,
-        },
-        {
-          name: '辽宁',
-          value: 19,
-        },
-        {
-          name: '黑龙江',
-          value: 15,
-        },
-        {
-          name: '湖南',
-          value: 69,
-        },
-        {
-          name: '安徽',
-          value: 60,
-        },
-        {
-          name: '山东',
-          value: 39,
-        },
-        {
-          name: '新疆',
-          value: 4,
-        },
-        {
-          name: '江苏',
-          value: 31,
-        },
-        {
-          name: '浙江',
-          value: 104,
-        },
-        {
-          name: '江西',
-          value: 36,
-        },
-        {
-          name: '湖北',
-          value: 1052,
-        },
-        {
-          name: '广西',
-          value: 33,
-        },
-        {
-          name: '甘肃',
-          value: 7,
-        },
-        {
-          name: '山西',
-          value: 9,
-        },
-        {
-          name: '内蒙古',
-          value: 7,
-        },
-        {
-          name: '陕西',
-          value: 22,
-        },
-        {
-          name: '吉林',
-          value: 4,
-        },
-        {
-          name: '福建',
-          value: 18,
-        },
-        {
-          name: '贵州',
-          value: 5,
-        },
-        {
-          name: '广东',
-          value: 98,
-        },
-        {
-          name: '青海',
-          value: 1,
-        },
-        {
-          name: '西藏',
-          value: 0,
-        },
-        {
-          name: '四川',
-          value: 44,
-        },
-        {
-          name: '宁夏',
-          value: 4,
-        },
-        {
-          name: '海南',
-          value: 22,
-        },
-        {
-          name: '台湾',
-          value: 3,
-        },
-        {
-          name: '香港',
-          value: 5,
-        },
-        {
-          name: '澳门',
-          value: 5,
-        },
-      ]
+
       let option = {
-        tooltip: {},
+        tooltip: {
+          formatter: function(params) {
+            return `${params.data ? params.data.region_zh : params.name}<br/>
+                ${params.data ? params.data.value : 0} 
+            `
+          },
+        },
+        visualMap: {
+          show: false,
+          min: 0,
+          left: 0,
+          bottom: 0,
+          itemWidth: 10, //图形的宽度，即长条的宽度。
+          itemHeight: 40,
+          textStyle: {
+            color: '#fff',
+          },
+          inRange: {
+            //定义 在选中范围中 的视觉元素
+            color: ['#306de8', '#2a91e2', '#00FFFF'],
+          },
+        },
 
         //地图区域样式
         geo: {
@@ -208,7 +89,6 @@ export default {
             name: '城市',
             type: 'map',
             geoIndex: 0,
-            data: dataList,
           },
         ],
       }
@@ -217,21 +97,24 @@ export default {
     },
     //获取数据
     getData() {
+      this.initEcharts()
       //..
-      //   this.updateChart()
+
+      this.updateChart(this.chartData)
       //   // 启动定时器
       //   this.startInterval()
     },
     // 更新数据
-    updateChart() {
-      const arr = []
-      for (let i = 0; i < 6; i++) {
-        // let rand = Math.ceil(Math.random() * 100)
-      }
+    updateChart(data) {
+      data.forEach((item) => {
+        ;(item.name = item.region_zh.replace(new RegExp(/省|自治区|维吾尔自治区|市|回族自治区|壮族自治区/), '')),
+          (item.value = item.cust_count)
+      })
+      console.log('地图数据', data)
       const dataOption = {
         series: [
           {
-            data: arr,
+            data: data,
           },
         ],
       }
@@ -254,18 +137,12 @@ export default {
       this.chartInstance.resize()
     },
   },
-
+  watch: {
+    chartData() {
+      this.getData()
+    },
+  },
   mounted() {
-    var data = {
-      title: '',
-      subtext: '单位:人',
-      name: '性别',
-      arr: [
-        { value: 1048, name: '男' },
-        { value: 735, name: '女' },
-      ],
-    }
-    this.initEcharts(data)
     //获取
     this.getData()
     // 监听

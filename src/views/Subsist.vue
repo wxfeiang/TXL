@@ -1,18 +1,18 @@
 <template>
   <div class="subsist" id="">
     <div class="home_action">
-      <Action />
-      <PeopleN />
+      <Action @sleData="sleData" />
+      <PeopleN :openUdata="userdata" />
     </div>
 
     <div class="echart">
       <!-- echartbox -->
       <div class="echarts_left">
         <div class="echarts_left_top">
-          <RealTime />
+          <RealTime ref="RealTime" :querArr="querArr" />
         </div>
         <div class="echarts_left_boot">
-          <Ranking />
+          <Ranking ref="Ranking" :querArr="querArr" />
         </div>
       </div>
       <div class="echarts_right">
@@ -31,36 +31,36 @@
           <div class="center">
             <div class="box_left">
               <div class="item">
-                <Overalltrend @showd="show" />
+                <Overalltrend @showd="show" ref="Overalltrend" :querArr="querArr2" :checkboxVal="checkboxVal" />
               </div>
               <div class="item">
-                <OverallTime />
+                <OverallTime ref="overallTime" :querArr="querArr2" />
               </div>
             </div>
             <div class="box_right">
               <div class="right_item">
-                <Sex />
+                <Sex ref="sex" :querArr="querArr2" />
               </div>
               <div class="right_item">
-                <City />
+                <City ref="city" :querArr="querArr2" />
               </div>
               <div class="right_item">
-                <Xueli />
+                <Xueli ref="xueli" :querArr="querArr2" />
               </div>
               <div class="right_item">
-                <Level />
+                <Level ref="level" :querArr="querArr2" />
               </div>
               <div class="right_item">
-                <Age />
+                <Age ref="age" :querArr="querArr2" />
               </div>
               <div class="right_item">
-                <Qudao />
+                <Qudao ref="qudao" :querArr="querArr2" />
               </div>
               <div class="right_item">
-                <Fenxian />
+                <Fenxian ref="fenxian" :querArr="querArr2" />
               </div>
               <div class="right_item">
-                <Famous />
+                <Famous ref="famous" :querArr="querArr2" />
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@
       </div>
     </div>
     <el-dialog :visible.sync="dialogVisible" :show-close="false" width="60%">
-      <UserList @close="close" />
+      <UserList @close="close" :querArr="querArr" />
     </el-dialog>
   </div>
 </template>
@@ -90,6 +90,8 @@ import Age from '@/components/subsist/Age.vue'
 import Fenxian from '@/components/subsist/Fenxian.vue'
 import Famous from '@/components/subsist/Famous.vue'
 
+import { openCountSum } from '@/api/home'
+import mixinTime from '@/api/mixinTime'
 export default {
   name: 'subsist',
   components: {
@@ -109,16 +111,65 @@ export default {
     Famous,
     UserList,
   },
+  mixins: [mixinTime],
   data() {
     return {
       dialogVisible: false,
-      showTime: '2021.05.08 24:00:00',
+      // showTime: '2021.05.08 24:00:00',
       title: '流量看板',
       checkboxVal: true,
+      userdata: {},
+      qurselect: [],
+      querArr: [
+        ['p_canal_code', '', 'C', '255'],
+        ['p_org_code', '', 'C', '255'],
+        ['p_city_code', '', 'C', '255'],
+        ['p_city_level_code', '', 'C', '255'],
+        ['p_open_age_code', '', 'C', '4'],
+        ['p_open_date', '', 'C', '255'],
+        ['p_education_code', '', 'C', '255'],
+        ['p_sex_code', '', 'C', '255'],
+        ['p_nation_code', '', 'C', '255'],
+        ['p_risk_level_code', '', 'C', '255'],
+      ],
+      querArr2: [
+        ['p_layer_status', '1', 'C', '255'],
+        ['p_canal_code', '', 'C', '255'],
+        ['p_org_code', '', 'C', '255'],
+        ['p_city_code', '', 'C', '255'],
+        ['p_city_level_code', '', 'C', '255'],
+        ['p_open_age_code', '', 'C', '4'],
+        ['p_open_date', '', 'C', '255'],
+        ['p_education_code', '', 'C', '255'],
+        ['p_sex_code', '', 'C', '255'],
+        ['p_nation_code', '', 'C', '255'],
+        ['p_risk_level_code', '', 'C', '255'],
+      ],
     }
   },
   //方法集合
   methods: {
+    close() {
+      this.dialogVisible = false
+    },
+    show() {
+      this.dialogVisible = true
+    },
+
+    //请求开户人数
+    getcumer() {
+      openCountSum().then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)
+          this.userdata = obj[0].root[0]
+        } else {
+          this.$message({
+            message: res.data.Data,
+            type: 'error',
+          })
+        }
+      })
+    },
     change() {
       console.log(this.checkboxVal)
       if (this.checkboxVal) {
@@ -126,22 +177,74 @@ export default {
           message: '已开启',
           type: 'success',
         })
+
+        this.querArr2[0][1] = '1'
       } else {
         this.$message({
           message: '已关闭！',
           type: 'success',
         })
+        this.querArr2[0][1] = '2'
       }
+
+      // 请求看板数据
+      this.updateData()
     },
-    close() {
-      this.dialogVisible = false
+    //下拉框选择赋值
+    sleData(sleData) {
+      // console.log(this.qurselect)
+      console.log(sleData, '父组件接收到----')
+      this.qurselect = sleData
+
+      let querArr = [
+        ['p_canal_code', this.qurselect[0].value ? this.qurselect[0].value : '', 'C', '4'],
+        ['p_org_code', this.qurselect[1].value ? this.qurselect[1].value : '', 'C', '4'],
+        ['p_city_code', this.qurselect[2].value ? this.qurselect[2].value : '', 'C', '4'],
+        ['p_city_level_code', this.qurselect[3].value ? this.qurselect[3].value : '', 'C', '4'],
+        ['p_open_age_code', this.qurselect[4].value ? this.qurselect[4].value : '', 'C', '4'],
+        ['p_open_date', this.qurselect[5].value ? this.qurselect[5].value : '', 'C', '4'],
+        ['p_education_code', this.qurselect[6].value ? this.qurselect[6].value : '', 'C', '4'],
+        ['p_sex_code', this.qurselect[7].value ? this.qurselect[7].value : '', 'C', '4'],
+        ['p_nation_code', this.qurselect[8].value ? this.qurselect[8].value : '', 'C', '4'],
+        ['p_risk_level_code', this.qurselect[9].value ? this.qurselect[9].value : '', 'C', '4'],
+      ]
+      console.log(querArr, '--------------------------')
+      // 看板需要的数据
+      this.querArr2.concat(querArr)
+
+      this.querArr = querArr
+
+      console.log(this.querArr2, '---------querArr2-----------------')
+
+      this.querArr = querArr
+
+      this.updateData()
     },
-    show() {
-      this.dialogVisible = true
+    // 右侧看板
+    updateData() {
+      this.getcumer()
+      // 左侧数据
+      this.$refs.RealTime.getData()
+      this.$refs.Ranking.getData()
+
+      // 右侧数据 querArr2
+
+      this.$refs.Overalltrend.getData()
+      this.$refs.overallTime.getData()
+      this.$refs.sex.getData()
+      this.$refs.city.getData()
+      this.$refs.xueli.getData()
+      this.$refs.level.getData()
+      this.$refs.age.getData()
+      this.$refs.qudao.getData()
+      this.$refs.fenxian.getData()
+      this.$refs.famous.getData()
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  created() {
+    this.getcumer()
+  },
 }
 </script>
 <style lang="scss" scoped>

@@ -43,33 +43,55 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import { openlayerTime } from '@/api/openaccount'
 export default {
   name: 'RealTime',
-
+  props: {
+    msg: String,
+    querArr: Array,
+  },
   data() {
     return {
       title: '实时看板',
       showTime: '2021.05.08 24:00:00',
-      conversionVal: [
-        { value: 122, name: '年度开户数' },
-        { value: 122, name: '月度开户数' },
-        { value: 1222, name: '今日开户数' },
-      ],
-      conversionVal2: [
-        { value: 12, name: '开户层总人数' },
-        { value: '1%', name: '占开户总数比' },
-      ],
-      conversionVal3: [
-        { value: 12, name: '今日进入开户层人数' },
-        { value: 12, name: '今日转至入金层人数' },
-      ],
+      conversionVal: [],
+      conversionVal2: [],
+      conversionVal3: [],
     }
   },
+  created: function() {
+    this.getData()
+  },
   //方法集合
-  methods: {},
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
+  methods: {
+    // 请求实时分层数据
+    getData() {
+      openlayerTime(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root[0]
+
+          if (obj) {
+            this.conversionVal = [
+              { value: obj.open_count_year, name: '年度开户数' },
+              { value: obj.open_count_month, name: '月度开户数' },
+              { value: obj.open_count_day, name: '今日开户数' },
+            ]
+            this.conversionVal2 = [
+              { value: obj.open_count_layer_all, name: '开户层总人数' },
+              { value: obj.open_count_zb + '%', name: '占开户总数比' },
+            ]
+            this.conversionVal3 = [
+              { value: obj.open_count_day_in, name: '今日进入开户层人数' },
+              { value: obj.open_count_day_to_goldin, name: '今日转至入金层人数' },
+            ]
+            this.showTime = obj.update_time
+
+            // this.$forceUpdate()
+          }
+        }
+      })
+    },
+  },
 }
 </script>
 <style lang="scss" scoped>

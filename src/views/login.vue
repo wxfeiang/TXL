@@ -43,18 +43,23 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="footer">@ 2020-2021 版权所有 上海悦高软件股份有限公司 <br />版本号：v1.0.01</div>
+    <div class="footer">@ {{ year - 2 }}-{{ year }} 版权所有 {{ conplay }} <br />版本号：{{ bbh }}</div>
   </div>
 </template>
 
 <script>
+import md5 from 'js-md5'
 import yanzhenma from '@/components/base/yanzhenma.vue'
+import { login } from '@/api/login'
 export default {
   components: {
     yanzhenma,
   },
   data() {
     return {
+      year: '',
+      bbh: 'v1.0.05',
+      conplay: '上海悦高软件股份有限公司',
       loading: true,
       logo: require('../assets/login/logo.png'),
       user: require('../assets/login/user.png'),
@@ -69,8 +74,8 @@ export default {
       yanzmserve: '',
 
       form: {
-        name: '1053',
-        password: '000000',
+        name: '',
+        password: '',
         yanzm: '',
       },
       rules: {
@@ -89,10 +94,19 @@ export default {
       //  请求验证码,,,,,
     }
     this.getyanzhenme()
+    this.getYear()
   },
   methods: {
+    getYear() {
+      var date = new Date()
+
+      date.getYear() //获取当前年份(2位)
+
+      date.getFullYear() //获取完整的年份(4位)
+
+      this.year = date.getFullYear()
+    },
     submitForm(ruleForm) {
-      console.log(this.form)
       this.$refs[ruleForm].validate((valid) => {
         if (valid) {
           if (this.form.yanzm.toLowerCase() != this.yanzmserve.toLowerCase()) {
@@ -102,19 +116,17 @@ export default {
             })
             return false
           }
-
+          // let randomStr = Math.random()
+          //   .toString(36)
+          //   .substr(2)
           //  请求登录接口
-          // 存储登录状态
-          localStorage.setItem('loginstatus', true)
-          //  跳转首页
-          //分发 actions并更改state  true 传入
-          this.$store.dispatch('setIsAutnenticated', true)
-          this.$store.dispatch('setUser', this.form)
-          this.$message({
-            message: '登录成功!',
-            type: 'success',
-          })
-          this.$router.push({ name: 'index' })
+          console.log(md5(this.form.password))
+          let pramArr = [
+            ['p_userid', this.form.name, 'C', '4'],
+            ['p_pwd', md5(this.form.password), 'C', '40'],
+            ['p_num', this.form.yanzm, 'C', '40'],
+          ]
+          this.login(pramArr)
         } else {
           console.log('error submit!!')
           return false
@@ -132,6 +144,39 @@ export default {
     },
     getyanzhenme(data) {
       this.yanzmserve = data
+    },
+
+    login(pramArr) {
+      //  由于和  最新版本  echarts  放弃 async   await
+      //     async
+      // const res = await getRoles(dataArr)
+      // console.log(res)
+
+      login(pramArr).then((res) => {
+        console.log(res, res.data.ErrorCode)
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)
+          console.log(obj)
+          var userdata = obj[0].root[0]
+
+          // 存储登录状态
+          localStorage.setItem('loginstatus', true)
+          //  跳转首页
+          // 分发 actions并更改state  true 传入
+          this.$store.dispatch('setIsAutnenticated', true)
+          this.$store.dispatch('setUser', userdata)
+          this.$message({
+            message: '登录成功!',
+            type: 'success',
+          })
+          this.$router.push({ name: 'index' })
+        } else {
+          this.$message({
+            message: res.data.Data,
+            type: 'error',
+          })
+        }
+      })
     },
   },
 }

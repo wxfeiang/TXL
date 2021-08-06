@@ -59,9 +59,18 @@ export default {
         },
         yAxis: {
           type: 'value',
+          minInterval: 0.1, //分割刻度
           nameTextStyle: {
             color: '#00FFFF',
           },
+          max: function(value) {
+            //取最大值向上取整为最大刻度
+            console.log(value.max, 'value,max')
+            return Math.ceil(value.max)
+          },
+          min: 0,
+          splitNumber: 2,
+
           splitLine: {
             lineStyle: {
               type: 'solid',
@@ -75,7 +84,11 @@ export default {
             show: false,
           },
           axisLabel: {
-            formatter: '{value}',
+            formatter: function(value) {
+              var str = value / 1000
+
+              return str > 0 ? str + 'k' : str
+            },
             color: 'rgba(255,255,255,0.5)',
             fontSize: 12,
           },
@@ -93,7 +106,7 @@ export default {
                   color: '#fff',
                   fontFamily: 'Source Han Sans CN',
                   fontWeight: 400,
-                  fontSize: 14,
+                  fontSize: 10,
                   position: 'top',
                 },
                 color: {
@@ -123,20 +136,19 @@ export default {
     //获取数据
     getData() {
       //..
-      //   this.updateChart()
+      this.updateChart()
       //   // 启动定时器
-      //   this.startInterval()
+      //this.startInterval()
     },
     // 更新数据
     updateChart() {
-      const arr = []
-      for (let i = 0; i < 6; i++) {
-        // let rand = Math.ceil(Math.random() * 100)
-      }
       const dataOption = {
+        xAxis: {
+          data: this.dataList.dataX,
+        },
         series: [
           {
-            data: arr,
+            data: this.dataList.series,
           },
         ],
       }
@@ -159,7 +171,15 @@ export default {
       this.chartInstance.resize()
     },
   },
-
+  watch: {
+    dataList: {
+      handler(val, olVal) {
+        // console.log('我变sdsdsd化了', val, olVal) //但是val和olVal值一样
+        this.getData()
+      },
+      deep: true,
+    },
+  },
   mounted() {
     var data = this.dataList
     this.initEcharts(data)

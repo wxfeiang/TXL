@@ -1,7 +1,7 @@
 <template>
   <div :class="['items', scren ? 'fillscren' : ' ']" id="OverallTime">
     <Title title="城市" @fillscren="fillscren" />
-    <ChinaMap />
+    <ChinaMap :chartData="chartData" />
   </div>
 </template>
 <script>
@@ -9,26 +9,54 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Title from '@/components/base/Title.vue'
 import ChinaMap from '@/components/base/ChinaMap.vue'
-
+import { city } from '@/api/openaccount'
 export default {
   name: 'City',
   components: {
     Title,
     ChinaMap,
   },
+  props: {
+    msg: String,
+    querArr: Array,
+  },
   data() {
     return {
       scren: false,
+      chartData: [],
     }
+  },
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {
+    this.getData()
   },
   //方法集合
   methods: {
     fillscren() {
       this.scren = !this.scren
     },
+    //格式化数据
+    dataAC(arr) {
+      let nArr = []
+      arr.forEach((item) => {
+        nArr.push({
+          value: item.cust_count,
+          name: item.sex_zh,
+        })
+      })
+      return nArr
+    },
+    // 性别数据
+    getData() {
+      city(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+          console.log(obj, 'city')
+          this.chartData = obj
+        }
+      })
+    },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

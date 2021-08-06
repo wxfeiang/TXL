@@ -1,7 +1,7 @@
 <template>
   <div :class="['items', scren ? 'fillscren' : ' ']" id="OverallTime">
     <Title title="渠道" @fillscren="fillscren" />
-    <Pie :dataList="dataList" />
+    <Pie :dataList="dataList" :chartData="chartData" />
   </div>
 </template>
 <script>
@@ -9,10 +9,15 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Title from '@/components/base/Title.vue'
 import Pie from '@/components/base/Pie.vue'
+import { qudao } from '@/api/subsist'
 export default {
   components: {
     Title,
     Pie,
+  },
+  props: {
+    msg: String,
+    querArr: Array,
   },
   data() {
     return {
@@ -20,28 +25,44 @@ export default {
       dataList: {
         name: '渠道',
         color: ['#DE8D2F', '#23B5CC', '#1A5FBB', '#25CD84', '#2FF8FF', '#DED71F', '#00B7FF'],
-        series: [
-          { value: 48, name: '银行' },
-          { value: 73, name: '员工' },
-          { value: 205, name: '经纪人' },
-          { value: 115, name: '网络' },
-          { value: 5, name: '非银行' },
-          { value: 175, name: '客户经理' },
-        ],
-        radius: ['25%', '50%'],
 
+        radius: ['25%', '50%'],
         roseType: 'area',
       },
+      chartData: [],
     }
+  },
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {
+    this.getData()
   },
   //方法集合
   methods: {
     fillscren() {
       this.scren = !this.scren
     },
+    //格式化数据
+    dataAC(arr) {
+      let nArr = []
+      arr.forEach((item) => {
+        nArr.push({
+          value: item.cust_count,
+          name: item.canal_zh,
+        })
+      })
+      return nArr
+    },
+    // 性别数据
+    getData() {
+      qudao(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+
+          this.chartData = this.dataAC(obj)
+        }
+      })
+    },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

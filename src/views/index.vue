@@ -32,7 +32,9 @@ export default {
   min-height: 1080px;
   background: url('../assets/home/bg_n.jpg') no-repeat top center;
   @include backgroundSize;
-
+  .el-header {
+    height: 60px !important;
+  }
   .el-aside {
     width: 70px !important;
     overflow: hidden;

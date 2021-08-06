@@ -8,12 +8,14 @@ export const setProfile = ({ commit }, data) => commit('setProfile', data)
 
 export const setLoading = ({ commit }, data) => commit('setLoading', data)
 
-export const setProfiles = ({ commit }, data) => commit('setProfiles', data)
+export const setTime = ({ commit }, data) => commit('setTime', data)
 export const setcurrRouter = ({ commit }, data) => commit('setcurrRouter', data)
 // 退出后
 export const clearCurrentState = ({ commit }) => {
   commit('setProfile', null)
   commit('setUser', null)
   commit('setIsAutnenticated', false)
+  commit('setTime', 5)
+  commit('setcurrRouter', null)
   clearStorage()
 }

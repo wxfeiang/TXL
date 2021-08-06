@@ -12,6 +12,7 @@ export default {
   props: {
     dataList: Object,
   },
+
   data() {
     return {
       chartInstance: null,
@@ -41,14 +42,13 @@ export default {
         },
         xAxis: {
           type: 'category',
-          data: data.dataX,
           boundaryGap: true,
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
             fontSize: 12,
             interval: 0,
-            rotate: data.rotate ? data.rotate : 30,
+            rotate: 30,
           },
           axisLine: {
             show: false,
@@ -75,14 +75,17 @@ export default {
             show: false,
           },
           axisLabel: {
-            formatter: '{value}',
+            formatter: function(value) {
+              var str = value / 1000
+
+              return str > 0 ? str + 'k' : str
+            },
             color: 'rgba(255,255,255,0.5)',
             fontSize: 12,
           },
         },
         series: [
           {
-            data: data.series,
             type: 'bar',
             showBackground: false,
             barWidth: 20, //柱图宽度
@@ -93,7 +96,7 @@ export default {
                   color: '#fff',
                   fontFamily: 'Source Han Sans CN',
                   fontWeight: 400,
-                  fontSize: 14,
+                  fontSize: 10,
                   position: 'top',
                 },
                 color: {
@@ -126,17 +129,22 @@ export default {
       //   this.updateChart()
       //   // 启动定时器
       //   this.startInterval()
+
+      this.initEcharts()
+      this.updateChart()
     },
     // 更新数据
     updateChart() {
-      const arr = []
-      for (let i = 0; i < 6; i++) {
-        // let rand = Math.ceil(Math.random() * 100)
-      }
       const dataOption = {
+        xAxis: {
+          data: this.dataList.dataX,
+          rotate: this.dataList.rotate ? this.dataList.rotate : 30,
+        },
+
         series: [
           {
-            data: arr,
+            name: this.dataList.name,
+            data: this.dataList.series,
           },
         ],
       }
@@ -159,10 +167,17 @@ export default {
       this.chartInstance.resize()
     },
   },
+  watch: {
+    dataList: {
+      handler(val, olVal) {
+        console.log('单条折线图', val, olVal) //但是val和olVal值一样
+        this.getData()
+      },
+      deep: true,
+    },
+  },
 
   mounted() {
-    var data = this.dataList
-    this.initEcharts(data)
     //获取
     this.getData()
     // 监听

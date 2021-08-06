@@ -14,24 +14,19 @@
 <script>
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
-
+import { layerSum } from '@/api/home'
 export default {
   name: 'General',
 
   props: {
     msg: String,
+    querArr: Array,
   },
   data() {
     return {
       title: '漏斗层总体情况',
-      showTime: '2021.05.08 24:00:00',
-      conversionVal: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-        { value: 12, name: '开户层' },
-      ],
+      showTime: '',
+
       chartInstance: null,
       timerId: null, // 定时器的标识
     }
@@ -147,7 +142,7 @@ export default {
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
-            fontSize: 16,
+            fontSize: 12,
           },
           axisLine: {
             show: false,
@@ -157,7 +152,6 @@ export default {
           splitLine: {
             show: false,
           },
-          data: data.dataY.reverse(),
         },
         series: [
           {
@@ -212,34 +206,78 @@ export default {
       }
       this.chartInstance.setOption(option)
     },
+    //格式化数据
+    dataAC(arr) {
+      let nArr = []
+      arr.forEach((item) => {
+        nArr.push({
+          value: item.subitem_code,
+          label: item.subitem_name,
+        })
+      })
+      return nArr
+    },
     //获取数据
-    getData() {
+    getData(pramArr) {
+      var data = {
+        title: '',
+        subtext: '单位:人',
+      }
+      this.initEcharts(data)
       //..
-      this.updateChart()
+      this.updateChart(pramArr)
       // 启动定时器
       // this.startInterval()
     },
     // 更新数据
-    updateChart() {
-      const arr = [],
-        arr2 = []
-      for (let i = 0; i < 6; i++) {
-        let rand = Math.ceil(Math.random() * 100)
-        arr.push(~rand)
-        arr2.push(rand)
-      }
-      const dataOption = {
-        series: [
-          {
-            data: arr,
-          },
-          {
-            data: arr2,
-          },
-        ],
-      }
+    updateChart(pramArr) {
+      layerSum(pramArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)
+          this.showTime = obj.length > 0 ? obj[0].root[0].update_time : '未知'
+          const arr = [],
+            arr2 = [],
+            arrY = []
+          if (obj[0].root.length > 0) {
+            obj[0].root.forEach((item) => {
+              arr.push(~(item.cuset_count * 1))
+              arr2.push(item.cuset_count * 1)
+              arrY.push(item.layer_name)
+            })
+          } else {
+            this.chartInstance.showLoading({
+              text: '暂无数据',
+              fontSize: 18,
+              color: 'transparent', // loading颜色，设置成透明或白色，不然会显示loading状态
+              textColor: '#42c1f1', // 文字颜色
+              maskColor: 'transparent', // 背景色
+            })
+          }
 
-      this.chartInstance.setOption(dataOption)
+          const dataOption = {
+            yAxis: {
+              data: arrY,
+            },
+            series: [
+              {
+                data: arr,
+              },
+              {
+                data: arr2,
+              },
+            ],
+          }
+          this.chartInstance.setOption(dataOption)
+        } else {
+          this.chartInstance.showLoading({
+            text: '暂无数据',
+            fontSize: 18,
+            color: 'transparent', // loading颜色，设置成透明或白色，不然会显示loading状态
+            textColor: '#42c1f1', // 文字颜色
+            maskColor: 'transparent', // 背景色
+          })
+        }
+      })
     },
     //  TODO 定时
 
@@ -259,14 +297,8 @@ export default {
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   mounted() {
-    var data = {
-      title: '',
-      subtext: '单位:人',
-      dataY: ['开户层', '入金层', '交易层', '存续层', '失活层'],
-    }
-    this.initEcharts(data)
     //获取
-    this.getData()
+    this.getData(this.querArr)
     // 监听
     window.addEventListener('resize', this.screenAdapter)
   },

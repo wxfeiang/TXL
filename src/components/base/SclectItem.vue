@@ -1,23 +1,32 @@
 <template>
   <div class="select">
-    <el-dropdown @command="handleCommand" trigger="click">
+    <el-dropdown @command="handleCommand">
+      <!--    <el-dropdown @command="handleCommand" trigger="click" :hide-on-click="hide"> -->
       <span class="el-dropdown-link">
         <span>{{ title }}</span
         ><i class="el-icon-arrow-down el-icon-caret-bottom"></i>
       </span>
-      <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item :command="item.value" v-for="(item, index) in options" :key="index"
-          >{{ item.label }}
-        </el-dropdown-item>
-      </el-dropdown-menu>
+      <template v-if="flog == 0">
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item :command="item.value" v-for="(item, index) in options" :key="index"
+            >{{ item.label }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
+      <!--  多选 -->
+      <template v-if="flog == 1">
+        <el-dropdown-menu slot="dropdown">
+          <el-cascader-panel
+            ref="csca"
+            :options="options"
+            v-model="selecVal"
+            :show-all-levels="false"
+            @change="change()"
+            :props="{ expandTrigger: 'hover' }"
+          ></el-cascader-panel>
+        </el-dropdown-menu>
+      </template>
     </el-dropdown>
-
-    <!-- 备用select -->
-    <!-- <div class="select_item">
-          <el-select v-model="value" placeholder="所在城市级别" size="mini" @change="change">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-          </el-select>
-        </div> -->
   </div>
 </template>
 
@@ -29,17 +38,21 @@ export default {
     title: String,
     options: Array,
     index: Number,
+    flog: {
+      type: String,
+      default: '0',
+    },
   },
   data() {
     return {
       selecVal: '',
+      hide: true,
     }
   },
-  created: function() {
-    this.selecVal = this.options[0].value
-  },
+  created: function() {},
   methods: {
     handleCommand(command) {
+      console.log(command, 'commandcommand')
       //  同样适用于  select 的
       this.selecVal = command
       let obj = {}
@@ -53,6 +66,18 @@ export default {
       }
       // console.log(selctData)
       this.$emit('select', selctData)
+    },
+    change() {
+      let selctData = this.$refs.csca.getCheckedNodes()[0].data
+      selctData.index = this.index
+      this.$emit('select', selctData)
+    },
+  },
+  watch: {
+    userdata(data) {
+      console.log(data)
+      this.selecVal = this.options[0].value
+      this.hide = true
     },
   },
 }
@@ -70,6 +95,12 @@ export default {
     min-width: 50px;
     cursor: pointer;
   }
+}
+.el-dropdown-menu {
+  max-height: 250px !important;
+  background: rgb(255, 255, 255) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
 }
 // /deep/ .el-select .el-input__inner {
 //   background: none;

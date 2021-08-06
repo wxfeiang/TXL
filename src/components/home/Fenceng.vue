@@ -20,23 +20,59 @@
 </template>
 
 <script>
+import { timeNowSum } from '@/api/home'
 export default {
   name: 'Fenceng',
   props: {
     msg: String,
+    querArr: Array,
   },
   data() {
     return {
       title: '实时分层数据',
-      showTime: '2021.05.08 24:00:00',
-      conversionVal: [
-        { value: 12, name: '开户层' },
-        { value: 12, name: '入金层' },
-        { value: 122, name: '交易层' },
-        { value: 162, name: '存续层' },
-        { value: 172, name: '失活层' },
-      ],
+      showTime: '',
+      conversionVal: [],
     }
+  },
+  created: function() {
+    this.getData(this.querArr)
+  },
+  methods: {
+    //数据格式化
+    dataAC(arr) {
+      let nArr = []
+      arr.forEach((item) => {
+        nArr.push({
+          value: item.cuset_count,
+          name: item.layer_name,
+        })
+      })
+      console.log(nArr)
+      return nArr
+    },
+    // 请求实时分层数据
+    getData(pramArr) {
+      timeNowSum(pramArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+          console.log(obj, 'fencegn')
+          this.showTime = obj.length > 0 ? obj[0].update_time : '未知'
+          if (obj.length) {
+            this.conversionVal = this.dataAC(obj)
+
+            // this.$forceUpdate()
+          } else {
+            this.conversionVal = [
+              { value: 0, name: '开户层' },
+              { value: 0, name: '入金层' },
+              { value: 0, name: '交易层' },
+              { value: 0, name: '存续层' },
+              { value: 0, name: '失活层' },
+            ]
+          }
+        }
+      })
+    },
   },
 }
 </script>

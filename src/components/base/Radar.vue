@@ -11,6 +11,7 @@ export default {
   name: 'radar',
   props: {
     dataList: Object,
+    chartData: Object,
   },
   data() {
     return {
@@ -20,7 +21,6 @@ export default {
   },
   methods: {
     initEcharts(data) {
-      this.chartInstance = this.$echarts.init(this.$refs.radar)
       let option = {
         tooltip: {
           trigger: 'axis',
@@ -141,28 +141,34 @@ export default {
     },
     //获取数据
     getData() {
-      //..
-      //   this.updateChart()
-      //   // 启动定时器
-      //   this.startInterval()
+      var data = this.dataList
+
+      this.initEcharts(data)
+      console.log('getdata-------------', data)
+      this.updateChart(data)
     },
     // 更新数据
-    updateChart() {
-      const arr = []
-      for (let i = 0; i < 6; i++) {
-        // let rand = Math.ceil(Math.random() * 100)
-      }
+    updateChart(data) {
       const dataOption = {
+        radar: [
+          {
+            indicator: data.indicator,
+          },
+        ],
+
         series: [
           {
-            data: arr,
+            data: [
+              {
+                value: data.value,
+                name: data.name,
+              },
+            ],
           },
         ],
       }
-
       this.chartInstance.setOption(dataOption)
     },
-    //  TODO 定时
 
     startInterval() {
       if (this.timerId) {
@@ -178,13 +184,19 @@ export default {
       this.chartInstance.resize()
     },
   },
+  watch: {
+    dataList: {
+      handler(val, olVal) {
+        console.log('雷达图数据dsd化了', val, olVal) //但是val和olVal值一样
+        this.getData()
+      },
+      deep: true,
+    },
+  },
 
   mounted() {
-    var data = this.dataList
-    this.initEcharts(data)
-    //获取
-    this.getData()
     // 监听
+    this.chartInstance = this.$echarts.init(this.$refs.radar)
     window.addEventListener('resize', this.screenAdapter)
 
     this.$erd.listenTo(this.$refs.echarts_box, () => {

@@ -9,40 +9,87 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import Title from '@/components/base/Title.vue'
 import Radar from '@/components/base/Radar.vue'
+
+import { fengxian } from '@/api/ingold'
+
 export default {
   components: {
     Title,
     Radar,
   },
+  props: {
+    msg: String,
+    querArr: Array,
+  },
   data() {
     return {
       scren: false,
+      chartData: {},
       dataList: {
-        name: '风险级别',
-        color: ['#DE8D2F', '#23B5CC', '#1A5FBB', '#25CD84', '#2FF8FF', '#DED71F', '#00B7FF'],
-
-        indicator: [
-          { text: '一级风险', max: 100 },
-          { text: '二级风险', max: 100 },
-          { text: '三级风险', max: 100 },
-          { text: '四级风险', max: 100 },
-          { text: '四级风险', max: 100 },
-        ],
-        value: [60, 73, 85, 100, 10],
-        radius: ['25%', '50%'],
-
-        roseType: 'area',
+        // name: '风险级别',
+        // color: ['#DE8D2F', '#23B5CC', '#1A5FBB', '#25CD84', '#2FF8FF', '#DED71F', '#00B7FF'],
+        // indicator: [
+        //   { text: '一级风险', max: 1000 },
+        //   { text: '二级风险', max: 1000 },
+        //   { text: '三级风险', max: 1000 },
+        //   { text: '四级风险', max: 1000 },
+        //   { text: '5级风险', max: 1000 },
+        // ],
+        // value: [60, 73, 85, 100, 1000],
+        // radius: ['25%', '50%'],
+        // roseType: 'area',
       },
     }
+  },
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {
+    this.getData()
   },
   //方法集合
   methods: {
     fillscren() {
       this.scren = !this.scren
     },
+    //格式化数据
+    dataAC(arr) {
+      let indicator = []
+      let value = []
+      arr.forEach((item) => {
+        indicator.push({
+          max: '',
+          text: item.risk_level_zh,
+        })
+        value.push(item.cust_count)
+      })
+      let max = Math.max.apply(null, value)
+      console.log(max, 'max')
+      indicator.forEach((item) => {
+        item.max = max
+      })
+
+      return {
+        value,
+        indicator,
+        name: '风险等级',
+      }
+    },
+    // dataValue
+
+    // 数据
+    getData() {
+      fengxian(this.querArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          var obj = JSON.parse(res.data.Data)[0].root
+          console.log(obj, 'fengxian------------')
+          this.dataList = this.dataAC(obj)
+
+          console.log(this.dataList, 'fengxian------------')
+        } else {
+          console.log(res.data.Data)
+        }
+      })
+    },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
 }
 </script>
 <style lang="scss" scoped>

@@ -9,6 +9,11 @@
 
 export default {
   name: 'LineFour',
+  props: {
+    dataList: Object,
+    chartData: Array,
+    seriesNmae: Array,
+  },
 
   data() {
     return {
@@ -60,7 +65,7 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: data.dataX,
+
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
@@ -98,8 +103,6 @@ export default {
         },
         series: [
           {
-            name: '月均开户数',
-            data: [800, 902, 700, 304, 190, 133, 130],
             type: 'line',
             areaStyle: {
               normal: {
@@ -136,8 +139,6 @@ export default {
             },
           },
           {
-            name: '今年开户数',
-            data: [820, 932, 900, 834, 120, 130, 130],
             type: 'line',
 
             symbolSize: 8,
@@ -176,8 +177,6 @@ export default {
             },
           },
           {
-            name: '月均开户数',
-            data: [800, 902, 700, 304, 190, 133, 130],
             type: 'line',
             areaStyle: {
               normal: {
@@ -214,8 +213,6 @@ export default {
             },
           },
           {
-            name: '月均开户数',
-            data: [800, 902, 700, 304, 190, 133, 130],
             type: 'line',
             areaStyle: {
               normal: {
@@ -253,6 +250,8 @@ export default {
           },
         ],
       }
+      // option.series = this.chartData.length == 1 ? option.series.splice(0, 3) : option
+
       this.chartInstance.setOption(option)
     },
     //获取数据
@@ -264,41 +263,29 @@ export default {
     },
     // 更新数据
     updateChart() {
-      const arr = [],
-        arr2 = [],
-        arr3 = [],
-        arr4 = []
-      for (let i = 0; i < 6; i++) {
-        let rand = Math.ceil(Math.random() * 10)
-        let rand2 = Math.ceil(Math.random() * 2)
-        let rand3 = Math.ceil(Math.random() * 5)
-        let rand4 = Math.ceil(Math.random() * 33)
-        arr.push(rand)
-        arr2.push(rand2)
-        arr3.push(rand3)
-        arr4.push(rand4)
+      let dataX = [],
+        series = []
+      for (var i = 1; i < 13; i++) dataX.push(i + '月')
+      console.log(this.chartData, ' this.chartData44444444444444444444444')
+
+      this.chartData.forEach((item, index) => {
+        series.push({ data: item[0], name: this.seriesNmae[index] })
+      })
+      if (this.chartData.length == 1) {
+        series[1] = { data: null, name: null }
+        series[2] = { data: null, name: null }
+        series[3] = { data: null, name: null }
       }
+
       const dataOption = {
-        series: [
-          {
-            data: arr,
-          },
-          {
-            data: arr2,
-          },
-          {
-            data: arr3,
-          },
-          {
-            data: arr4,
-          },
-        ],
+        xAxis: {
+          data: dataX,
+        },
+        series,
       }
 
       this.chartInstance.setOption(dataOption)
     },
-    //  TODO 定时
-
     startInterval() {
       if (this.timerId) {
         clearInterval(this.timerId)
@@ -314,12 +301,16 @@ export default {
       this.chartInstance.resize()
     },
   },
+  watch: {
+    chartData() {
+      this.getData()
+    },
+  },
 
   mounted() {
     var data = {
       title: '',
       subtext: '单位:人',
-      dataX: ['1月', '2月', '3月', '4月', '5月', '6月'],
     }
     this.initEcharts(data)
     //获取

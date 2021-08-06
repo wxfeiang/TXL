@@ -5,7 +5,7 @@
       <span v-for="(item, index) in numberArr" :key="index">{{ item }}</span>
       <b> 人</b>
     </div>
-    <div class="time">统计时间 ： {{ show_times }}</div>
+    <div class="time">统计时间 ： {{ openUdata.open_datetime_begin }}-{{ openUdata.open_datetime_end }}</div>
   </div>
 </template>
 
@@ -13,23 +13,31 @@
 export default {
   name: 'PeopleN',
   props: {
-    msg: String,
+    openUdata: Object,
   },
-  created() {
-    this.splitNum()
-  },
+
   data() {
     return {
-      show_times: '2015.01.01-2021.05.07',
-      number: '693201',
       numberArr: [],
+      number: '',
     }
+  },
+  // mounted: function() {
+  //   console.log(this.openUdata, '组件ssss---------------')
+  //   this.splitNum()
+  // },
+  watch: {
+    openUdata(data) {
+      this.splitNum()
+    },
   },
   methods: {
     splitNum() {
-      // var num = Math.ceil(Math.random() * 100000).toString()
-      // this.number = num
-      this.numberArr = this.number.split('')
+      var num =
+        typeof this.openUdata.open_count_sum === 'number'
+          ? this.openUdata.open_count_sum + ''
+          : this.openUdata.open_count_sum
+      this.numberArr = num.split('')
     },
   },
 }

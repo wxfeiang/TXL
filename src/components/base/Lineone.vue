@@ -44,7 +44,7 @@ export default {
         grid: {
           top: '5%',
           left: '4%',
-          right: '4%',
+          right: '6%',
           bottom: '5%',
           containLabel: true,
           textStyle: {
@@ -64,7 +64,7 @@ export default {
         xAxis: {
           type: 'category',
           boundaryGap: false,
-          data: data.dataX,
+
           axisLabel: {
             formatter: '{value}',
             color: 'rgba(255,255,255,0.5)',
@@ -102,8 +102,6 @@ export default {
         },
         series: [
           {
-            name: '月均开户数',
-            data: data.series,
             type: 'line',
             areaStyle: {
               normal: {
@@ -146,6 +144,7 @@ export default {
     },
     //获取数据
     getData() {
+      this.initEcharts()
       //..
       this.updateChart()
       // 启动定时器
@@ -153,24 +152,14 @@ export default {
     },
     // 更新数据
     updateChart() {
-      const arr = [],
-        arr2 = [],
-        arr3 = [],
-        arr4 = []
-      for (let i = 0; i < 7; i++) {
-        let rand = Math.ceil(Math.random() * 100)
-        let rand2 = Math.ceil(Math.random() * rand)
-        let rand3 = Math.ceil(Math.random() * 5)
-        let rand4 = Math.ceil(Math.random() * 33)
-        arr.push(rand)
-        arr2.push(rand2)
-        arr3.push(rand3)
-        arr4.push(rand4)
-      }
       const dataOption = {
+        xAxis: {
+          data: this.dataList.dataX,
+        },
         series: [
           {
-            data: arr,
+            name: this.dataList.name,
+            data: this.dataList.series,
           },
         ],
       }
@@ -193,11 +182,17 @@ export default {
       this.chartInstance.resize()
     },
   },
+  watch: {
+    dataList: {
+      handler(val, olVal) {
+        console.log('单条折线图', val, olVal) //但是val和olVal值一样
+        this.getData()
+      },
+      deep: true,
+    },
+  },
 
   mounted() {
-    var data = this.dataList
-    console.log(this.dataList)
-    this.initEcharts(data)
     //获取
     this.getData()
     // 监听

@@ -17,9 +17,10 @@ export const setProfile = (state, data) => {
 export const setLoading = (state, data) => {
   state.loading = data //加载
 }
-export const setProfiles = (state, data) => {
-  state.profiles = data
+export const setTime = (state, data) => {
+  state.time = data
 }
+
 export const setcurrRouter = (state, data) => {
   state.currRouter = data
 }

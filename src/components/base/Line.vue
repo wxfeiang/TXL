@@ -9,6 +9,7 @@ export default {
   name: 'LineChart',
   props: {
     msg: String,
+    chartData: Array,
   },
   data() {
     return {
@@ -24,7 +25,7 @@ export default {
         title: {
           text: data.title,
           subtext: data.subtext,
-          right: '0',
+          right: '25',
           subtextStyle: {
             fontFamily: 'SourceHanSansCN-Regular',
             fontSize: '12',
@@ -48,7 +49,7 @@ export default {
           },
         },
         legend: {
-          right: 50,
+          right: 80,
           top: 10,
           itemHeight: 14,
           textStyle: {
@@ -99,7 +100,7 @@ export default {
         series: [
           {
             name: '今年开户数',
-            data: [820, 932, 900, 834, 120, 130, 130],
+            // data: [820, 932, 900, 834, 120, 130, 130],
             type: 'line',
 
             symbolSize: 8,
@@ -139,7 +140,7 @@ export default {
           },
           {
             name: '月均开户数',
-            data: [800, 902, 700, 304, 190, 133, 130],
+            // data: [800, 902, 700, 304, 190, 133, 130],
             type: 'line',
             areaStyle: {
               normal: {
@@ -185,22 +186,32 @@ export default {
     },
     //获取数据
     getData() {
+      var data = {
+        title: '',
+        subtext: '单位:人',
+      }
+      this.initEcharts(data)
       //..
-      this.updateChart()
+      this.updateChart(this.chartData)
       // 启动定时器
       // this.startInterval()
     },
     // 更新数据
-    updateChart() {
+    updateChart(data) {
       const arr = [],
-        arr2 = []
-      for (let i = 0; i < 6; i++) {
-        let rand = Math.ceil(Math.random() * 10)
-        let rand2 = Math.ceil(Math.random() * 44)
-        arr.push(rand)
-        arr2.push(rand2)
+        arr2 = [],
+        dataX = []
+      console.log(data, 'line')
+      for (let i = 0; i < data.length; i++) {
+        arr.push(data[i].open_month_avg_hist)
+        arr2.push(data[i].open_month_avg_this)
+        dataX.push(data[i].month_num + '月')
       }
+      console.log(arr, arr2)
       const dataOption = {
+        xAxis: {
+          data: dataX,
+        },
         series: [
           {
             data: arr,
@@ -229,14 +240,13 @@ export default {
       this.chartInstance.resize()
     },
   },
+  watch: {
+    chartData() {
+      this.getData()
+    },
+  },
 
   mounted() {
-    var data = {
-      title: '',
-      subtext: '单位:人',
-      dataX: ['1月', '2月', '3月', '4月', '5月', '6月'],
-    }
-    this.initEcharts(data)
     //获取
     this.getData()
     // 监听
@@ -251,7 +261,7 @@ export default {
 
 <style scoped>
 .line {
-  width: 580px;
+  width: 1080px;
   height: 380px;
   margin: 0 auto;
 }

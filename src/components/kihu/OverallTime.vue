@@ -11,6 +11,9 @@
           type="year"
           placeholder="选择年"
           clear-icon="none"
+          format="yyyy"
+          value-format="yyyy"
+          @change="changeYear()"
         >
         </el-date-picker>
         ~
@@ -21,18 +24,25 @@
           type="year"
           placeholder="选择年"
           clear-icon="none"
+          format="yyyy"
+          value-format="yyyy"
+          @change="changeYear()"
         >
         </el-date-picker>
       </div>
     </div>
     <div class="rad_box">
       <el-radio-group v-model="radio">
-        <el-radio :label="item.label" v-for="(item, index) in radiOption" :key="index">{{ item.name }}</el-radio>
+        <el-radio :label="item.label" @change="change()" v-for="(item, index) in radiOption" :key="index">{{
+          item.name
+        }}</el-radio>
       </el-radio-group>
     </div>
     <div class="rad_box  rad_box_right">
       <el-radio-group v-model="radio2">
-        <el-radio :label="item.label" v-for="(item, index) in radiOption2" :key="index">{{ item.name }}</el-radio>
+        <el-radio :label="item.label" @change="change2()" v-for="(item, index) in radiOption2" :key="index">{{
+          item.name
+        }}</el-radio>
       </el-radio-group>
     </div>
     <Lineone :dataList="dataList" />
@@ -42,44 +52,161 @@
 import Title from '@/components/base/Title.vue'
 import Lineone from '@/components/base/Lineone.vue'
 
+import { layerKhsj } from '@/api/openaccount'
 export default {
   components: {
     Title,
     Lineone,
+  },
+  props: {
+    msg: String,
+    querArr: Array,
   },
   data() {
     return {
       scren: false,
       startY: '2018',
       endY: '2021',
-      radio: '2',
+
+      radio: 0,
       radiOption: [
-        { label: '2', name: '星期' },
-        { label: '3', name: '月度' },
-        { label: '4', name: '季度' },
-        { label: '5', name: '时段' },
+        { label: 0, name: '星期' },
+        { label: 1, name: '月度' },
+        { label: 2, name: '季度' },
+        { label: 3, name: '时段' },
       ],
-      radio2: '3',
+      radio2: '0',
       radiOption2: [
-        { label: '3', name: '总计' },
-        { label: '4', name: '均值' },
+        { label: '0', name: '总计' },
+        { label: '1', name: '均值' },
       ],
       dataList: {
-        name: '民族',
-        series: [420, 50, 150, 80, 70, 110, 130, 368, 368],
-        dataX: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+        series: [],
+        dataX: [],
+        name: '',
       },
+      chartData: [],
+      seriesNmae: [],
     }
   },
+  //生命周期 - 创建完成（可以访问当前this实例）
+  created() {
+    this.getData()
+  },
+
   //方法集合
   methods: {
     fillscren() {
       this.scren = !this.scren // move the window to 0,0 (X,Y)
       // this.diyWindowResize()
     },
+    change(value) {
+      console.log('value', value, this.radio)
+      this.getData()
+    },
+    change2(value) {
+      //  第二个切换显示
+      console.log('value', value, this.radio2)
+      this.getData()
+    },
+    changeYear() {
+      console.log(this.startY, 'startY')
+      this.getData()
+    },
+    //格式化数据
+    dataAC(data) {
+      let arr = data[this.radio].root,
+        meanval = [],
+        count = [],
+        dataX = [],
+        series = []
+
+      console.log(arr, data[this.radio], data[this.radio].root)
+
+      // arr.forEach((item) => {
+      //   value.push(item.cust_count)
+
+      // })
+
+      switch (this.radio) {
+        case 0:
+          //   星期
+          arr.forEach((item) => {
+            meanval.push(item.cust_count_avg)
+            count.push(item.cust_count)
+            dataX.push(item.wk_num_zh)
+          })
+          break
+        case 1:
+          //   月份
+          arr.forEach((item) => {
+            meanval.push(item.cust_count_avg)
+            count.push(item.cust_count)
+            dataX.push(item.month_num_zh)
+          })
+          break
+        case 2:
+          //   季度
+          arr.forEach((item) => {
+            meanval.push(item.cust_count_avg)
+            count.push(item.cust_count)
+            dataX.push(item.qq_num_zh)
+          })
+          break
+        case 3:
+          //   时段
+          arr.forEach((item) => {
+            meanval.push(item.cust_count_avg)
+            count.push(item.cust_count)
+            dataX.push(item.hh_num_zh)
+          })
+          break
+        default:
+          //   星期
+          arr.forEach((item) => {
+            meanval.push(item.cust_count_avg)
+            count.push(item.cust_count)
+            dataX.push(item.wk_num_zh)
+          })
+          break
+      }
+      if (this.radio2 == 0) {
+        series = count
+        return {
+          series,
+          dataX,
+        }
+      }
+      if (this.radio2 == 1) {
+        series = meanval
+        return {
+          series,
+          dataX,
+        }
+      }
+    },
+    // 数据
+    getData() {
+      let curArr = [
+        ['p_begin_year', this.startY, 'C', '255'],
+        ['p_end_year', this.endY, 'C', '255'],
+      ]
+      let parmArr = this.querArr.concat(curArr)
+      // this.querArr = this.querArr.concat(curArr)
+      layerKhsj(parmArr).then((res) => {
+        if (res.data.ErrorCode == 0) {
+          let obj = JSON.parse(res.data.Data)
+          this.dataList = {
+            series: this.dataAC(obj).series,
+            dataX: this.dataAC(obj).dataX,
+            name: this.radiOption2[this.radio2].name,
+          }
+        } else {
+          console.log(res.data.Data)
+        }
+      })
+    },
   },
-  //生命周期 - 创建完成（可以访问当前this实例）
-  created() {},
 }
 </script>
 <style lang="scss" scoped>
