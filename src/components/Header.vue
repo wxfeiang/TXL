@@ -15,7 +15,10 @@
         <div class="select_item">
           <el-dropdown @command="handleCommand" trigger="click">
             <span class="el-dropdown-link">
-              <span v-html="timevlaue">10</span>分钟 <i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+              <span>{{ timevlaue }}</span
+              >分钟 <i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+
+              <!-- 选择时间----- -->
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item :command="item.value" v-for="item in time" :key="item.value"
@@ -26,13 +29,19 @@
         </div>
       </div>
       <div class="time_select">
-        <div class="time_show">分层切换方式:</div>
+        <div class="time_show">轮播展示:</div>
         <div class="select_item">
           <el-dropdown @command="handleCommand2" trigger="click">
             <span class="el-dropdown-link">
-              <span v-html="timevlaue2">10</span>分钟 <i class="el-icon-arrow-down el-icon-caret-bottom"></i>
+              <span v-if="time2flog !== 0">{{ timevlaue2 }}</span>
+              <span v-else>{{ timevlaue2 }}</span>
+
+              <i class="el-icon-arrow-down el-icon-caret-bottom"></i>
             </span>
             <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="0" v-if="time2flog == 0">默认暂停</el-dropdown-item>
+              <el-dropdown-item command="1" v-if="time2flog == 1">默认开启</el-dropdown-item>
+
               <el-dropdown-item :command="item.value" v-for="item in time2" :key="item.value"
                 >{{ item.value }}{{ item.dw }}
               </el-dropdown-item>
@@ -64,7 +73,7 @@
               {{ user.user_name }} ({{ user.userid }})
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="0">退出 </el-dropdown-item>
+              <el-dropdown-item command="0">退 出 </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </span>
@@ -109,14 +118,15 @@ export default {
       dialogVisible: false,
       homeActive: true,
       timerId2: null, // 定时器的标识
+      time2flog: 1,
       time2: [
         { value: 1, dw: '分钟' },
         { value: 5, dw: '分钟' },
         { value: 10, dw: '分钟' },
         { value: 15, dw: '分钟' },
-        { value: 30, dw: '分钟' },
       ],
-      timevlaue2: 1,
+      timevlaue2: '默认暂停',
+      time2valus: 5,
     }
   },
   created: function() {
@@ -179,14 +189,36 @@ export default {
         message: '系统更新频率切换到' + command + '分钟 ！',
         type: 'success',
       })
-      this.startIntervalPath()
     },
     handleCommand2(command) {
-      this.timevlaue2 = command
-      this.$message({
-        message: '分层切换显示到' + command + '分钟 ！',
-        type: 'success',
-      })
+      console.log(command, '-------------')
+      if (command == 0) {
+        this.timevlaue2 = '默认暂停'
+        this.time2flog = 1
+        //  暂停
+
+        if (this.timerId2) {
+          clearInterval(this.timerId2)
+        }
+        this.$message({
+          message: '轮播展示时间' + command,
+          type: 'success',
+        })
+
+        return false
+      } else {
+        //开启
+        console.log('esle--')
+        this.time2flog = 0
+
+        this.timevlaue2 = command + '分钟'
+        this.time2valus = command
+        this.startIntervalPath()
+        this.$message({
+          message: '轮播展示时间' + command + '分钟 ！',
+          type: 'success',
+        })
+      }
     },
 
     gohome() {
@@ -229,25 +261,32 @@ export default {
         clearInterval(this.timerId2)
       }
       //  获取路由地址
-
+      console.log(this.$route.path, '$route.name ')
+      let path = this.$route.path
       let route = this.$router.options.routes[3].children
       let rootArr = route.map((item) => item.path)
-      console.log(rootArr, 'rootArr')
 
-      let i = 0
-      var times = this.timevlaue2
+      let i = null
+      rootArr.forEach((item, index) => {
+        if (item === path) {
+          i = index
+        }
+      })
+      console.log(i)
+      var times = this.time2valus
+      console.log(times, 'times')
       this.timerId2 = setInterval(() => {
         i++
         if (i == 6) {
           i = 0
         }
-        console.log(i, '-----dingshi ----------', times)
+        console.log(i, '-----dingshi ----------', times * 60 * 1000)
         this.$router.push(rootArr[i])
       }, times * 60 * 1000)
     },
   },
   mounted: function() {
-    this.startIntervalPath()
+    // this.startIntervalPath()
   },
 
   destroyed() {

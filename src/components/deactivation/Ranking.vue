@@ -73,7 +73,7 @@ export default {
           var obj = JSON.parse(res.data.Data)[0].root
           console.log(JSON.parse(res.data.Data), 'JSON.parse(res.data.Data)')
           this.tableData = obj.length > 5 ? obj.splice(0, 5) : obj
-          this.showTime = obj.lenth > 0 ? obj[0].update_time : '未知'
+          this.showTime = obj.length > 0 ? obj[0].update_time : '未知'
         }
       })
     },
