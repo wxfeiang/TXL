@@ -323,6 +323,10 @@ export default {
       this.screenAdapter()
     })
   },
+  beforeDestory() {
+    this.$echarts.dispose(this.chartInstance)
+    this.chartInstance = null
+  },
   destroyed() {
     window.removeEventListener('resize', this.screenAdapter)
     clearInterval(this.timerId)

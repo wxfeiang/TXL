@@ -58,7 +58,7 @@ export default {
   data() {
     return {
       year: '',
-      bbh: 'v1.0.07',
+      bbh: 'v1.0.09',
       conplay: '上海悦高软件股份有限公司',
       loading: true,
       logo: require('../assets/login/logo.png'),
